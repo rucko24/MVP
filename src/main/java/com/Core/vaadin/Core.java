@@ -36,7 +36,6 @@ public class Core extends UI {
 	   return pageLayout;
    }
 
-   
    public static Core getCurrent() {
 	   
 	   return (Core) UI.getCurrent();
