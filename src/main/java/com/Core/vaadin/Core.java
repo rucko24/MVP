@@ -20,11 +20,11 @@ public class Core extends UI {
 	
 	private PageLayout pageLayout;
 	private MenuLayout menuLayout;
-	//private Arduino arduino;
+	private Arduino arduino = new Arduino();
 	
     @Override
     protected void init(VaadinRequest vaadinRequest) {
-    	//arduino = new Arduino();
+    	
     	pageLayout = new PageLayout();
     	
     	setContent(pageLayout);
@@ -41,6 +41,10 @@ public class Core extends UI {
 	   
 	   return (Core) UI.getCurrent();
 	  
+   }
+   public Arduino getArduino() {
+	   
+	   return arduino;
    }
     
     @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
