@@ -27,7 +27,7 @@ public class OpcionesDeMenu implements ItemClickListener {
 	public void itemClick(ItemClickEvent event) {
 		
 		Object value = event.getItemId();
-		MyUI current = MyUI.getCurrent();
+		Core current = Core.getCurrent();
 		
 		ContentLayout contentLayout = current.getPageLayout().getBodyLayout().getContentLayout();
 		

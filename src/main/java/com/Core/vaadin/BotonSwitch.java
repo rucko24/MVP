@@ -62,7 +62,7 @@ public class BotonSwitch extends VerticalLayout {
 		
 		btnSwitch.addClickListener( e -> {
 			
-			//MyUI ui = MyUI.getCurrent();
+			//Core ui = Core.getCurrent();
 			//Arduino ardu = ui.getArduino();
 			
 			boolean valido = btnSwitch.isReadOnly();

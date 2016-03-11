@@ -14,7 +14,7 @@ public class PageLayout extends VerticalLayout implements View {
 	public PageLayout() {
 		setSizeFull();
 		
-	//	MyUI ui = MyUI.getCurrent();
+	//	Core ui = Core.getCurrent();
 		//BodyLayout layout = ui.getPageLayout().getBodyLayout();
 		
 		addComponents(headerLayout,bodyLayout);
