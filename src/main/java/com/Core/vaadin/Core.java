@@ -20,7 +20,7 @@ public class Core extends UI {
 	
 	private PageLayout pageLayout;
 	private MenuLayout menuLayout;
-	private Arduino arduino = new Arduino();
+	private static Arduino arduino = new Arduino();
 	
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -41,7 +41,7 @@ public class Core extends UI {
 	   return (Core) UI.getCurrent();
 	  
    }
-   public Arduino getArduino() {
+   public static Arduino getArduino() {
 	   
 	   return arduino;
    }

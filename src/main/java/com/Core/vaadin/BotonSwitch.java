@@ -5,15 +5,14 @@ import com.Core.vaadin.tables.Arduino;
 import com.github.wolfie.refresher.Refresher;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.shared.ui.label.ContentMode;
-import com.vaadin.ui.Alignment;
+
 import com.vaadin.ui.Button;
-import com.vaadin.ui.FormLayout;
+
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.CssLayout;
+
+
 
 public class BotonSwitch extends VerticalLayout {
 	
@@ -62,19 +61,20 @@ public class BotonSwitch extends VerticalLayout {
 		
 		btnSwitch.addClickListener( e -> {
 			
-			//Core ui = Core.getCurrent();
-			//Arduino ardu = ui.getArduino();
+			Core ui = Core.getCurrent();
+			Arduino ardu = ui.getArduino();
 			
 			boolean valido = btnSwitch.isReadOnly();
 			
 			if(valido) {
 				e.getButton().addStyleName("switchOn");
 				ledRojo.setIcon(rojoON);
-				//Arduino.enviarDato("3");
+				ardu.enviarDato("3");
+				
 				btnSwitch.setReadOnly(false);
 			}else {
 			    ledRojo.setIcon(rojoOFF);
-			  //  Arduino.enviarDato("2");
+			    ardu.enviarDato("2");
 				e.getButton().removeStyleName("switchOn");
 				btnSwitch.setReadOnly(true);
 			}

@@ -33,6 +33,7 @@ public class Arduino {
 	private static final int ERROR = 0;
 	
 	
+	
 	Scanner teclado = new Scanner(System.in);
 	
 	public Arduino() {
@@ -67,7 +68,7 @@ public class Arduino {
             System.exit( 0 );
         }
     }
-    public static void enviarDato( String datos ) {
+    public void enviarDato( String datos ) {
        
         try {
             outPut.write( datos.getBytes() );
