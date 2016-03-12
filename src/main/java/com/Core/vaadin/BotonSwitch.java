@@ -26,7 +26,7 @@ public class BotonSwitch extends VerticalLayout {
 	private ThemeResource rojoON = new ThemeResource("img/on.png");
 	private ThemeResource rojoOFF = new ThemeResource("img/off.png");
 	private ThemeResource udo = new ThemeResource("img/udo.png");
-	
+	private Label ledRojo = new Label();	
 	private Refresher refresher = new Refresher();
 	
 	public BotonSwitch() {
@@ -50,11 +50,6 @@ public class BotonSwitch extends VerticalLayout {
 		rowlabelUdo.setHeight("40%");
 		rowlabelUdo.addComponents(label,logoUdoDerecha);
 
-		
-		Label ledRojo = new Label();
-		//ledRojo.setSizeUndefined();
-
-		System.out.println(Core.isSwitchOn());	
 		if(Core.isSwitchOn()){
 			ledRojo.setIcon(rojoON);
 			btnSwitch.setPrimaryStyleName("switchOn");
@@ -63,24 +58,16 @@ public class BotonSwitch extends VerticalLayout {
 			btnSwitch.setPrimaryStyleName("switchOff");
 		}
 			btnSwitch.setSizeUndefined();
-			btnSwitch.addClickListener( e -> {
-			
 			//Core ui = Core.getCurrent();
 			//Arduino ardu = ui.getArduino();  
 			//linea fundamental para conectar con ardu, multiples veces. 
-		System.out.println("Click "+ Core.isSwitchOn());	
+		btnSwitch.addClickListener( e -> {
 			Core.changeSwitch();
 			if(Core.isSwitchOn()) {
-				btnSwitch.addStyleName("switchOn");
-				btnSwitch.removeStyleName("switchOff");
-				ledRojo.setIcon(rojoON);
 				//ardu.enviarDato("3");
 				
 			}else {
-			    ledRojo.setIcon(rojoOFF);
 			  //  ardu.enviarDato("2");
-				btnSwitch.addStyleName("switchOff");
-				btnSwitch.removeStyleName("switchOn");
 			}
 		});
 		cssSwitch.addComponent(btnSwitch); // este cssSwitch position: relative; top: 20px;
@@ -88,10 +75,30 @@ public class BotonSwitch extends VerticalLayout {
 		row.addComponents(cssSwitch,ledRojo);
 		addComponents(rowlabelUdo,row);
 		addExtension(refresher);
-		
-		
+		Core.atachListening(this);		
 	}
-	
+
+
+
+	//este metodo cambia el estilo del boton, pero se ejecutara en la clase Core
+	// para todos los botones atachados
+	public void changeButtonOnOff(){
+			if(Core.isSwitchOn()) {
+				btnSwitch.addStyleName("switchOn");
+				btnSwitch.removeStyleName("switchOff");
+				ledRojo.setIcon(rojoON);
+			}else {
+			        ledRojo.setIcon(rojoOFF);
+				btnSwitch.addStyleName("switchOff");
+				btnSwitch.removeStyleName("switchOn");
+			}
+	}
+
+	@Override
+	public void detach(){
+		super.detach();
+		Core.detachListening(this);		
+	}	
 	
 	
 }

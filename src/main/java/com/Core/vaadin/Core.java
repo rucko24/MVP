@@ -11,6 +11,7 @@ import com.vaadin.annotations.Widgetset;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
+import java.util.*;
 
 @Push
 @SuppressWarnings("serial")
@@ -24,7 +25,7 @@ public class Core extends UI {
 
 	//este flag te va servir para el estado del bombillo
 	private static boolean switchOn = false;
-	
+	private static List<BotonSwitch> botones = new ArrayList<>(); 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
     	
@@ -47,6 +48,10 @@ public class Core extends UI {
 	//metodo para cambiar de estado la variable switchOn basta con un solo metodo
    public static void changeSwitch(){
 	switchOn = !switchOn;
+	for(BotonSwitch btn:botones){
+		btn.changeButtonOnOff();
+	}
+	
    }
 
    //metodo para chequear valor de swtichOn
@@ -54,6 +59,15 @@ public class Core extends UI {
 	return switchOn;
    }
 
+//con este metodo agrego botones a la lista botones
+  public static void atachListening(BotonSwitch boton){
+	  botones.add(boton);		
+  }
+
+//con este metodo remuevo botones a la lista botones
+  public static void detachListening(BotonSwitch boton){
+	  botones.remove(boton);		
+  }
 
   /* public static Arduino getArduino() {
 	   
