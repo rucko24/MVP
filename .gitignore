@@ -1,1 +1,4 @@
+*.cache
+*.css
 target
+*.swp
