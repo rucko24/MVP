@@ -21,6 +21,9 @@ public class Core extends UI {
 	private PageLayout pageLayout;
 	private MenuLayout menuLayout;
 	//private static Arduino arduino = new Arduino();
+
+	//este flag te va servir para el estado del bombillo
+	private static boolean switchOn = false;
 	
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -41,6 +44,17 @@ public class Core extends UI {
 	   return (Core) UI.getCurrent();
 	  
    }
+	//metodo para cambiar de estado la variable switchOn basta con un solo metodo
+   public static void changeSwitch(){
+	switchOn = !switchOn;
+   }
+
+   //metodo para chequear valor de swtichOn
+   public static boolean isSwitchOn(){
+	return switchOn;
+   }
+
+
   /* public static Arduino getArduino() {
 	   
 	   return arduino;

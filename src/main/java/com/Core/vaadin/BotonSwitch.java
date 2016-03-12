@@ -16,7 +16,7 @@ import com.vaadin.ui.VerticalLayout;
 
 public class BotonSwitch extends VerticalLayout {
 	
-	private Button btnSwitch = new Button();
+	private final Button btnSwitch = new Button();
 	private HorizontalLayout row = new HorizontalLayout();
 	private HorizontalLayout cssSwitch = new HorizontalLayout();
 	
@@ -53,36 +53,37 @@ public class BotonSwitch extends VerticalLayout {
 		
 		Label ledRojo = new Label();
 		//ledRojo.setSizeUndefined();
-		ledRojo.setIcon(rojoOFF);
-		
-		btnSwitch.setPrimaryStyleName("switchOff");
-		btnSwitch.setReadOnly(true);
-		btnSwitch.setSizeUndefined();
-		
-		btnSwitch.addClickListener( e -> {
+
+		System.out.println(Core.isSwitchOn());	
+		if(Core.isSwitchOn()){
+			ledRojo.setIcon(rojoON);
+			btnSwitch.setPrimaryStyleName("switchOn");
+		}else{
+			ledRojo.setIcon(rojoOFF);
+			btnSwitch.setPrimaryStyleName("switchOff");
+		}
+			btnSwitch.setSizeUndefined();
+			btnSwitch.addClickListener( e -> {
 			
 			//Core ui = Core.getCurrent();
-			//Arduino ardu = ui.getArduino();  //linea fundamental para conectar con ardu, multiples veces. 
-				
-			boolean valido = btnSwitch.isReadOnly();
-			
-			if(valido) {
-				e.getButton().addStyleName("switchOn");
+			//Arduino ardu = ui.getArduino();  
+			//linea fundamental para conectar con ardu, multiples veces. 
+		System.out.println("Click "+ Core.isSwitchOn());	
+			Core.changeSwitch();
+			if(Core.isSwitchOn()) {
+				btnSwitch.addStyleName("switchOn");
+				btnSwitch.removeStyleName("switchOff");
 				ledRojo.setIcon(rojoON);
 				//ardu.enviarDato("3");
 				
-				btnSwitch.setReadOnly(false);
 			}else {
 			    ledRojo.setIcon(rojoOFF);
 			  //  ardu.enviarDato("2");
-				e.getButton().removeStyleName("switchOn");
-				btnSwitch.setReadOnly(true);
+				btnSwitch.addStyleName("switchOff");
+				btnSwitch.removeStyleName("switchOn");
 			}
 		});
 		cssSwitch.addComponent(btnSwitch); // este cssSwitch position: relative; top: 20px;
-		
-		
-		
 		row.setSpacing(true);
 		row.addComponents(cssSwitch,ledRojo);
 		addComponents(rowlabelUdo,row);
