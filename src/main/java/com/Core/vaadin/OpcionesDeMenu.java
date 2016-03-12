@@ -9,6 +9,7 @@ import com.Core.vaadin.barraCarga.EjemploTema;
 import com.Core.vaadin.barraCarga.Iconos2;
 import com.Core.vaadin.barraCarga.MyIconos;
 import com.Core.vaadin.pushServer.NoticeBoard;
+import com.Core.vaadin.pushServer.PruebaLabel;
 import com.Core.vaadin.tables.FieldFactory;
 import com.Core.vaadin.tables.TreeTabla;
 import com.Core.vaadin.tables.TreeTabla2;
@@ -18,9 +19,6 @@ import com.vaadin.event.ItemClickEvent.ItemClickListener;
 
 public class OpcionesDeMenu implements ItemClickListener {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Override
@@ -99,6 +97,9 @@ public class OpcionesDeMenu implements ItemClickListener {
 		}else if(MenuLayout.PUSH_SERVER.equals(value)) {
 			NoticeBoard nota = new NoticeBoard();
 			contentLayout.addComponent(nota);
+		}else if(MenuLayout.PRUEBA_LABEL.equals(value)) {
+			PruebaLabel pruebaLabel = new PruebaLabel();
+			contentLayout.addComponent(pruebaLabel);
 		}
 	}
 

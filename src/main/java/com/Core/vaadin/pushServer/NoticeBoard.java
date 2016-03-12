@@ -3,6 +3,7 @@ package com.Core.vaadin.pushServer;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.Core.vaadin.Core;
 import com.Core.vaadin.tables.Arduino;
 import com.github.wolfie.refresher.Refresher;
 import com.vaadin.event.FieldEvents.BlurEvent;
@@ -203,12 +204,16 @@ public class NoticeBoard extends VerticalLayout {
 				}catch(InterruptedException e) {
 					e.printStackTrace();
 				}
-				UI.getCurrent().getSession().getLockInstance().lock();
+				
+				Core ui = Core.getCurrent();
+				
+				ui.getSession().getLockInstance().lock();
 				
 				try {
 					updateNoticeBoard();
 				}finally {
-					UI.getCurrent().getSession().getLockInstance().unlock();
+					
+					ui.getSession().getLockInstance().unlock();
 				}
 			}
 		

@@ -1,10 +1,13 @@
 package com.Core.vaadin;
 
+import com.vaadin.server.ThemeResource;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Tree;
 
 public class MenuLayout extends Tree {
 	
 	private static final long serialVersionUID = 1L;
+	public static final String LOGO = "ICONO";
 	public static final String MENU = "Opciones";
 	public static final String CONTENT = "Boton Switch";
 	public static final String CONTENT2 = "Tablas";
@@ -20,11 +23,18 @@ public class MenuLayout extends Tree {
 	public static final String CALCULADOR = "Calculador Básico";
 	public static final String VALIDAR = "PIN VALIDADO";
 	public static final String PUSH_SERVER = "PUSH SERVER";
+	public static final String PRUEBA_LABEL = "Label Push";
+	
+	private ThemeResource icono3 = new ThemeResource("img/isosceles");
+	private Label label = new Label();
 	
 	public MenuLayout() {
 		setSizeFull();
 		
+		label.setIcon(icono3);
+		
 		addStyleName("menu");
+	
 		addItem(MENU);
 		addItem(TREETABLA);
 		addItem(TREETABLA2);
@@ -38,6 +48,8 @@ public class MenuLayout extends Tree {
 		addItem(CALCULADOR);
 		addItem(VALIDAR);
 		addItem(PUSH_SERVER);
+		addItem(PRUEBA_LABEL);
+		
 		
 		setChildrenAllowed(MENU, true);
 		
@@ -82,7 +94,11 @@ public class MenuLayout extends Tree {
 		
 		setChildrenAllowed(VALIDAR, false);
 		
-		setChildrenAllowed(PUSH_SERVER, false);
+		//SERVER PUSH
+		setChildrenAllowed(PUSH_SERVER, true);
+		
+		setParent(PRUEBA_LABEL, PUSH_SERVER);
+		setChildrenAllowed(PRUEBA_LABEL, false);
 		
 		expandItemsRecursively(MENU);
 		setNullSelectionAllowed(false);

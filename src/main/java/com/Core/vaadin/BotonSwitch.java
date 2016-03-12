@@ -61,20 +61,20 @@ public class BotonSwitch extends VerticalLayout {
 		
 		btnSwitch.addClickListener( e -> {
 			
-			Core ui = Core.getCurrent();
-			Arduino ardu = ui.getArduino();
-			
+			//Core ui = Core.getCurrent();
+			//Arduino ardu = ui.getArduino();  //linea fundamental para conectar con ardu, multiples veces. 
+				
 			boolean valido = btnSwitch.isReadOnly();
 			
 			if(valido) {
 				e.getButton().addStyleName("switchOn");
 				ledRojo.setIcon(rojoON);
-				ardu.enviarDato("3");
+				//ardu.enviarDato("3");
 				
 				btnSwitch.setReadOnly(false);
 			}else {
 			    ledRojo.setIcon(rojoOFF);
-			    ardu.enviarDato("2");
+			  //  ardu.enviarDato("2");
 				e.getButton().removeStyleName("switchOn");
 				btnSwitch.setReadOnly(true);
 			}

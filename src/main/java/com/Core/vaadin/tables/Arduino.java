@@ -80,9 +80,9 @@ public class Arduino {
     
     public static void mostrarError( String mensaje ) {
         
-      //  JOptionPane.showMessageDialog(this, mensaje,"ERROR",JOptionPane.ERROR_MESSAGE);
+      //  JOptionPane.showMessageDialg(this, mensaje,"ERROR",JOptionPane.ERROR_MESSAGE);
     	System.out.println(mensaje);
-    	Notification.show("ERROR AL ABRI EL PUERTO "+mensaje);
+    	
     }
 	
 }

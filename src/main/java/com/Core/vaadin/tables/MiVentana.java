@@ -81,7 +81,7 @@ public class MiVentana extends Window {
 		txt3.setNullRepresentation("");
 		txt3.addValidator(new PinValidador());
 		
-		comparar.setClickShortcut(KeyCode.ENTER);
+		//comparar.setClickShortcut(KeyCode.ENTER);
 		comparar.addClickListener(e -> {
 			
 			if(isValid()) {

@@ -15,7 +15,7 @@ public class PinValidador implements Validator {
 		
 		String text = (String) value;
 		
-		if( text.isEmpty() && "".equals(text.trim())) {
+		if( text == null || "".equals(text.trim())) {
 			
 			return ;
 		}
@@ -24,7 +24,9 @@ public class PinValidador implements Validator {
 			
 			throw new InvalidValueException("introduce solo numeros");
 		}
-		
+		if( text.length() < 0) {
+			throw new InvalidValueException("introduce un numero");
+		}
 	}
 
 }
