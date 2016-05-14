@@ -37,16 +37,28 @@ $v-app-loading-text: "cargando";
    	border: 1px solid blue;
    	
    }
+   
    .header {
-   	background-color: #197EDE;
-  	color: white;
-  	font: 17px Verdana, Arial;	
-  	
-   }
-   .label {
-   	margin-left: 20px;
+   		
+   		background-image: url(img/ArdunioLOgo.svg);
+   		background-repeat: no-repeat;
+   		background-position: 100% 100%;
+   		background-color: #197de1;
+   		color: white;
    }
    
+   .v-scrollable {
+   	overflow: auto;
+   }
+   
+   .labelMenu {
+   		font-family: fantasy;
+		font-style: italic;
+		font-size: 25px;
+		font-weight: bolder;
+		font-height: 30px;  
+		color: white;
+   }
    
    .logoUdo {
    	position: relative;
@@ -54,10 +66,13 @@ $v-app-loading-text: "cargando";
    }
    
    .menu {
-   	background: #4B4B4B;
+   	background: #38414A;
    	color: #D4D8E0;
    	height: 100%;
+   	
    }
+   
+   
     .switchOff {
   	background: url(img/swOff.png) no-repeat;
   	outline: none;
@@ -90,6 +105,11 @@ $v-app-loading-text: "cargando";
   
   .triangulos {
   	
-  	
   }
+  
+  .v-tree-node-caption:after {
+  	border-radius: 0;
+  	background-color: #2f373e; 
+  	color: white;
+  } 
 }

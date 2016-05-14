@@ -12,24 +12,21 @@ public class HeaderLayout extends HorizontalLayout {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private ThemeResource logo = new ThemeResource("img/ArdunioLOgo.svg");
-	
+	//private ThemeResource logo = new ThemeResource("img/ArdunioLOgo.svg");
+	private HorizontalLayout horizontalLogo = new HorizontalLayout();
 	public HeaderLayout() {
 		setWidth("100%");
-		setHeight("52px");
+		setHeight("49px");
+		setSpacing(true);
 		addStyleName("header");
 		
 		Label label = new Label("<strong>Bienvenido: Rubén</strong>",ContentMode.HTML);
 		label.setSizeUndefined();
-		label.addStyleName("label");
 		
-		Label logoVaadin = new Label();
-		logoVaadin.setSizeUndefined();
-		logoVaadin.setIcon(logo);
-		
-		addComponents(label,logoVaadin);
+		addComponents(label);
 		setComponentAlignment(label, Alignment.MIDDLE_LEFT);
-		setComponentAlignment(logoVaadin, Alignment.MIDDLE_RIGHT);
+	
+		//setExpandRatio(logoArduino, 1);
 	}
 	
 }

@@ -1,10 +1,12 @@
 package com.Core.vaadin;
 
-import com.vaadin.server.ThemeResource;
+import com.vaadin.shared.ui.label.ContentMode;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Tree;
+import com.vaadin.ui.VerticalLayout;
 
-public class MenuLayout extends Tree {
+public class MenuLayout extends VerticalLayout {
 	
 	private static final long serialVersionUID = 1L;
 	public static final String LOGO = "ICONO";
@@ -25,87 +27,96 @@ public class MenuLayout extends Tree {
 	public static final String PUSH_SERVER = "PUSH SERVER";
 	public static final String PRUEBA_LABEL = "Label Push";
 	
-	private ThemeResource icono3 = new ThemeResource("img/isosceles");
-	private Label label = new Label();
+	
+	private Label label = new Label("<h2>MENU</h2>",ContentMode.HTML);
+	private Tree tree = new Tree();
+	private VerticalLayout vLayout = new VerticalLayout();
 	
 	public MenuLayout() {
-		setSizeFull();
-		
-		label.setIcon(icono3);
 		
 		addStyleName("menu");
-	
-		addItem(MENU);
-		addItem(TREETABLA);
-		addItem(TREETABLA2);
-		addItem(BARRA);
-		addItem(ICONO);
-		addItem(ICONO2);
-		addItem(DOWNLOADER);
-		addItem(CLICKENTABLE);
-		addItem(TIPOSDETEMAS);
-		addItem(TRIANGULO);
-		addItem(CALCULADOR);
-		addItem(VALIDAR);
-		addItem(PUSH_SERVER);
-		addItem(PRUEBA_LABEL);
+		
+		label.setSizeUndefined();
+		label.addStyleName("labelMenu");
+		vLayout.setSpacing(true);
+		vLayout.addComponent(label);
+		vLayout.setComponentAlignment(label, Alignment.MIDDLE_CENTER);
+		
+		tree.setWidth("100%");
+		tree.addStyleName("v-tree");
+		tree.addItem(MENU);
+		tree.addItem(TREETABLA);
+		tree.addItem(TREETABLA2);
+		tree.addItem(BARRA);
+		tree.addItem(ICONO);
+		tree.addItem(ICONO2);
+		tree.addItem(DOWNLOADER);
+		tree.addItem(CLICKENTABLE);
+		tree.addItem(TIPOSDETEMAS);
+		tree.addItem(TRIANGULO);
+		tree.addItem(CALCULADOR);
+		tree.addItem(VALIDAR);
+		tree.addItem(PUSH_SERVER);
+		tree.addItem(PRUEBA_LABEL);
 		
 		
-		setChildrenAllowed(MENU, true);
+		tree.setChildrenAllowed(MENU, true);
 		
-		addItem(CONTENT);
-		addItem(CONTENT2);
+		tree.addItem(CONTENT);
+		tree.addItem(CONTENT2);
 		
-		setParent(CONTENT, MENU);
-		setChildrenAllowed(CONTENT, false);
+		tree.setParent(CONTENT, MENU);
+		tree.setChildrenAllowed(CONTENT, false);
 		
-		setParent(CONTENT2, MENU);
-		setChildrenAllowed(CONTENT2, false);
+		tree.setParent(CONTENT2, MENU);
+		tree.setChildrenAllowed(CONTENT2, false);
 		
-		setParent(TREETABLA, MENU);
-		setChildrenAllowed(TREETABLA, true);
+		tree.setParent(TREETABLA, MENU);
+		tree.setChildrenAllowed(TREETABLA, true);
 		
-		setParent(TREETABLA2, TREETABLA);
-		setChildrenAllowed(TREETABLA2, false);
-		expandItemsRecursively(TREETABLA);
+		tree.setParent(TREETABLA2, TREETABLA);
+		tree.setChildrenAllowed(TREETABLA2, false);
+		tree.expandItemsRecursively(TREETABLA);
 		
-		setParent(BARRA,MENU);
-		setChildrenAllowed(BARRA, false);
+		tree.setParent(BARRA,MENU);
+		tree.setChildrenAllowed(BARRA, false);
 		
-		setParent(ICONO,MENU);
-		setChildrenAllowed(ICONO, false);
+		tree.setParent(ICONO,MENU);
+		tree.setChildrenAllowed(ICONO, false);
 		
-		setParent(ICONO2, MENU);
-		setChildrenAllowed(ICONO2, false);
+		tree.setParent(ICONO2, MENU);
+		tree.setChildrenAllowed(ICONO2, false);
 		
-		setParent(DOWNLOADER, MENU);
-		setChildrenAllowed(DOWNLOADER, false);
+		tree.setParent(DOWNLOADER, MENU);
+		tree.setChildrenAllowed(DOWNLOADER, false);
 		
-		setParent(CLICKENTABLE, MENU);
-		setChildrenAllowed(CLICKENTABLE, false);
+		tree.setParent(CLICKENTABLE, MENU);
+		tree.setChildrenAllowed(CLICKENTABLE, false);
 		
 		//setParent(CALCULADOR, MENU);
-		setChildrenAllowed(CALCULADOR, false);
+		tree.setChildrenAllowed(CALCULADOR, false);
 		
 		// TIPOSDETEMAS 
-		setChildrenAllowed(TIPOSDETEMAS, true);
+		tree.setChildrenAllowed(TIPOSDETEMAS, true);
 		
-		setChildrenAllowed(TRIANGULO, true);
+		tree.setChildrenAllowed(TRIANGULO, true);
 		
-		setChildrenAllowed(VALIDAR, false);
+		tree.setChildrenAllowed(VALIDAR, false);
 		
 		//SERVER PUSH
-		setChildrenAllowed(PUSH_SERVER, true);
+		tree.setChildrenAllowed(PUSH_SERVER, true);
 		
-		setParent(PRUEBA_LABEL, PUSH_SERVER);
-		setChildrenAllowed(PRUEBA_LABEL, false);
+		tree.setParent(PRUEBA_LABEL, PUSH_SERVER);
+		tree.setChildrenAllowed(PRUEBA_LABEL, false);
 		
-		expandItemsRecursively(MENU);
-		setNullSelectionAllowed(false);
+		tree.expandItemsRecursively(MENU);
+		tree.setNullSelectionAllowed(false);
 		
 		
 		OpcionesDeMenu opciones = new OpcionesDeMenu();
-		addItemClickListener(opciones);
+		tree.addItemClickListener(opciones);
+		
+		addComponents(vLayout,tree);
 		
 	}
 }

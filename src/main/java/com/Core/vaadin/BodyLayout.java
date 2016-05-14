@@ -12,9 +12,12 @@ public class BodyLayout extends HorizontalSplitPanel {
 	
 	public BodyLayout() {
 		
+		addStyleName("v-scrollable");
 		float ancho = 18f;
 		
-		addComponents(menuLayout,contendLayout);
+		setFirstComponent(menuLayout);
+		setSecondComponent(contendLayout);
+		
 		setSplitPosition(ancho);
 	
 	}
