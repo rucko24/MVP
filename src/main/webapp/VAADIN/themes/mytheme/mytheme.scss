@@ -103,13 +103,14 @@ $v-app-loading-text: "cargando";
   	height: 211px;
   }
   
-  .triangulos {
-  	
-  }
-  
-  .v-tree-node-caption:after {
-  	border-radius: 0;
-  	background-color: #2f373e; 
-  	color: white;
-  } 
+  	.arbol .v-tree-node {
+  		color: white;
+  	}
+  		
+  	.arbol .v-tree-node .v-tree-node-selected:after {
+		border-radius: 0;
+		background: #2f373e;
+		color: white;
+		
+	}
 }
