@@ -15,16 +15,15 @@ public class HeaderLayout extends HorizontalLayout {
 	//private ThemeResource logo = new ThemeResource("img/ArdunioLOgo.svg");
 	private HorizontalLayout horizontalLogo = new HorizontalLayout();
 	public HeaderLayout() {
-		setWidth("100%");
-		setHeight("49px");
-		setSpacing(true);
-		addStyleName("header");
+		
+		
+		addStyleName("valo-menu-title");
 		
 		Label label = new Label("<strong>Bienvenido: Rubén</strong>",ContentMode.HTML);
 		label.setSizeUndefined();
 		
 		addComponents(label);
-		setComponentAlignment(label, Alignment.MIDDLE_LEFT);
+		
 	
 		//setExpandRatio(logoArduino, 1);
 	}

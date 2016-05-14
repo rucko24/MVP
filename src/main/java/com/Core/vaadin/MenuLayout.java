@@ -34,7 +34,7 @@ public class MenuLayout extends VerticalLayout {
 	
 	public MenuLayout() {
 		
-		addStyleName("menu");
+		this.addStyleName("menu");
 		
 		label.setSizeUndefined();
 		label.addStyleName("labelMenu");
@@ -116,7 +116,7 @@ public class MenuLayout extends VerticalLayout {
 		OpcionesDeMenu opciones = new OpcionesDeMenu();
 		tree.addItemClickListener(opciones);
 		
-		addComponents(vLayout,tree);
+		this.addComponents(vLayout,tree);
 		
 	}
 }
