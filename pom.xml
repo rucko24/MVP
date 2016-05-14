@@ -91,6 +91,7 @@
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-themes</artifactId>
 		</dependency>
+		
 		<!-- Dependencia para gnu.io puerto serial librerias-->
 		<dependency>
 			<groupId>org.rxtx</groupId>

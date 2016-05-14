@@ -18,7 +18,7 @@ public class HeaderLayout extends HorizontalLayout {
 		
 		addStyleName("valo-menu-title");
 		
-		Label label = new Label("<strong>Bienvenido: Rubén</strong>",ContentMode.HTML);
+		Label label = new Label("<strong>Bienvenido</strong>",ContentMode.HTML);
 		label.setSizeUndefined();
 		
 		addComponents(label);

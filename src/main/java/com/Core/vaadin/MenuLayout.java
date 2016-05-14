@@ -29,8 +29,8 @@ public class MenuLayout extends VerticalLayout {
 	public static final String PRUEBA_LABEL = "Label Push";
 	
 	
-	private Label label = new Label("motherFoca",ContentMode.HTML);
-	private ThemeResource iconoArdu = new ThemeResource("img/ArduinoLOgo.svg");
+	private Label label = new Label("شروع جدید",ContentMode.HTML);
+	private ThemeResource iconoArdu = new ThemeResource("img/ardu1.svg");
 	private Tree tree = new Tree();
 	private VerticalLayout vLayout = new VerticalLayout();
 	
