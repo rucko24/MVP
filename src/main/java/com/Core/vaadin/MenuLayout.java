@@ -1,5 +1,6 @@
 package com.Core.vaadin;
 
+import com.vaadin.server.ThemeResource;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Label;
@@ -28,7 +29,8 @@ public class MenuLayout extends VerticalLayout {
 	public static final String PRUEBA_LABEL = "Label Push";
 	
 	
-	private Label label = new Label("<h2>MENU</h2>",ContentMode.HTML);
+	private Label label = new Label("motherFoca",ContentMode.HTML);
+	private ThemeResource iconoArdu = new ThemeResource("img/arduSvg.svg");
 	private Tree tree = new Tree();
 	private VerticalLayout vLayout = new VerticalLayout();
 	
@@ -37,7 +39,8 @@ public class MenuLayout extends VerticalLayout {
 		this.addStyleName("menu");
 		
 		label.setSizeUndefined();
-		label.addStyleName("labelMenu");
+	//	label.addStyleName("labelMenu");
+		label.setIcon(iconoArdu);
 		vLayout.setSpacing(true);
 		vLayout.addComponent(label);
 		vLayout.setComponentAlignment(label, Alignment.MIDDLE_CENTER);
@@ -117,6 +120,6 @@ public class MenuLayout extends VerticalLayout {
 		tree.addItemClickListener(opciones);
 		
 		this.addComponents(vLayout,tree);
-		
+		this.setExpandRatio(tree, 1);
 	}
 }

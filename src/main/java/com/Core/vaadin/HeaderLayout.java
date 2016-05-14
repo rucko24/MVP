@@ -12,10 +12,9 @@ public class HeaderLayout extends HorizontalLayout {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	//private ThemeResource logo = new ThemeResource("img/ArdunioLOgo.svg");
+	
 	private HorizontalLayout horizontalLogo = new HorizontalLayout();
 	public HeaderLayout() {
-		
 		
 		addStyleName("valo-menu-title");
 		
@@ -25,7 +24,6 @@ public class HeaderLayout extends HorizontalLayout {
 		addComponents(label);
 		
 	
-		//setExpandRatio(logoArduino, 1);
 	}
 	
 }
