@@ -31,13 +31,14 @@ public class PruebaLabel extends VerticalLayout {
 		for(int f=0; f<=20; f++) {
 			
 			tree.addItem(f);
-			
+			tree2.addItem(f);
 		}
 		
-		VerticalLayout vFirst = new VerticalLayout(tree);
+		VerticalLayout vFirst = new VerticalLayout(tree);// verticallayout dentro de spliPanel, sin sizeFull 
+														//para que aparesca el scroll
 		
 		
-		VerticalLayout vSecon = new VerticalLayout();
+		VerticalLayout vSecon = new VerticalLayout(tree2);
 		vSecon.setSizeFull();
 		
 		float f = 18f;
