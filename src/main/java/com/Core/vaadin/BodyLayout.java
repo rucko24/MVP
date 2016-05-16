@@ -15,6 +15,8 @@ public class BodyLayout extends HorizontalSplitPanel {
 		this.setSizeFull();
 		float ancho = 18f;
 		addStyleName("large");
+		
+		setHeight("100%");
 		setFirstComponent(menuLayout);
 		setSecondComponent(contendLayout);
 		setLocked(true);
