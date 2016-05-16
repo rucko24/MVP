@@ -35,7 +35,7 @@ public class PruebaLabel extends VerticalLayout {
 		}
 		
 		VerticalLayout vFirst = new VerticalLayout(tree);
-		vFirst.setSizeFull();
+		
 		
 		VerticalLayout vSecon = new VerticalLayout();
 		vSecon.setSizeFull();
