@@ -43,7 +43,7 @@ public class PruebaLabel extends VerticalLayout {
 		
 		float f = 18f;
 		horizontal.setLocked(true);
-		horizontal.setHeight("100px");
+		horizontal.setHeight(100, Unit.PIXELS);
 		horizontal.setFirstComponent(vFirst);
 		horizontal.setSecondComponent(vSecon);
 		horizontal.setSplitPosition(f);
