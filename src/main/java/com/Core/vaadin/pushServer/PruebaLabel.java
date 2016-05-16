@@ -46,7 +46,7 @@ public class PruebaLabel extends VerticalLayout {
 		
 		VerticalLayout vSecon = new VerticalLayout(tree2);
 		vSecon.setCaption("verticalLAyout 2");											//para que aparesca el scroll
-		vSecon.setHeight("500%");
+		//vSecon.setHeight("200%");
 		
 		float f = 18f;
 		horizontal.setLocked(true);
