@@ -25,21 +25,23 @@ public class PruebaLabel extends VerticalLayout {
 		
 		Tree tree = new Tree();
 		
+		
 		Tree tree2 = new Tree();
 		
 		for(int f=0; f<=20; f++) {
 			
 			tree.addItem(f);
-			tree2.addItem(f);
+			
 		}
 		
 		VerticalLayout vFirst = new VerticalLayout(tree);
-		vFirst.setHeight("100%");;
+		vFirst.setSizeFull();
 		
-		VerticalLayout vSecon = new VerticalLayout(tree2);
-		vSecon.setHeight("100%");;
+		VerticalLayout vSecon = new VerticalLayout();
+		vSecon.setSizeFull();
 		
 		float f = 18f;
+		horizontal.addStyleName("large");
 		horizontal.setWidth("500px");
 		horizontal.setHeight("500px");
 		horizontal.setFirstComponent(vFirst);
