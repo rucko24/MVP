@@ -37,7 +37,10 @@ $v-app-loading-text: "cargando";
    	border: 1px solid blue;
    	
    }
-   
+   	.miScroll .v-ui > .v-widget {
+  		overflow: auto !important;
+	}
+	
    .header {
    		
    		background-image: url(img/ArdunioLOgo.svg);
@@ -49,9 +52,6 @@ $v-app-loading-text: "cargando";
    
    .valo-menu-title {
    		text-align: left;
-   }
-   .v-scrollable {
-   	overflow: auto;
    }
    
    .labelMenu {
@@ -111,5 +111,9 @@ $v-app-loading-text: "cargando";
 		background: #2f373e;
 		color: white;
 		
+	}
+	
+	.v-border {
+		border: 2px solid blue;
 	}
 }

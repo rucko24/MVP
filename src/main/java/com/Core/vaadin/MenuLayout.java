@@ -74,9 +74,6 @@ public class MenuLayout extends VerticalLayout {
 		tree.setParent(CONTENT2, MENU);
 		tree.setChildrenAllowed(CONTENT2, false);
 		
-		tree.setParent(TREETABLA, MENU);
-		tree.setChildrenAllowed(TREETABLA, true);
-		
 		tree.setParent(TREETABLA2, TREETABLA);
 		tree.setChildrenAllowed(TREETABLA2, false);
 		tree.expandItemsRecursively(TREETABLA);
@@ -98,9 +95,6 @@ public class MenuLayout extends VerticalLayout {
 		
 		//setParent(CALCULADOR, MENU);
 		tree.setChildrenAllowed(CALCULADOR, false);
-		
-		// TIPOSDETEMAS 
-		tree.setChildrenAllowed(TIPOSDETEMAS, true);
 		
 		tree.setChildrenAllowed(TRIANGULO, true);
 		

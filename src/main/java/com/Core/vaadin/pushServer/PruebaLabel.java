@@ -1,13 +1,12 @@
 package com.Core.vaadin.pushServer;
 
 
-import java.time.Instant;
-import com.Core.vaadin.Core;
 import com.github.wolfie.refresher.Refresher;
 import com.vaadin.server.ThemeResource;
+import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TextArea;
-import com.vaadin.ui.UI;
+import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
 
 public class PruebaLabel extends VerticalLayout {
@@ -17,62 +16,44 @@ public class PruebaLabel extends VerticalLayout {
 	private TextArea texto = new TextArea("");
 	private ThemeResource spinner = new ThemeResource("img/712.gif");
 	private Label label = new Label("Now: ");
-	
+	private HorizontalSplitPanel horizontal = new HorizontalSplitPanel();
 	
 	public PruebaLabel() {
+		
 		setSizeFull();
-		setSpacing(true);
 		setMargin(true);
 		
-		addComponent(label);
-		addExtension(refresher);
+		Tree tree = new Tree();
 		
-		new Hilo().start();
+		Tree tree2 = new Tree();
+		
+		for(int f=0; f<=20; f++) {
+			
+			tree.addItem(f);
+			tree2.addItem(f);
+		}
+		
+		VerticalLayout vFirst = new VerticalLayout(tree);
+		vFirst.setHeight("100%");;
+		
+		VerticalLayout vSecon = new VerticalLayout(tree2);
+		vSecon.setHeight("100%");;
+		
+		float f = 18f;
+		horizontal.setWidth("500px");
+		horizontal.setHeight("500px");
+		horizontal.setFirstComponent(vFirst);
+		horizontal.setSecondComponent(vSecon);
+		horizontal.setSplitPosition(f);
+		
+		addComponent(horizontal);
+		
+		showBorder();
 	}
 	
-	public void tellTime() {
-		
-		label.setValue("Now: "+Instant.now());
-	}
-	class Hilo extends Thread {
-		
-		int count = 0;
-		@Override
-		public void run() {
-			try {
-				
-				while( count < 100 ) {
-					Thread.sleep(2000);
-					
-					UI.getCurrent().access(new Runnable () {
-
-						@Override
-						public void run() {
-							
-							count ++;
-							tellTime();
-						}
-						
-					});
-				}
-				
-				UI.getCurrent().access(new Runnable () {
-					
-					@Override
-					public void run() {
-						
-						label.setValue("Done.");
-					}
-				});
-				
-				
-			}catch(InterruptedException e) {
-				e.printStackTrace();
-			}
-			
-		}
-
-		
+	private void showBorder() {
+		String style = "v-border";
+		horizontal.addStyleName(style);
 	}
 	
 }

@@ -15,7 +15,7 @@ public class EjemploTema extends VerticalLayout {
 	
 	public EjemploTema() {
 		
-		setSizeFull();
+		
 		setSpacing(true);
 		setMargin(true);
 		
