@@ -3,8 +3,11 @@ package com.Core.vaadin.pushServer;
 
 import com.github.wolfie.refresher.Refresher;
 import com.vaadin.server.ThemeResource;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
+import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
@@ -20,36 +23,42 @@ public class PruebaLabel extends VerticalLayout {
 	
 	public PruebaLabel() {
 		
-		setSizeFull();
-		setMargin(true);
+		setSpacing(true);
+		setWidth("700px");
+		setHeight("600px");
 		
 		Tree tree = new Tree();
 		tree.setHeight("100%");
-		tree.setWidth("100%");
+		
 		Tree tree2 = new Tree();
 		
-		for(int f=0; f<=20; f++) {
+		
+		
+		for(int f=0; f<=50; f++) {
 			
 			tree.addItem(f);
 			tree2.addItem(f);
 		}
 		
 		VerticalLayout vFirst = new VerticalLayout(tree);// verticallayout dentro de spliPanel, sin sizeFull 
-														//para que aparesca el scroll
-		
+		vFirst.setCaption("verticalLAyout 1");											//para que aparesca el scroll
+		vFirst.setHeight("500px");
 		
 		VerticalLayout vSecon = new VerticalLayout(tree2);
-		//vSecon.setHeight("100%");
+		vSecon.setCaption("verticalLAyout 2");											//para que aparesca el scroll
+		vSecon.setHeight("500%");
 		
 		float f = 18f;
 		horizontal.setLocked(true);
-		horizontal.setHeight(100, Unit.PIXELS);
+		horizontal.setHeight("100%");
+		horizontal.setWidth("600px");
+		
 		horizontal.setFirstComponent(vFirst);
 		horizontal.setSecondComponent(vSecon);
 		horizontal.setSplitPosition(f);
 		
 		addComponent(horizontal);
-		
+		setComponentAlignment(horizontal, Alignment.BOTTOM_CENTER);
 		showBorder();
 	}
 	
