@@ -24,8 +24,8 @@ public class PruebaLabel extends VerticalLayout {
 		setMargin(true);
 		
 		Tree tree = new Tree();
-		
-		
+		tree.setHeight("100%");
+		tree.setWidth("100%");
 		Tree tree2 = new Tree();
 		
 		for(int f=0; f<=20; f++) {
@@ -39,12 +39,11 @@ public class PruebaLabel extends VerticalLayout {
 		
 		
 		VerticalLayout vSecon = new VerticalLayout(tree2);
-		vSecon.setSizeFull();
+		//vSecon.setHeight("100%");
 		
 		float f = 18f;
-		horizontal.addStyleName("large");
-		horizontal.setWidth("500px");
-		horizontal.setHeight("500px");
+		horizontal.setLocked(true);
+		
 		horizontal.setFirstComponent(vFirst);
 		horizontal.setSecondComponent(vSecon);
 		horizontal.setSplitPosition(f);
