@@ -7,6 +7,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
 
+
 public class MenuLayout extends VerticalLayout {
 	
 	private static final long serialVersionUID = 1L;

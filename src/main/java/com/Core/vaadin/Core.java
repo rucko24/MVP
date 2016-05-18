@@ -1,17 +1,19 @@
 package com.Core.vaadin;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.annotation.WebServlet;
 
 import com.Core.vaadin.tables.Arduino;
-import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.annotations.Widgetset;
+import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
-import java.util.*;
 
 @Push
 @SuppressWarnings("serial")
@@ -21,6 +23,7 @@ public class Core extends UI {
 	
 	private PageLayout pageLayout;
 	private MenuLayout menuLayout;
+	
 	//private static Arduino arduino = new Arduino();
 
 	//este flag te va servir para el estado del bombillo
@@ -31,6 +34,12 @@ public class Core extends UI {
     	
     	pageLayout = new PageLayout();
     	
+    	Navigator navigator = new Navigator(this,this);
+    	
+    	navigator.addView(Login.LOGIN_VIEW, new Login());
+    	navigator.addView(PageLayout.PAGELAYOUT_VIEW, pageLayout);
+    	
+    	navigator.navigateTo(Login.LOGIN_VIEW);
     	setContent(pageLayout);
     	
     }

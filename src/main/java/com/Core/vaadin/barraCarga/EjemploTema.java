@@ -15,7 +15,8 @@ public class EjemploTema extends VerticalLayout {
 	
 	public EjemploTema() {
 		
-		
+		setWidth("820px");
+		setHeight("610px");
 		setSpacing(true);
 		setMargin(true);
 		
@@ -30,10 +31,11 @@ public class EjemploTema extends VerticalLayout {
 	private Component getHeader() {
 		HorizontalLayout layout = new HorizontalLayout();
 		layout.setCaption("Header");
-		layout.setWidth("100%");
-		layout.setHeight("70%");
+		layout.setHeight("50px");
+		layout.setWidth("50px");
 		
 		Label label = new Label("<h1><strong><em>DashBoard</em></strong></h1>",ContentMode.HTML);
+		
 		
 		layout.addComponent(label);
 		return layout;
@@ -42,23 +44,22 @@ public class EjemploTema extends VerticalLayout {
 	private Component getMain() {
 		
 		VerticalLayout vLayout = new VerticalLayout();
-		vLayout.setCaption("Menu");
+		vLayout.setCaption("VerticalLayout");
 		vLayout.setSpacing(true);
-		vLayout.setWidth("100px");
-	
+		vLayout.setWidth("130px");
 		
 		Button btn1 = new Button("Servicios");
-		btn1.setWidth(110, Unit.PERCENTAGE);
+		btn1.setWidth("110%");
 		
 		Button btn2 = new Button("Registros");
-		btn2.setWidth(110, Unit.PERCENTAGE);
+		btn2.setWidth("110%");
 		
 		Button btn3 = new Button("DashBoard");
 		btn3.setWidth(110, Unit.PERCENTAGE);
 		vLayout.addComponents(btn1,btn2,btn3);
 		
 		HorizontalLayout hLayout = new HorizontalLayout();
-		hLayout.setCaption("MAIN");
+		hLayout.setCaption("horizontalLAyout = verticalLayout + grid");
 		hLayout.setSizeFull();
 		hLayout.setSpacing(true);
 		
@@ -73,17 +74,17 @@ public class EjemploTema extends VerticalLayout {
 	private Component getContentArea() {
 		
 		GridLayout grid = new GridLayout(2,3);
-		grid.setCaption("Grid");
 		grid.setSizeFull();
 		grid.setSpacing(true);
+		
 		grid.setRowExpandRatio(1, 1);
 		
 		TextField txt = new TextField("Busqueda");
 		grid.addComponent(txt, 0, 0);
 		
 		Table table = new Table();
-		table.setCaption("tabla");
 		table.setWidth("100%");
+		table.setHeight("100%");
 		table.setSelectable(true);
 		table.addContainerProperty("Nombre", String.class, null);
 		table.addContainerProperty("Monto", Double.class, null);

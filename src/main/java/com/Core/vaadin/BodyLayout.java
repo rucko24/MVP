@@ -26,5 +26,5 @@ public class BodyLayout extends HorizontalSplitPanel {
 	public ContentLayout getContentLayout() {
 		
 		return contendLayout;
-	}
+	}//chekiar este metodo para la vista
 }

@@ -9,11 +9,11 @@ public class PageLayout extends VerticalLayout implements View {
 	
 	private HeaderLayout headerLayout = new HeaderLayout();
 	private BodyLayout bodyLayout = new BodyLayout();
-	
-	
+	public static final String PAGELAYOUT_VIEW = "pageLayout";
+	private Core core = Core.getCurrent();
 	public PageLayout() {
 		setSizeFull();
-		
+		core.getPage().setTitle("Main");
 		
 		addComponents(headerLayout,bodyLayout);
 		setExpandRatio(bodyLayout, 1);

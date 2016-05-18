@@ -48,8 +48,14 @@ public class PruebaLabel extends VerticalLayout {
 		vSecon.setCaption("verticalLAyout 2");											//para que aparesca el scroll
 		//vSecon.setHeight("200%");
 		
+		
+		
+		/*SplitPane con 100% de alto, y component padre con px,   , 
+		ahora componente en spliPanel sin medida
+		 * 
+		 */
 		float f = 18f;
-		horizontal.setLocked(true);
+		horizontal.setLocked(true);   
 		horizontal.setHeight("100%");
 		horizontal.setWidth("600px");
 		

@@ -59,14 +59,14 @@ public class Arduino {
             System.exit( 0 );
             return;
         }
-        try {
-            serialPort = (SerialPort) puertoID.open( this.getClass().getName(), TIME_OUT );
-            serialPort.setSerialPortParams(DATA_RATE,SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
-            outPut = serialPort.getOutputStream();
-        } catch( Exception e) {
-            mostrarError(e.getMessage());
-            System.exit( 0 );
-        }
+	        try {
+	            serialPort = (SerialPort) puertoID.open( this.getClass().getName(), TIME_OUT );
+	            serialPort.setSerialPortParams(DATA_RATE,SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
+	            outPut = serialPort.getOutputStream();
+	        } catch( Exception e) {
+	            mostrarError(e.getMessage());
+	            System.exit( 0 );
+	        }
     }
     public void enviarDato( String datos ) {
        
