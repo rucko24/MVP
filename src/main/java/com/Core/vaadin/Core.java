@@ -22,13 +22,12 @@ import com.vaadin.ui.UI;
 public class Core extends UI {
 	
 	private PageLayout pageLayout;
-	private MenuLayout menuLayout;
 	
-	//private static Arduino arduino = new Arduino();
+	private static Arduino arduino = new Arduino();
 
 	//este flag te va servir para el estado del bombillo
 	private static boolean switchOn = false;
-	private static List<BotonSwitch> botones = new ArrayList<>(); 
+	private static List<BotonSwitch> botones = new ArrayList<BotonSwitch>(); 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
     	
@@ -40,6 +39,8 @@ public class Core extends UI {
     	navigator.addView(PageLayout.PAGELAYOUT_VIEW, pageLayout);
     	
     	navigator.navigateTo(Login.LOGIN_VIEW);
+    	
+    	//agrega el layout MAIN
     	setContent(pageLayout);
     	
     }
@@ -78,10 +79,10 @@ public class Core extends UI {
 	  botones.remove(boton);		
   }
 
-  /* public static Arduino getArduino() {
+  public static Arduino getArduino() {
 	   
 	   return arduino;
-   }*/
+  }
     
     @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
     @VaadinServletConfiguration(ui = Core.class, productionMode = false)

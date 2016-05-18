@@ -80,9 +80,9 @@ public class Arduino {
     
     public static void mostrarError( String mensaje ) {
         
-      //  JOptionPane.showMessageDialg(this, mensaje,"ERROR",JOptionPane.ERROR_MESSAGE);
+      //JOptionPane.showMessageDialg(null,"ERROR",mensaje);
     	System.out.println(mensaje);
-    	
+    	Notification.show(" error "+mensaje);
     }
 	
 }

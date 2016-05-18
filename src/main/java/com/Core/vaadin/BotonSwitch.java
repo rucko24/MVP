@@ -16,6 +16,7 @@ import com.vaadin.ui.VerticalLayout;
 
 public class BotonSwitch extends VerticalLayout {
 	
+	private Core ui = Core.getCurrent();
 	private final Button btnSwitch = new Button();
 	private HorizontalLayout row = new HorizontalLayout();
 	private HorizontalLayout cssSwitch = new HorizontalLayout();
@@ -58,16 +59,16 @@ public class BotonSwitch extends VerticalLayout {
 			btnSwitch.setPrimaryStyleName("switchOff");
 		}
 			btnSwitch.setSizeUndefined();
-			//Core ui = Core.getCurrent();
-			//Arduino ardu = ui.getArduino();  
+			Arduino arduino = ui.getArduino();
+			
 			//linea fundamental para conectar con ardu, multiples veces. 
 		btnSwitch.addClickListener( e -> {
 			Core.changeSwitch();
 			if(Core.isSwitchOn()) {
-				//ardu.enviarDato("3");
+				arduino.enviarDato("3");
 				
 			}else {
-			  //  ardu.enviarDato("2");
+			    arduino.enviarDato("2");
 			}
 		});
 		cssSwitch.addComponent(btnSwitch); // este cssSwitch position: relative; top: 20px;
@@ -83,12 +84,13 @@ public class BotonSwitch extends VerticalLayout {
 	//este metodo cambia el estilo del boton, pero se ejecutara en la clase Core
 	// para todos los botones atachados
 	public void changeButtonOnOff(){
+		
 			if(Core.isSwitchOn()) {
 				btnSwitch.addStyleName("switchOn");
 				btnSwitch.removeStyleName("switchOff");
 				ledRojo.setIcon(rojoON);
 			}else {
-			        ledRojo.setIcon(rojoOFF);
+			    ledRojo.setIcon(rojoOFF);
 				btnSwitch.addStyleName("switchOff");
 				btnSwitch.removeStyleName("switchOn");
 			}

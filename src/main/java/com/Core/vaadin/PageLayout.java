@@ -2,6 +2,7 @@ package com.Core.vaadin;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.server.Page;
 import com.vaadin.ui.VerticalLayout;
 
 public class PageLayout extends VerticalLayout implements View {
@@ -9,11 +10,10 @@ public class PageLayout extends VerticalLayout implements View {
 	
 	private HeaderLayout headerLayout = new HeaderLayout();
 	private BodyLayout bodyLayout = new BodyLayout();
-	public static final String PAGELAYOUT_VIEW = "pageLayout";
+	public static final String PAGELAYOUT_VIEW = "MAIN";
 	private Core core = Core.getCurrent();
 	public PageLayout() {
 		setSizeFull();
-		core.getPage().setTitle("Main");
 		
 		addComponents(headerLayout,bodyLayout);
 		setExpandRatio(bodyLayout, 1);
@@ -30,7 +30,7 @@ public class PageLayout extends VerticalLayout implements View {
 	
 	@Override
 	public void enter(ViewChangeEvent event) {
-		// TODO Auto-generated method stub
+		Page.getCurrent().setTitle("MAIN");
 		
 	}
 
