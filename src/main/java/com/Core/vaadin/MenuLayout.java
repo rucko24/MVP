@@ -40,7 +40,7 @@ public class MenuLayout extends VerticalLayout {
 	
 	public MenuLayout() {
 		
-		//this.setHeight("100%");
+		this.setSizeFull();
 		//this.addStyleName("menu");
 		
 		label.setSizeUndefined();
