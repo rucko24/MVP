@@ -12,6 +12,7 @@ public class PageLayout extends VerticalLayout implements View {
 	private BodyLayout bodyLayout = new BodyLayout();
 	public static final String PAGELAYOUT_VIEW = "MAIN";
 	private Core core = Core.getCurrent();
+	
 	public PageLayout() {
 		setSizeFull();
 		

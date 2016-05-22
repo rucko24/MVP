@@ -41,9 +41,6 @@ public class MenuLayout extends VerticalLayout {
 	
 	public MenuLayout() {
 		
-		//this.setHeight("800px");;
-		//this.addStyleName("menu");
-		
 		label.setSizeUndefined();
 		label.addStyleName("labelMenu");
 		label.setIcon(iconoArdu);
@@ -67,12 +64,7 @@ public class MenuLayout extends VerticalLayout {
 		tree.addItem(VALIDAR);
 		tree.addItem(PUSH_SERVER);
 		tree.addItem(PRUEBA_LABEL);
-		
-		
-		for(int f=0; f<20; f++) {
-			tree.addItem(f);
-		}
-		
+	
 		
 		tree.setChildrenAllowed(MENU, true);
 		
