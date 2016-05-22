@@ -51,7 +51,7 @@ public class MenuLayout extends VerticalLayout {
 		vLayout.addComponent(label);
 		vLayout.setComponentAlignment(label, Alignment.MIDDLE_CENTER);
 		
-		//tree.setWidth("100%");
+		tree.setWidth("100%");
 		tree.addStyleName("arbol"); //estilo de arbol, background caption selected
 		tree.addItem(MENU);
 		tree.addItem(TREETABLA);

@@ -77,9 +77,14 @@ public class Calculador extends VerticalLayout {
 			
 		});
 		
+		
+		
 		horizontalLayout.addComponents(texto1,combo,texto2,texto3,btnCalcular);
+		
+		
 		horizontalLayout.setComponentAlignment(btnCalcular, Alignment.BOTTOM_RIGHT);
 		addComponent(horizontalLayout);
+		
 	}
 	
 }
