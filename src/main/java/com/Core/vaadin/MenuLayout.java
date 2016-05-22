@@ -64,7 +64,6 @@ public class MenuLayout extends VerticalLayout {
 		tree.addItem(VALIDAR);
 		tree.addItem(PUSH_SERVER);
 		tree.addItem(PRUEBA_LABEL);
-	
 		
 		tree.setChildrenAllowed(MENU, true);
 		
@@ -76,7 +75,6 @@ public class MenuLayout extends VerticalLayout {
 		
 		tree.setParent(CONTENT2, MENU);
 		tree.setChildrenAllowed(CONTENT2, false);
-	
 		
 		tree.setParent(BARRA,MENU);
 		tree.setChildrenAllowed(BARRA, false);
@@ -109,8 +107,7 @@ public class MenuLayout extends VerticalLayout {
 		tree.setChildrenAllowed(PRUEBA_LABEL, false);
 		
 		tree.expandItemsRecursively(MENU);
-		tree.setNullSelectionAllowed(false);
-		
+		tree.setNullSelectionAllowed(false);		
 		
 		OpcionesDeMenu opciones = new OpcionesDeMenu();
 		tree.addItemClickListener(opciones);
