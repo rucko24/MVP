@@ -31,7 +31,8 @@ public class MenuLayout extends VerticalLayout {
 	public static final String PRUEBA_LABEL2 = "Label Push";
 	public static final String PRUEBA_LABEL3 = "Label Push";
 	public static final String PRUEBA_LABEL4 = "Label Push";
-
+	
+	public static final String ITEMS[] = {"PRUEBA_LABEL5","PRUEBA_LABEL6","PRUEBA_LABEL7"};
 	
 	private Label label = new Label("شروع جدید",ContentMode.HTML);
 	private ThemeResource iconoArdu = new ThemeResource("img/ardu1.svg");
@@ -40,7 +41,7 @@ public class MenuLayout extends VerticalLayout {
 	
 	public MenuLayout() {
 		
-		this.setHeight("800px");;
+		//this.setHeight("800px");;
 		//this.addStyleName("menu");
 		
 		label.setSizeUndefined();
@@ -67,11 +68,11 @@ public class MenuLayout extends VerticalLayout {
 		tree.addItem(PUSH_SERVER);
 		tree.addItem(PRUEBA_LABEL);
 		
-		String labels[] = {PRUEBA_LABEL2,PRUEBA_LABEL3,PRUEBA_LABEL4};
 		
-		for(int f=1; f<=labels.length; f++) {
+		for(int f=0; f<20; f++) {
 			tree.addItem(f);
 		}
+		
 		
 		tree.setChildrenAllowed(MENU, true);
 		
@@ -123,6 +124,6 @@ public class MenuLayout extends VerticalLayout {
 		tree.addItemClickListener(opciones);
 		
 		this.addComponents(vLayout,tree);
-		this.setExpandRatio(tree, 1);
+		//this.setExpandRatio(tree, 1);
 	}
 }

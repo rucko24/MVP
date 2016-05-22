@@ -28,7 +28,7 @@ public class PruebaLabel extends VerticalLayout {
 		
 		setSpacing(true);
 		setMargin(false);
-		setWidth("35%");
+		setWidth("100%");
 		setHeight("600px");
 		
 		for(int f=0; f<=50; f++) {
@@ -64,7 +64,7 @@ public class PruebaLabel extends VerticalLayout {
 		//horizontal.addStyleName("miScroll");
 		//horizontal.setLocked(true);   
 		horizontal.setHeight("100%");
-		horizontal.setWidth("600px");
+		horizontal.setWidth("100%");
 		
 		horizontal.setFirstComponent(vFirst);
 		horizontal.setSecondComponent(vSecon);
