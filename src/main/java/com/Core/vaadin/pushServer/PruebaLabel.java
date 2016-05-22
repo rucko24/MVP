@@ -3,6 +3,7 @@ package com.Core.vaadin.pushServer;
 
 import com.github.wolfie.refresher.Refresher;
 import com.vaadin.server.ThemeResource;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.Label;
@@ -20,29 +21,34 @@ public class PruebaLabel extends VerticalLayout {
 	private ThemeResource spinner = new ThemeResource("img/712.gif");
 	private Label label = new Label("Now: ");
 	private HorizontalSplitPanel horizontal = new HorizontalSplitPanel();
+	private Tree tree = new Tree();
+	private Tree tree2 = new Tree();
 	
 	public PruebaLabel() {
 		
 		setSpacing(true);
-		setWidth("700px");
-		setHeight("100%");
-		
-		Tree tree = new Tree();
-		//tree.setHeight("100%");
-		
-		Tree tree2 = new Tree();
-		
-		
+		setMargin(false);
+		setWidth("35%");
+		setHeight("600px");
 		
 		for(int f=0; f<=50; f++) {
-			
 			tree.addItem(f);
 			tree2.addItem(f);
 		}
 		
-		VerticalLayout vFirst = new VerticalLayout(tree);// verticallayout dentro de spliPanel, sin sizeFull 
-		vFirst.setCaption("verticalLAyout 1");											//para que aparesca el scroll
+		Label label = new Label("شروع جدید",ContentMode.HTML);
+		label.addStyleName("labelMenu");
+		ThemeResource iconoArdu = new ThemeResource("img/ardu1.svg");
+		label.setIcon(iconoArdu);
 		
+		label.setSizeUndefined();
+		VerticalLayout vLabel = new VerticalLayout(label);
+		vLabel.setMargin(true);
+		
+		VerticalLayout vFirst = new VerticalLayout(vLabel,tree);// verticallayout dentro de spliPanel, sin sizeFull 
+		vFirst.setCaption("verticalLAyout 1");				
+		vFirst.addStyleName("menu");
+		vFirst.setComponentAlignment(vLabel, Alignment.BOTTOM_CENTER);
 		
 		VerticalLayout vSecon = new VerticalLayout(tree2);
 		vSecon.setCaption("verticalLAyout 2");											//para que aparesca el scroll
@@ -55,8 +61,9 @@ public class PruebaLabel extends VerticalLayout {
 		 * 
 		 */
 		float f = 18f;
-		horizontal.setLocked(true);   
-		horizontal.setHeight("600px");
+		//horizontal.addStyleName("miScroll");
+		//horizontal.setLocked(true);   
+		horizontal.setHeight("100%");
 		horizontal.setWidth("600px");
 		
 		horizontal.setFirstComponent(vFirst);

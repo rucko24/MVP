@@ -38,7 +38,7 @@ $v-app-loading-text: "cargando";
    	
    }
    	.miScroll .v-ui > .v-widget {
-  		overflow: auto;
+  		overflow: auto !important;
 	}
 	
    .header {
@@ -71,8 +71,6 @@ $v-app-loading-text: "cargando";
    .menu {
    	background: #38414A;
    	color: #D4D8E0;
-   	
-   	
    }
    
    

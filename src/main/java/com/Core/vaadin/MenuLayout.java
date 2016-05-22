@@ -28,7 +28,10 @@ public class MenuLayout extends VerticalLayout {
 	public static final String VALIDAR = "PIN VALIDADO";
 	public static final String PUSH_SERVER = "PUSH SERVER";
 	public static final String PRUEBA_LABEL = "Label Push";
-	
+	public static final String PRUEBA_LABEL2 = "Label Push";
+	public static final String PRUEBA_LABEL3 = "Label Push";
+	public static final String PRUEBA_LABEL4 = "Label Push";
+
 	
 	private Label label = new Label("شروع جدید",ContentMode.HTML);
 	private ThemeResource iconoArdu = new ThemeResource("img/ardu1.svg");
@@ -37,7 +40,8 @@ public class MenuLayout extends VerticalLayout {
 	
 	public MenuLayout() {
 		
-		this.addStyleName("menu");
+		//this.setHeight("100%");
+		//this.addStyleName("menu");
 		
 		label.setSizeUndefined();
 		label.addStyleName("labelMenu");
@@ -46,8 +50,8 @@ public class MenuLayout extends VerticalLayout {
 		vLayout.addComponent(label);
 		vLayout.setComponentAlignment(label, Alignment.MIDDLE_CENTER);
 		
-		tree.setWidth("100%");
-		tree.addStyleName("arbol");
+		//tree.setWidth("100%");
+		tree.addStyleName("arbol"); //estilo de arbol, background caption selected
 		tree.addItem(MENU);
 		tree.addItem(TREETABLA);
 		tree.addItem(TREETABLA2);
@@ -63,6 +67,11 @@ public class MenuLayout extends VerticalLayout {
 		tree.addItem(PUSH_SERVER);
 		tree.addItem(PRUEBA_LABEL);
 		
+		String labels[] = {PRUEBA_LABEL2,PRUEBA_LABEL3,PRUEBA_LABEL4};
+		
+		for(int f=1; f<=labels.length; f++) {
+			tree.addItem(f);
+		}
 		
 		tree.setChildrenAllowed(MENU, true);
 		
@@ -74,10 +83,7 @@ public class MenuLayout extends VerticalLayout {
 		
 		tree.setParent(CONTENT2, MENU);
 		tree.setChildrenAllowed(CONTENT2, false);
-		
-		tree.setParent(TREETABLA2, TREETABLA);
-		tree.setChildrenAllowed(TREETABLA2, false);
-		tree.expandItemsRecursively(TREETABLA);
+	
 		
 		tree.setParent(BARRA,MENU);
 		tree.setChildrenAllowed(BARRA, false);
@@ -105,6 +111,8 @@ public class MenuLayout extends VerticalLayout {
 		tree.setChildrenAllowed(PUSH_SERVER, true);
 		
 		tree.setParent(PRUEBA_LABEL, PUSH_SERVER);
+		tree.setParent(TREETABLA2, PUSH_SERVER);
+		tree.setParent(CALCULADOR, PUSH_SERVER);
 		tree.setChildrenAllowed(PRUEBA_LABEL, false);
 		
 		tree.expandItemsRecursively(MENU);
