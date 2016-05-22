@@ -25,10 +25,10 @@ public class PruebaLabel extends VerticalLayout {
 		
 		setSpacing(true);
 		setWidth("700px");
-		setHeight("600px");
+		setHeight("100%");
 		
 		Tree tree = new Tree();
-		tree.setHeight("100%");
+		//tree.setHeight("100%");
 		
 		Tree tree2 = new Tree();
 		
@@ -56,7 +56,7 @@ public class PruebaLabel extends VerticalLayout {
 		 */
 		float f = 18f;
 		horizontal.setLocked(true);   
-		horizontal.setHeight("100%");
+		horizontal.setHeight("600px");
 		horizontal.setWidth("600px");
 		
 		horizontal.setFirstComponent(vFirst);
