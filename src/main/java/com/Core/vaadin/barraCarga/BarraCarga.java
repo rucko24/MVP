@@ -1,19 +1,23 @@
 package com.Core.vaadin.barraCarga;
 
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.ProgressIndicator;
+import com.vaadin.ui.ProgressBar;
 import com.vaadin.ui.VerticalLayout;
 
 public class BarraCarga extends VerticalLayout {
 	
 	private Button btn = new Button("Start");
-	private ProgressIndicator barra = new ProgressIndicator();
+	private ProgressBar barra = new ProgressBar();
 	
 	public BarraCarga() {
 		
+		setMargin(true);
+		setSpacing(true);
+		barra.setIndeterminate(true);
+		
 		btn.addClickListener( e -> {
 			new Algoritmo().start();
+			
 		});
 		addComponents(btn,barra);
 	}

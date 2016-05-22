@@ -10,6 +10,7 @@ public class PinValidador implements Validator {
 
 	private static final long serialVersionUID = 1L;
 	
+	
 	@Override
 	public void validate(Object value) throws InvalidValueException {
 		

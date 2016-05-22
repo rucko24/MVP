@@ -59,16 +59,16 @@ public class BotonSwitch extends VerticalLayout {
 			btnSwitch.setPrimaryStyleName("switchOff");
 		}
 			btnSwitch.setSizeUndefined();
-			Arduino arduino = ui.getArduino();
+			//Arduino arduino = ui.getArduino();
 			
 			//linea fundamental para conectar con ardu, multiples veces. 
 		btnSwitch.addClickListener( e -> {
 			Core.changeSwitch();
 			if(Core.isSwitchOn()) {
-				arduino.enviarDato("3");
+			//	arduino.enviarDato("255");
 				
 			}else {
-			    arduino.enviarDato("2");
+			 //   arduino.enviarDato("0");
 			}
 		});
 		cssSwitch.addComponent(btnSwitch); // este cssSwitch position: relative; top: 20px;

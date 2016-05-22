@@ -23,7 +23,7 @@ public class Core extends UI {
 	
 	private PageLayout pageLayout;
 	
-	private static Arduino arduino = new Arduino();
+	//private static Arduino arduino = new Arduino();
 
 	//este flag te va servir para el estado del bombillo
 	private static boolean switchOn = false;
@@ -33,12 +33,12 @@ public class Core extends UI {
     	
     	pageLayout = new PageLayout();
     	
-    	Navigator navigator = new Navigator(this,this);
+    	Navigator navigator = new Navigator(this, this);
     	
     	navigator.addView(Login.LOGIN_VIEW, new Login());
     	navigator.addView(PageLayout.PAGELAYOUT_VIEW, pageLayout);
     	
-    	navigator.navigateTo(Login.LOGIN_VIEW);
+    	navigator.navigateTo(PageLayout.PAGELAYOUT_VIEW);
     	
     	//agrega el layout MAIN
     	setContent(pageLayout);
@@ -79,10 +79,10 @@ public class Core extends UI {
 	  botones.remove(boton);		
   }
 
-  public static Arduino getArduino() {
+  /*public static Arduino getArduino() {
 	   
 	   return arduino;
-  }
+  }*/
     
     @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
     @VaadinServletConfiguration(ui = Core.class, productionMode = false)

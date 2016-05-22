@@ -42,11 +42,11 @@ public class PruebaLabel extends VerticalLayout {
 		
 		VerticalLayout vFirst = new VerticalLayout(tree);// verticallayout dentro de spliPanel, sin sizeFull 
 		vFirst.setCaption("verticalLAyout 1");											//para que aparesca el scroll
-		vFirst.setHeight("500px");
+		
 		
 		VerticalLayout vSecon = new VerticalLayout(tree2);
 		vSecon.setCaption("verticalLAyout 2");											//para que aparesca el scroll
-		//vSecon.setHeight("200%");
+		
 		
 		
 		
