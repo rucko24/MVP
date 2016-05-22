@@ -15,7 +15,7 @@ public class BodyLayout extends HorizontalSplitPanel {
 		
 		float ancho = 19f;
 		
-		menuLayout.addStyleName("menu");
+		
 		
 		this.setFirstComponent(menuLayout);
 		this.setSecondComponent(contendLayout);
