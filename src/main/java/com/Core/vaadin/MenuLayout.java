@@ -124,6 +124,6 @@ public class MenuLayout extends VerticalLayout {
 		tree.addItemClickListener(opciones);
 		
 		this.addComponents(vLayout,tree);
-		//this.setExpandRatio(tree, 1);
+		this.setExpandRatio(tree, 1);
 	}
 }
