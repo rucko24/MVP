@@ -13,18 +13,14 @@ public class BodyLayout extends HorizontalSplitPanel {
 	public BodyLayout() {
 		
 		
-	//	this.setWidth("100%");
-		this.setHeight("100%");
-		this.setLocked(true);
-		
-		float ancho = 18f;
+		float ancho = 19f;
 		
 		menuLayout.addStyleName("menu");
 		
 		this.setFirstComponent(menuLayout);
 		this.setSecondComponent(contendLayout);
 		
-		setSplitPosition(ancho);
+		this.setSplitPosition(ancho);
 		
 	}
 	
