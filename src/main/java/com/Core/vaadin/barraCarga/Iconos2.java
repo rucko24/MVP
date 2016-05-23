@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.jfree.chart.ChartFactory;
+
 import com.vaadin.server.ClassResource;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.server.FileResource;
@@ -26,8 +28,9 @@ public class Iconos2 extends VerticalLayout {
 	private TabSheet tab = new TabSheet();
 	
 	public Iconos2() {
-		setSpacing(true);
-		setMargin(true);
+		
+		setHeight("580px");;
+		tab.setSizeFull();
 		
 		Image imgFromTheme = new Image(null, new ThemeResource("../runo/icons/16/error.png"));
 		//imgFromTheme.setSizeFull();
@@ -37,6 +40,9 @@ public class Iconos2 extends VerticalLayout {
 		
 		BrowserFrame frameFromUrl = new BrowserFrame(null, new ExternalResource("http://alejandrodu.com"));
 		frameFromUrl.setSizeFull();
+		VerticalLayout lPagina = new VerticalLayout(frameFromUrl);
+		lPagina.setSizeFull();
+		lPagina.setMargin(true);
 		
 		BrowserFrame frameFromFileSystem = new BrowserFrame(null, new FileResource(new File("/home/rubn/Readme")));
 		
@@ -64,24 +70,44 @@ public class Iconos2 extends VerticalLayout {
 		BrowserFrame frameFromStream = new BrowserFrame(null, new StreamResource(mySource,"hello.txt"));
 		
 		Flash flashFromUrl = new Flash(null, new ExternalResource("http://www.youtube.com/v/ALgCDkZvzeY&hl=en_US&fs=1"));
-		//flashFromUrl.setSizeFull();
-		
+		flashFromUrl.setWidth("580px");
+		flashFromUrl.setHeight("400px");
 		VerticalLayout video = new VerticalLayout();
-		video.setMargin(true);
+		
 		video.setSizeFull();
 		video.addComponent(flashFromUrl);
 		video.setComponentAlignment(flashFromUrl, Alignment.MIDDLE_CENTER);
 		
 		Deslisador slider = new Deslisador();
 		
+		JfreeGrafico o = new JfreeGrafico();
+		
+		
+		
+		Chart dispercion = new Chart(Chart.DISPERSION, "Chart Dispercion");
+		Chart area = new Chart(Chart.AREA, "Chart Area");
+		Chart paso = new Chart(Chart.PASO, "Chart Paso");
+		Chart pasoArea = new Chart(Chart.PASOAREA, "Chart Paso Area");
+		Chart linea = new Chart(Chart.LINEA, "Chart Linea");
+		Chart polar = new Chart(Chart.POLAR, "Chart Polar");
+		Chart serieTiempo = new Chart(Chart.SERIETIEMPO, "Chart Serie Tiempo");
+		
+		VerticalLayout centrar = new VerticalLayout(dispercion,area,paso, pasoArea, linea, polar, serieTiempo);
+		centrar.setSizeUndefined();
+		centrar.setSpacing(true);
+		
+		VerticalLayout layoutChart = new VerticalLayout(centrar);
+		layoutChart.setComponentAlignment(centrar, Alignment.BOTTOM_CENTER);
 		
 		tab.addTab(imgFromTheme,"Img tema runo");
 		tab.addTab(imgFromClassPath,"Img Globo");
-		tab.addTab(frameFromUrl,"Img from URL");
+		tab.addTab(lPagina,"WEB");
 		tab.addTab(frameFromFileSystem,"Img from file system");
 		tab.addTab(frameFromStream, "puras V");
 		tab.addTab(video, "VIDEO");
 		tab.addTab(slider,"Deslisador");
+		tab.addTab(o, "JFreeChart");
+		tab.addTab(layoutChart, "JFreeChart 2");
 		
 		addComponent(tab);
 	}

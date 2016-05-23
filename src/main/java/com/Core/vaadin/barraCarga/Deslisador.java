@@ -32,9 +32,9 @@ public class Deslisador extends VerticalLayout{
 			
 			Notification.show("Atencion el valor a cambiado a: "+e.getProperty().getType());
 			 
-			Double valor = (Double)slider.getValue();
+			//Double valor = (Double)slider.getValue();
 			
-			ardu.enviarDato("3");
+			//ardu.enviarDato("3");
 					
 		});
 		

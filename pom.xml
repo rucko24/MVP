@@ -86,7 +86,16 @@
 			<groupId>org.vaadin.addons</groupId>
 			<artifactId>refresher</artifactId>
 			<version>1.2.3.7</version>
-		</dependency>
+			</dependency>
+			
+			<!-- jfreeChart -->
+			<dependency>
+				<groupId>org.vaadin.addon</groupId>
+				<artifactId>jfreechartwrapper</artifactId>
+				<version>3.0.2</version>
+			</dependency>
+		
+		
 		<dependency>
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-themes</artifactId>

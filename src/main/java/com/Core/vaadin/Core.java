@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.servlet.annotation.WebServlet;
 
-import com.Core.vaadin.tables.Arduino;
+import com.Core.vaadin.barraCarga.JfreeGrafico;
 import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
@@ -14,6 +14,7 @@ import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
 
 @Push
 @SuppressWarnings("serial")
@@ -39,6 +40,7 @@ public class Core extends UI {
     	navigator.addView(PageLayout.PAGELAYOUT_VIEW, pageLayout);
     	
     	navigator.navigateTo(PageLayout.PAGELAYOUT_VIEW);
+    	
     	
     	//agrega el layout MAIN
     	setContent(pageLayout);
