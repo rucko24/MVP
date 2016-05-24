@@ -87,9 +87,9 @@ public class OpcionesDeMenu implements ItemClickListener {
 			contentLayout.addComponent(calc);
 		
 		}else if(MenuLayout.WORKINGWITHFORM.equals(value)) {
-			/*Main validar = new Main();
-			contentLayout.addComponent(validar);*/
-			contentLayout.addComponent(ContentLayout.getLayout());
+			Main validar = new Main();
+			contentLayout.addComponent(validar);
+			
 		}else if(MenuLayout.PUSH_SERVER.equals(value)) {
 			NoticeBoard nota = new NoticeBoard();
 			contentLayout.addComponent(nota);

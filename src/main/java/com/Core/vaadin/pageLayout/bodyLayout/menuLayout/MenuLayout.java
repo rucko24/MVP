@@ -66,7 +66,7 @@ public class MenuLayout extends VerticalLayout {
 		tree.addItem(CONTENT2);
 	
 		tree.setChildrenAllowed(HOME, false);
-		
+		tree.setValue(HOME);
 		//setParent(CALCULADOR, MENU);
 		tree.setChildrenAllowed(CALCULADOR, false);
 		

@@ -7,17 +7,18 @@ import com.vaadin.ui.VerticalLayout;
 
 public class ContentLayout extends VerticalLayout {
 	
-	private  Label label = new Label("<h1>Welcome<h1>", ContentMode.HTML);
-	private static VerticalLayout LAYOUT = new VerticalLayout();
+	private static final Label label = new Label("<h1>Welcome<h1>", ContentMode.HTML);
+	private static VerticalLayout layout = new VerticalLayout();
 	public ContentLayout() {
 		
-		LAYOUT.setMargin(true);
-		label.addStyleName("labelMenu");
-		LAYOUT.addComponent(label);
-		addComponent(LAYOUT);
+		
 	}
 	
 	public static Component getLayout() {
-		return LAYOUT;
+		layout.setMargin(true);
+		label.addStyleName("labelMenu");
+		layout.addComponent(label);
+		
+		return layout;
 	}
 }
