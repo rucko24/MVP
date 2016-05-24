@@ -20,7 +20,7 @@ public class MenuLayout extends VerticalLayout {
 	public static final String TREETABLA = "Tree-Tabla + Container";
 	public static final String TREETABLA2 = "Tree-Tabla-Familiar";
 	public static final String BARRA = "Progress-Indicator";
-	public static final String ICONO2 = "Formulario + Iconos 2";
+	public static final String ICONO2 = "TabSheets";
 	public static final String DOWNLOADER = "Downloader";
 	public static final String CLICKENTABLE = "Click en tabla";
 	public static final String TIPOSDETEMAS = "DashBoard";

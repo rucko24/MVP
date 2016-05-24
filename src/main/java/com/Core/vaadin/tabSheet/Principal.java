@@ -3,8 +3,10 @@ package com.Core.vaadin.tabSheet;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+
 import com.Core.vaadin.tabSheet.graficos.Chart;
 import com.Core.vaadin.tabSheet.graficos.JfreeGrafico;
+import com.Core.vaadin.tabSheet.progressBar.ProgressBarListener;
 import com.vaadin.server.ClassResource;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.server.FileResource;
@@ -15,7 +17,9 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.BrowserFrame;
 import com.vaadin.ui.Flash;
 import com.vaadin.ui.Image;
+import com.vaadin.ui.ProgressBar;
 import com.vaadin.ui.TabSheet;
+import com.vaadin.ui.Upload;
 import com.vaadin.ui.VerticalLayout;
 
 public class Principal extends VerticalLayout {
@@ -97,6 +101,20 @@ public class Principal extends VerticalLayout {
 		
 		VerticalLayout layoutChart = new VerticalLayout(centrar);
 		layoutChart.setComponentAlignment(centrar, Alignment.BOTTOM_CENTER);
+		/*
+		 * 
+		 */
+		
+		ProgressBar indicator = new ProgressBar(0.0f);
+		ProgressBarListener  progressBarListener = new ProgressBarListener(indicator);
+		Upload upload = new Upload("Cargando", progressBarListener);
+		upload.addProgressListener(progressBarListener);
+		upload.addFinishedListener(progressBarListener);
+		upload.addStartedListener(progressBarListener);
+		
+		VerticalLayout layoutIndicador = new VerticalLayout();
+		layoutIndicador.setMargin(true);
+		layoutIndicador.addComponent(upload);
 		
 		tab.addTab(imgFromTheme,"Img tema runo");
 		tab.addTab(imgFromClassPath,"Img Globo");
@@ -107,7 +125,7 @@ public class Principal extends VerticalLayout {
 		tab.addTab(slider,"Deslisador");
 		tab.addTab(o, "JFreeChart");
 		tab.addTab(layoutChart, "JFreeChart 2");
-		
+		tab.addTab(layoutIndicador, "Cargar Imagen");
 		addComponent(tab);
 	}
 }
