@@ -24,6 +24,7 @@ public class Main extends VerticalLayout {
 		tab.addTab(layout, "Pin Validador");
 		tab.addTab(validar, "Custom-Validation");
 		tab.addTab(iconos, "Formulario-iconos-runo");
+		
 		addComponent(tab);
 	}
 }

@@ -32,12 +32,11 @@ public class MyIconos extends VerticalLayout {
 		combo.setWidth("100%");
 		combo.setIcon(new ThemeResource("../runo/icons/16/note.png"));
 		
-		textArea.setWidth("50%");
+		textArea.setWidth("30%");
 		textArea.setIcon(new ThemeResource("../runo/icons/16/document.png"));
 		
-		
 		top.setSpacing(true);
-		top.setWidth("50%");
+		top.setWidth("30%");
 		top.addComponents(textField,combo);
 		top.setComponentAlignment(combo, Alignment.BOTTOM_LEFT);
 		
@@ -51,9 +50,9 @@ public class MyIconos extends VerticalLayout {
 		enviar.setIcon(new ThemeResource("../runo/icons/16/ok.png"));
 		
 		bottom.setSpacing(true);
-		bottom.setWidth("50%");
+		bottom.setWidth("30%");
 		bottom.addComponents(opciones,enviar);
-		bottom.setComponentAlignment(enviar, Alignment.BOTTOM_RIGHT);
+		bottom.setComponentAlignment(enviar, Alignment.MIDDLE_RIGHT);
 		
 		
 		addComponents(top,textArea,bottom);
