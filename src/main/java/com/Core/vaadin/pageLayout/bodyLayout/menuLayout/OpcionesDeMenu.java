@@ -35,6 +35,7 @@ public class OpcionesDeMenu implements ItemClickListener {
 		contentLayout.removeAllComponents();
 		
 		if(MenuLayout.HOME.equals(value)) {
+			contentLayout.removeAllComponents();
 			contentLayout.addComponent(ContentLayout.getLayout());
 			
 		}else if(MenuLayout.ARDUINO.equals(value)) {
