@@ -25,7 +25,7 @@ public class MenuLayout extends VerticalLayout {
 	public static final String TIPOSDETEMAS = "DashBoard";
 	public static final String TRIANGULO = "Triángulos";
 	public static final String CALCULADOR = "Calculador Básico";
-	public static final String VALIDAR = "PIN VALIDADO";
+	public static final String VALIDAR = "Validaciones";
 	public static final String PUSH_SERVER = "PUSH SERVER";
 	public static final String PRUEBA_LABEL = "Label Push";
 	public static final String PRUEBA_LABEL2 = "Label Push";
