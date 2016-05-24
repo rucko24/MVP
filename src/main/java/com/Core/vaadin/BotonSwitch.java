@@ -5,7 +5,7 @@ import com.vaadin.server.ThemeResource;
 import com.vaadin.shared.ui.label.ContentMode;
 
 import com.vaadin.ui.Button;
-
+import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TabSheet;
@@ -18,26 +18,25 @@ public class BotonSwitch extends VerticalLayout {
 	private Core ui = Core.getCurrent();
 	private final Button btnSwitch = new Button();
 	private HorizontalLayout row = new HorizontalLayout();
-	private HorizontalLayout cssSwitch = new HorizontalLayout();
 	
 	private HorizontalLayout rowlabelUdo = new HorizontalLayout();
 	private HorizontalLayout logoUdoDerecha = new HorizontalLayout();
 	
-	private ThemeResource rojoON = new ThemeResource("img/on.png");
-	private ThemeResource rojoOFF = new ThemeResource("img/off.png");
+	private ThemeResource bombillaON = new ThemeResource("img/on.png");
+	private ThemeResource bombillaOFF = new ThemeResource("img/off.png");
 	private ThemeResource udo = new ThemeResource("img/udo.png");
-	private Label ledRojo = new Label();	
+	private Label bombilla = new Label();	
 	private Refresher refresher = new Refresher();
 	
 	private TabSheet tab = new TabSheet();
 	
 	public BotonSwitch() {
-		
-		
+	
 		setMargin(true);
 		setSpacing(true);
 		
 		Label label = new Label("<h1>Arduino-WEB</h1>",ContentMode.HTML);
+		label.addStyleName("labelMenu");
 		label.setSizeUndefined();
 		Label udoLogo = new Label();
 		udoLogo.setIcon(udo);
@@ -53,10 +52,10 @@ public class BotonSwitch extends VerticalLayout {
 		rowlabelUdo.addComponents(label,logoUdoDerecha);
 
 		if(Core.isSwitchOn()){
-			ledRojo.setIcon(rojoON);
+			bombilla.setIcon(bombillaON);
 			btnSwitch.setPrimaryStyleName("switchOn");
 		}else{
-			ledRojo.setIcon(rojoOFF);
+			bombilla.setIcon(bombillaOFF);
 			btnSwitch.setPrimaryStyleName("switchOff");
 		}
 			btnSwitch.setSizeUndefined();
@@ -72,24 +71,45 @@ public class BotonSwitch extends VerticalLayout {
 			 //   arduino.enviarDato("0");
 			}
 		});
-		cssSwitch.addComponent(btnSwitch); // este cssSwitch position: relative; top: 20px;
-		row.setSpacing(true);
-		row.addComponents(cssSwitch,ledRojo);
 		
-		addExtension(refresher);
 		
-		VerticalLayout vLayout = new VerticalLayout(row);
+		Component getArea1 = getArea1();
 		
+		VerticalLayout vLayout = new VerticalLayout(getArea1);
+	
 		tab.addTab(vLayout,"Arduino");
-		tab.addTab(this, "Arduino 2");
 		
 		addComponents(tab);
-		
 		Core.atachListening(this);		
 	}
 
-
-
+	private Component getHeader() {
+		
+		//retorna el titulo del Ardu
+		HorizontalLayout layout = new HorizontalLayout();
+		
+		return layout;
+		
+	}
+	
+	private Component getArea1() {
+		//bombillo mas switch
+		VerticalLayout layout = new VerticalLayout();
+		layout.setSpacing(true);
+		layout.setHeight("100%");
+		layout.addComponents(bombilla, btnSwitch); 
+		
+		return layout;
+	}
+	
+	private Component getArea2() {
+		//Logo de la UDO
+		VerticalLayout layout = new VerticalLayout();
+		
+		return layout;
+		
+	}
+	
 	//este metodo cambia el estilo del boton, pero se ejecutara en la clase Core
 	// para todos los botones atachados
 	public void changeButtonOnOff(){
@@ -97,9 +117,9 @@ public class BotonSwitch extends VerticalLayout {
 			if(Core.isSwitchOn()) {
 				btnSwitch.addStyleName("switchOn");
 				btnSwitch.removeStyleName("switchOff");
-				ledRojo.setIcon(rojoON);
+				bombilla.setIcon(bombillaON);
 			}else {
-			    ledRojo.setIcon(rojoOFF);
+			    bombilla.setIcon(bombillaOFF);
 				btnSwitch.addStyleName("switchOff");
 				btnSwitch.removeStyleName("switchOn");
 			}
