@@ -1,4 +1,4 @@
-package com.Core.vaadin.barraCarga;
+package com.Core.vaadin.tabSheet;
 
 import com.Core.vaadin.Core;
 import com.Core.vaadin.arduino.Arduino;

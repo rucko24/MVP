@@ -63,5 +63,7 @@ public class CustomValidation extends FormLayout {
 		
 	}
 
-	
+	public class Hilo extends Thread {
+		
+	}
 }

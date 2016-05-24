@@ -3,23 +3,21 @@ package com.Core.vaadin.pageLayout.bodyLayout.menuLayout;
 import com.Core.vaadin.Calculador;
 import com.Core.vaadin.Core;
 import com.Core.vaadin.arduino.BotonSwitch;
-import com.Core.vaadin.barraCarga.BarraCarga;
-import com.Core.vaadin.barraCarga.ContextMenu;
-import com.Core.vaadin.barraCarga.Downloader;
-import com.Core.vaadin.barraCarga.EjemploTema;
-import com.Core.vaadin.barraCarga.Iconos2;
 import com.Core.vaadin.pageLayout.bodyLayout.contentLayout.ContentLayout;
 import com.Core.vaadin.pushServer.NoticeBoard;
 import com.Core.vaadin.pushServer.PruebaLabel;
+import com.Core.vaadin.tabSheet.ContextMenu;
+import com.Core.vaadin.tabSheet.Downloader;
+import com.Core.vaadin.tabSheet.EjemploTema;
+import com.Core.vaadin.tabSheet.Iconos2;
+import com.Core.vaadin.tabSheet.progressBar.BarraCarga;
 import com.Core.vaadin.tables.FieldFactory;
 import com.Core.vaadin.tables.TreeTabla;
 import com.Core.vaadin.tables.TreeTabla2;
 import com.Core.vaadin.tables.Triangulos;
-import com.Core.vaadin.workingWithForms.MyIconos;
 import com.Core.vaadin.workingWithForms.Main;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
-import com.vaadin.ui.Label;
 
 public class OpcionesDeMenu implements ItemClickListener {
 	
@@ -35,7 +33,7 @@ public class OpcionesDeMenu implements ItemClickListener {
 		contentLayout.removeAllComponents();
 		
 		if(MenuLayout.HOME.equals(value)) {
-			contentLayout.removeAllComponents();
+			//contentLayout.removeAllComponents();
 			contentLayout.addComponent(ContentLayout.getLayout());
 			
 		}else if(MenuLayout.ARDUINO.equals(value)) {

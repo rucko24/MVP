@@ -1,4 +1,4 @@
-package com.Core.vaadin.barraCarga;
+package com.Core.vaadin.tabSheet;
 
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Button;

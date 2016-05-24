@@ -1,4 +1,4 @@
-package com.Core.vaadin.barraCarga;
+package com.Core.vaadin.tabSheet.progressBar;
 
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ProgressBar;

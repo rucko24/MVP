@@ -1,4 +1,4 @@
-package com.Core.vaadin.barraCarga;
+package com.Core.vaadin.tabSheet.graficos;
 
 import java.awt.Color;
 import java.awt.GradientPaint;

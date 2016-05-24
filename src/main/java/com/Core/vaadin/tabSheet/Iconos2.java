@@ -1,4 +1,4 @@
-package com.Core.vaadin.barraCarga;
+package com.Core.vaadin.tabSheet;
 
 import java.awt.Color;
 import java.io.File;
@@ -7,6 +7,8 @@ import java.io.InputStream;
 
 import org.jfree.chart.ChartFactory;
 
+import com.Core.vaadin.tabSheet.graficos.Chart;
+import com.Core.vaadin.tabSheet.graficos.JfreeGrafico;
 import com.vaadin.server.ClassResource;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.server.FileResource;

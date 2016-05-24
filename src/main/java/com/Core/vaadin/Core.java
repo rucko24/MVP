@@ -6,8 +6,8 @@ import java.util.List;
 import javax.servlet.annotation.WebServlet;
 
 import com.Core.vaadin.arduino.BotonSwitch;
-import com.Core.vaadin.barraCarga.JfreeGrafico;
 import com.Core.vaadin.pageLayout.PageLayout;
+import com.Core.vaadin.tabSheet.graficos.JfreeGrafico;
 import com.panamahitek.PanamaHitek_Arduino;
 import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;

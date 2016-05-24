@@ -1,4 +1,4 @@
-package com.Core.vaadin.barraCarga;
+package com.Core.vaadin.tabSheet;
 
 import com.vaadin.ui.DragAndDropWrapper;
 import com.vaadin.ui.VerticalLayout;

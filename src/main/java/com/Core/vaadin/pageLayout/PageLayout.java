@@ -1,6 +1,5 @@
 package com.Core.vaadin.pageLayout;
 
-import com.Core.vaadin.Core;
 import com.Core.vaadin.pageLayout.bodyLayout.BodyLayout;
 import com.Core.vaadin.pageLayout.headerLayout.HeaderLayout;
 import com.vaadin.navigator.View;
@@ -14,7 +13,6 @@ public class PageLayout extends VerticalLayout implements View {
 	private HeaderLayout headerLayout = new HeaderLayout();
 	private BodyLayout bodyLayout = new BodyLayout();
 	public static final String PAGELAYOUT_VIEW = "MAIN";
-	private Core core = Core.getCurrent();
 	
 	public PageLayout() {
 		setSizeFull();

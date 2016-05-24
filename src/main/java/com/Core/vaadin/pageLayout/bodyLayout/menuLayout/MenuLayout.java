@@ -1,5 +1,7 @@
 package com.Core.vaadin.pageLayout.bodyLayout.menuLayout;
 
+import com.Core.vaadin.Core;
+import com.Core.vaadin.pageLayout.bodyLayout.contentLayout.ContentLayout;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Alignment;
