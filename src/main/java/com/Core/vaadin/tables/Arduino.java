@@ -12,6 +12,8 @@ import com.vaadin.ui.Notification;
 
 import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
+import gnu.io.SerialPortEvent;
+import gnu.io.SerialPortEventListener;
 import gnu.io.UnsupportedCommOperationException;
 
 public class Arduino {
@@ -33,7 +35,6 @@ public class Arduino {
 	private static final int ERROR = 0;
 	
 	
-	
 	Scanner teclado = new Scanner(System.in);
 	
 	public Arduino() {
@@ -42,6 +43,8 @@ public class Arduino {
 	}
 	
 	public void initComponentes() {
+
+		
 		
 		CommPortIdentifier puertoID = null;
         Enumeration<?> puertoEnum = CommPortIdentifier.getPortIdentifiers();
@@ -71,6 +74,7 @@ public class Arduino {
     public void enviarDato( String datos ) {
        
         try {
+        	
             outPut.write( datos.getBytes() );
         }catch( Exception e ) {
             mostrarError("ERROR");

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.annotation.WebServlet;
 
 import com.Core.vaadin.barraCarga.JfreeGrafico;
+import com.panamahitek.PanamaHitek_Arduino;
 import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
@@ -29,8 +30,11 @@ public class Core extends UI {
 	//este flag te va servir para el estado del bombillo
 	private static boolean switchOn = false;
 	private static List<BotonSwitch> botones = new ArrayList<BotonSwitch>(); 
+
     @Override
     protected void init(VaadinRequest vaadinRequest) {
+    	
+    	
     	
     	pageLayout = new PageLayout();
     	

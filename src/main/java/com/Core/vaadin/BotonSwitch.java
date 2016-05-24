@@ -1,7 +1,5 @@
 package com.Core.vaadin;
 
-import com.Core.vaadin.pushServer.NoticeBoard;
-import com.Core.vaadin.tables.Arduino;
 import com.github.wolfie.refresher.Refresher;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.shared.ui.label.ContentMode;
@@ -10,6 +8,7 @@ import com.vaadin.ui.Button;
 
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.VerticalLayout;
 
 
@@ -29,6 +28,8 @@ public class BotonSwitch extends VerticalLayout {
 	private ThemeResource udo = new ThemeResource("img/udo.png");
 	private Label ledRojo = new Label();	
 	private Refresher refresher = new Refresher();
+	
+	private TabSheet tab = new TabSheet();
 	
 	public BotonSwitch() {
 		
@@ -74,8 +75,16 @@ public class BotonSwitch extends VerticalLayout {
 		cssSwitch.addComponent(btnSwitch); // este cssSwitch position: relative; top: 20px;
 		row.setSpacing(true);
 		row.addComponents(cssSwitch,ledRojo);
-		addComponents(rowlabelUdo,row);
+		
 		addExtension(refresher);
+		
+		VerticalLayout vLayout = new VerticalLayout(row);
+		
+		tab.addTab(vLayout,"Arduino");
+		tab.addTab(this, "Arduino 2");
+		
+		addComponents(tab);
+		
 		Core.atachListening(this);		
 	}
 
