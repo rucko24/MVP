@@ -1,15 +1,13 @@
-package com.Core.vaadin;
+package com.Core.vaadin.validadores;
 
-import com.Core.vaadin.tables.MiVentana;
 import com.vaadin.data.Validator;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.Notification.Type;
+import com.vaadin.ui.TabSheet;
 
 public class PinValidador implements Validator {
 
 
 	private static final long serialVersionUID = 1L;
-	
+	private TabSheet tab = new TabSheet();
 	
 	@Override
 	public void validate(Object value) throws InvalidValueException {
@@ -29,5 +27,7 @@ public class PinValidador implements Validator {
 			throw new InvalidValueException("introduce un numero");
 		}
 	}
+	
+	
 
 }

@@ -13,7 +13,7 @@ public class MenuLayout extends VerticalLayout {
 	private static final long serialVersionUID = 1L;
 	public static final String LOGO = "ICONO";
 	public static final String MENU = "Opciones";
-	public static final String CONTENT = "Boton Switch";
+	public static final String CONTENT = "Test-Arduino";
 	public static final String CONTENT2 = "Tablas";
 	public static final String TREETABLA = "Tree-Tabla + Container";
 	public static final String TREETABLA2 = "Tree-Tabla-Familiar";
