@@ -18,7 +18,6 @@ public class MenuLayout extends VerticalLayout {
 	public static final String TREETABLA = "Tree-Tabla + Container";
 	public static final String TREETABLA2 = "Tree-Tabla-Familiar";
 	public static final String BARRA = "Progress-Indicator";
-	public static final String ICONO = "Formulario + Iconos";
 	public static final String ICONO2 = "Formulario + Iconos 2";
 	public static final String DOWNLOADER = "Downloader";
 	public static final String CLICKENTABLE = "Click en tabla";
@@ -54,7 +53,6 @@ public class MenuLayout extends VerticalLayout {
 		tree.addItem(TREETABLA);
 		tree.addItem(TREETABLA2);
 		tree.addItem(BARRA);
-		tree.addItem(ICONO);
 		tree.addItem(ICONO2);
 		tree.addItem(DOWNLOADER);
 		tree.addItem(CLICKENTABLE);
@@ -78,9 +76,6 @@ public class MenuLayout extends VerticalLayout {
 		
 		tree.setParent(BARRA,MENU);
 		tree.setChildrenAllowed(BARRA, false);
-		
-		tree.setParent(ICONO,MENU);
-		tree.setChildrenAllowed(ICONO, false);
 		
 		tree.setParent(ICONO2, MENU);
 		tree.setChildrenAllowed(ICONO2, false);

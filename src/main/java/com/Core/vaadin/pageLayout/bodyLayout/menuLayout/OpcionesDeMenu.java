@@ -1,17 +1,13 @@
 package com.Core.vaadin.pageLayout.bodyLayout.menuLayout;
 
-
-
 import com.Core.vaadin.Calculador;
 import com.Core.vaadin.Core;
-import com.Core.vaadin.Validar;
 import com.Core.vaadin.arduino.BotonSwitch;
 import com.Core.vaadin.barraCarga.BarraCarga;
 import com.Core.vaadin.barraCarga.ContextMenu;
 import com.Core.vaadin.barraCarga.Downloader;
 import com.Core.vaadin.barraCarga.EjemploTema;
 import com.Core.vaadin.barraCarga.Iconos2;
-import com.Core.vaadin.barraCarga.MyIconos;
 import com.Core.vaadin.pageLayout.bodyLayout.contentLayout.ContentLayout;
 import com.Core.vaadin.pushServer.NoticeBoard;
 import com.Core.vaadin.pushServer.PruebaLabel;
@@ -19,24 +15,29 @@ import com.Core.vaadin.tables.FieldFactory;
 import com.Core.vaadin.tables.TreeTabla;
 import com.Core.vaadin.tables.TreeTabla2;
 import com.Core.vaadin.tables.Triangulos;
+import com.Core.vaadin.workingWithForms.MyIconos;
+import com.Core.vaadin.workingWithForms.Main;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
+import com.vaadin.ui.Label;
 
 public class OpcionesDeMenu implements ItemClickListener {
 	
 	private static final long serialVersionUID = 1L;
-
+	private Core getUI = Core.getCurrent();
 	@Override
 	public void itemClick(ItemClickEvent event) {
 		
 		Object value = event.getItemId();
-		Core current = Core.getCurrent();
-		
-		ContentLayout contentLayout = current.getPageLayout().getBodyLayout().getContentLayout();
+	
+		ContentLayout contentLayout = getUI.getPageLayout().getBodyLayout().getContentLayout();
 		
 		contentLayout.removeAllComponents();
 		
-		if(MenuLayout.CONTENT.equals(value)) {
+		if(MenuLayout.MENU.equals("value")) {
+			contentLayout.addComponent(new Label("Hola"));
+			
+		}else if(MenuLayout.CONTENT.equals(value)) {
 			
 			BotonSwitch layout = new BotonSwitch();
 			contentLayout.addComponent(layout);
@@ -60,11 +61,6 @@ public class OpcionesDeMenu implements ItemClickListener {
 			
 			BarraCarga barra = new BarraCarga();
 			contentLayout.addComponent(barra);
-			
-		}else if(MenuLayout.ICONO.equals(value)) {
-			
-			MyIconos icono = new MyIconos();
-			contentLayout.addComponent(icono);
 			
 		}else if(MenuLayout.ICONO2.equals(value)) {
 			
@@ -92,7 +88,7 @@ public class OpcionesDeMenu implements ItemClickListener {
 			contentLayout.addComponent(calc);
 		
 		}else if(MenuLayout.VALIDAR.equals(value)) {
-			Validar validar = new Validar();
+			Main validar = new Main();
 			contentLayout.addComponent(validar);
 		}else if(MenuLayout.PUSH_SERVER.equals(value)) {
 			NoticeBoard nota = new NoticeBoard();

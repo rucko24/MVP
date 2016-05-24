@@ -1,4 +1,4 @@
-package com.Core.vaadin.barraCarga;
+package com.Core.vaadin.workingWithForms;
 
 import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.Alignment;

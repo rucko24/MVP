@@ -1,17 +1,15 @@
-package com.Core.vaadin;
+package com.Core.vaadin.workingWithForms;
 
-import com.Core.vaadin.workingWithForms.CustomValidation;
-import com.Core.vaadin.workingWithForms.PinValidador;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
-public class Validar extends VerticalLayout {
+public class Main extends VerticalLayout {
 	
 	private VerticalLayout layout = new VerticalLayout();
 	private TextField texto = new TextField("Enter pin code");
 	private TabSheet tab = new TabSheet();
 	
-	public Validar() {
+	public Main() {
 		
 		setSpacing(true);
 		
@@ -21,10 +19,11 @@ public class Validar extends VerticalLayout {
 		layout.setMargin(true);
 		
 		CustomValidation validar = new CustomValidation();
+		MyIconos iconos = new MyIconos();
 		
 		tab.addTab(layout, "Pin Validador");
 		tab.addTab(validar, "Custom-Validation");
-		
+		tab.addTab(iconos, "Formulario-iconos-runo");
 		addComponent(tab);
 	}
 }
