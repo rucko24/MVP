@@ -12,8 +12,8 @@ public class MenuLayout extends VerticalLayout {
 	
 	private static final long serialVersionUID = 1L;
 	public static final String LOGO = "ICONO";
-	public static final String MENU = "Opciones";
-	public static final String CONTENT = "Test-Arduino";
+	public static final String HOME = "HOME";
+	public static final String ARDUINO = "ARDUINO";
 	public static final String CONTENT2 = "Tablas";
 	public static final String TREETABLA = "Tree-Tabla + Container";
 	public static final String TREETABLA2 = "Tree-Tabla-Familiar";
@@ -24,7 +24,7 @@ public class MenuLayout extends VerticalLayout {
 	public static final String TIPOSDETEMAS = "DashBoard";
 	public static final String TRIANGULO = "Triángulos";
 	public static final String CALCULADOR = "Calculador Básico";
-	public static final String VALIDAR = "Workin with forms";
+	public static final String WORKINGWITHFORM = "Workin with forms";
 	public static final String PUSH_SERVER = "PUSH SERVER";
 	public static final String PRUEBA_LABEL = "Label Push";
 	public static final String PRUEBA_LABEL2 = "Label Push";
@@ -49,7 +49,7 @@ public class MenuLayout extends VerticalLayout {
 		
 		tree.setWidth("100%");
 		tree.addStyleName("arbol"); //estilo de arbol, background caption selected
-		tree.addItem(MENU);
+		tree.addItem(HOME);
 		tree.addItem(TREETABLA);
 		tree.addItem(TREETABLA2);
 		tree.addItem(BARRA);
@@ -59,39 +59,20 @@ public class MenuLayout extends VerticalLayout {
 		tree.addItem(TIPOSDETEMAS);
 		tree.addItem(TRIANGULO);
 		tree.addItem(CALCULADOR);
-		tree.addItem(VALIDAR);
+		tree.addItem(WORKINGWITHFORM);
 		tree.addItem(PUSH_SERVER);
 		tree.addItem(PRUEBA_LABEL);
-		
-		tree.setChildrenAllowed(MENU, true);
-		
-		tree.addItem(CONTENT);
+		tree.addItem(ARDUINO);
 		tree.addItem(CONTENT2);
-		
-		tree.setParent(CONTENT, MENU);
-		tree.setChildrenAllowed(CONTENT, false);
-		
-		tree.setParent(CONTENT2, MENU);
-		tree.setChildrenAllowed(CONTENT2, false);
-		
-		tree.setParent(BARRA,MENU);
-		tree.setChildrenAllowed(BARRA, false);
-		
-		tree.setParent(ICONO2, MENU);
-		tree.setChildrenAllowed(ICONO2, false);
-		
-		tree.setParent(DOWNLOADER, MENU);
-		tree.setChildrenAllowed(DOWNLOADER, false);
-		
-		tree.setParent(CLICKENTABLE, MENU);
-		tree.setChildrenAllowed(CLICKENTABLE, false);
+	
+		tree.setChildrenAllowed(HOME, false);
 		
 		//setParent(CALCULADOR, MENU);
 		tree.setChildrenAllowed(CALCULADOR, false);
 		
 		tree.setChildrenAllowed(TRIANGULO, true);
 		
-		tree.setChildrenAllowed(VALIDAR, false);
+		tree.setChildrenAllowed(WORKINGWITHFORM, false);
 		
 		//SERVER PUSH
 		tree.setChildrenAllowed(PUSH_SERVER, true);
@@ -101,7 +82,6 @@ public class MenuLayout extends VerticalLayout {
 		tree.setParent(CALCULADOR, PUSH_SERVER);
 		tree.setChildrenAllowed(PRUEBA_LABEL, false);
 		
-		tree.expandItemsRecursively(MENU);
 		tree.setNullSelectionAllowed(false);		
 		
 		OpcionesDeMenu opciones = new OpcionesDeMenu();

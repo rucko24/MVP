@@ -34,14 +34,12 @@ public class OpcionesDeMenu implements ItemClickListener {
 		
 		contentLayout.removeAllComponents();
 		
-		if(MenuLayout.MENU.equals("value")) {
-			contentLayout.addComponent(new Label("Hola"));
+		if(MenuLayout.HOME.equals("value")) {
+			contentLayout.addComponent(ContentLayout.getLayout());
 			
-		}else if(MenuLayout.CONTENT.equals(value)) {
-			
+		}else if(MenuLayout.ARDUINO.equals(value)) {
 			BotonSwitch layout = new BotonSwitch();
 			contentLayout.addComponent(layout);
-			
 		}else if(MenuLayout.CONTENT2.equals(value)) {
 			
 			FieldFactory layout = new FieldFactory();
@@ -87,9 +85,10 @@ public class OpcionesDeMenu implements ItemClickListener {
 			Calculador calc = new Calculador();
 			contentLayout.addComponent(calc);
 		
-		}else if(MenuLayout.VALIDAR.equals(value)) {
-			Main validar = new Main();
-			contentLayout.addComponent(validar);
+		}else if(MenuLayout.WORKINGWITHFORM.equals(value)) {
+			/*Main validar = new Main();
+			contentLayout.addComponent(validar);*/
+			contentLayout.addComponent(ContentLayout.getLayout());
 		}else if(MenuLayout.PUSH_SERVER.equals(value)) {
 			NoticeBoard nota = new NoticeBoard();
 			contentLayout.addComponent(nota);

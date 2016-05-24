@@ -9,6 +9,7 @@ import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.PasswordField;
+import com.vaadin.ui.ProgressBar;
 import com.vaadin.ui.TextField;
 
 public class CustomValidation extends FormLayout {
@@ -18,11 +19,12 @@ public class CustomValidation extends FormLayout {
 	private Button okButton = new Button("OK");
 	private static final String CONFIRM_MESSAGE = "Password are the same";
 	private static final String ERROR_MESSAGE = "Password must match";
-
+	private ProgressBar progresssBar = new ProgressBar();
+	
 	public CustomValidation() {
 		setSizeUndefined();
 		setMargin(true);
-		
+		progresssBar.setIndeterminate(true);
 		confirmPasswordField.addValidator(new Validator() {
 				
 			@Override
@@ -32,7 +34,6 @@ public class CustomValidation extends FormLayout {
 					throw new InvalidValueException(ERROR_MESSAGE);
 				}
 			}
-			
 		});
 		
 		
@@ -42,7 +43,8 @@ public class CustomValidation extends FormLayout {
 				
 				confirmPasswordField.validate();
 				notificacion(CONFIRM_MESSAGE, Type.TRAY_NOTIFICATION);
-				
+				removeAllComponents();
+				addComponent(progresssBar);
 			}catch(Exception ee) {
 				notificacion(ERROR_MESSAGE, Type.WARNING_MESSAGE);
 				confirmPasswordField.focus();
@@ -59,5 +61,6 @@ public class CustomValidation extends FormLayout {
 		return n;
 		
 	}
+
 	
 }
