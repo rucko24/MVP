@@ -30,12 +30,12 @@ public class CustomValidation extends FormLayout {
 			@Override
 			public void validate(Object value) throws InvalidValueException {
 				String pass = (String) value;
-				if(!pass.equals(newPassWordField.getValue())) {
+				if(!(pass.equals("1234") && (newPassWordField.getValue().equals("ruben")))) {
 					throw new InvalidValueException(ERROR_MESSAGE);
 				}
 			}
 		});
-		
+		confirmPasswordField.setValidationVisible(false);
 		
 		okButton.setClickShortcut(KeyCode.ENTER);
 		okButton.addClickListener( e -> {
@@ -47,6 +47,7 @@ public class CustomValidation extends FormLayout {
 				addComponent(progresssBar);
 			}catch(Exception ee) {
 				notificacion(ERROR_MESSAGE, Type.WARNING_MESSAGE);
+				confirmPasswordField.setValidationVisible(true);
 				confirmPasswordField.focus();
 			}
 		});
