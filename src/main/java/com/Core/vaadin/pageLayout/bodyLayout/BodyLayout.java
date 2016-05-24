@@ -1,5 +1,7 @@
-package com.Core.vaadin;
+package com.Core.vaadin.pageLayout.bodyLayout;
 
+import com.Core.vaadin.pageLayout.bodyLayout.contentLayout.ContentLayout;
+import com.Core.vaadin.pageLayout.bodyLayout.menuLayout.MenuLayout;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.Label;

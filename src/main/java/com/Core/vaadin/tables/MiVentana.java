@@ -1,6 +1,6 @@
 package com.Core.vaadin.tables;
 
-import com.Core.vaadin.validadores.PinValidador;
+import com.Core.vaadin.workingWithForms.PinValidador;
 import com.vaadin.client.ui.Icon;
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.server.Page;

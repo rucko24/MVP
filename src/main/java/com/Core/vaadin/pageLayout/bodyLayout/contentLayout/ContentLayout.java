@@ -1,4 +1,4 @@
-package com.Core.vaadin;
+package com.Core.vaadin.pageLayout.bodyLayout.contentLayout;
 
 import com.vaadin.ui.VerticalLayout;
 

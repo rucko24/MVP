@@ -1,7 +1,8 @@
-package com.Core.vaadin;
+package com.Core.vaadin.arduino;
 
 import org.vaadin.teemu.switchui.Switch;
 
+import com.Core.vaadin.Core;
 import com.github.wolfie.refresher.Refresher;
 import com.panamahitek.PanamaHitek_Arduino;
 import com.vaadin.server.ThemeResource;

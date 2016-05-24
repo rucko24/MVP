@@ -1,4 +1,4 @@
-package com.Core.vaadin;
+package com.Core.vaadin.pageLayout.headerLayout;
 
 import com.vaadin.server.ThemeResource;
 import com.vaadin.shared.ui.label.ContentMode;

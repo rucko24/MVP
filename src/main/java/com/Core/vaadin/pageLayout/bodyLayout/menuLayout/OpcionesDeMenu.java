@@ -1,13 +1,18 @@
-package com.Core.vaadin;
+package com.Core.vaadin.pageLayout.bodyLayout.menuLayout;
 
 
 
+import com.Core.vaadin.Calculador;
+import com.Core.vaadin.Core;
+import com.Core.vaadin.Validar;
+import com.Core.vaadin.arduino.BotonSwitch;
 import com.Core.vaadin.barraCarga.BarraCarga;
 import com.Core.vaadin.barraCarga.ContextMenu;
 import com.Core.vaadin.barraCarga.Downloader;
 import com.Core.vaadin.barraCarga.EjemploTema;
 import com.Core.vaadin.barraCarga.Iconos2;
 import com.Core.vaadin.barraCarga.MyIconos;
+import com.Core.vaadin.pageLayout.bodyLayout.contentLayout.ContentLayout;
 import com.Core.vaadin.pushServer.NoticeBoard;
 import com.Core.vaadin.pushServer.PruebaLabel;
 import com.Core.vaadin.tables.FieldFactory;
@@ -34,11 +39,6 @@ public class OpcionesDeMenu implements ItemClickListener {
 		if(MenuLayout.CONTENT.equals(value)) {
 			
 			BotonSwitch layout = new BotonSwitch();
-			contentLayout.addComponent(layout);
-			
-		}else if(MenuLayout.MENU.equals(value)) {
-			
-			ContenidoMenu layout = new ContenidoMenu();
 			contentLayout.addComponent(layout);
 			
 		}else if(MenuLayout.CONTENT2.equals(value)) {

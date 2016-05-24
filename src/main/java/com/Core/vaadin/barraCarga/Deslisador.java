@@ -1,7 +1,7 @@
 package com.Core.vaadin.barraCarga;
 
 import com.Core.vaadin.Core;
-import com.Core.vaadin.tables.Arduino;
+import com.Core.vaadin.arduino.Arduino;
 import com.vaadin.ui.ColorPicker;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Slider;

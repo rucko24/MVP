@@ -1,5 +1,8 @@
-package com.Core.vaadin;
+package com.Core.vaadin.pageLayout;
 
+import com.Core.vaadin.Core;
+import com.Core.vaadin.pageLayout.bodyLayout.BodyLayout;
+import com.Core.vaadin.pageLayout.headerLayout.HeaderLayout;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.Page;

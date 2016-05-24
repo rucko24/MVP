@@ -1,7 +1,7 @@
 package com.Core.vaadin;
 
-import com.Core.vaadin.validadores.CustomValidation;
-import com.Core.vaadin.validadores.PinValidador;
+import com.Core.vaadin.workingWithForms.CustomValidation;
+import com.Core.vaadin.workingWithForms.PinValidador;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;

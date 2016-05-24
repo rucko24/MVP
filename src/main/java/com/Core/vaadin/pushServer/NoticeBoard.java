@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.Core.vaadin.Core;
-import com.Core.vaadin.tables.Arduino;
+import com.Core.vaadin.arduino.Arduino;
 import com.github.wolfie.refresher.Refresher;
 import com.vaadin.event.FieldEvents.BlurEvent;
 import com.vaadin.event.FieldEvents.BlurListener;

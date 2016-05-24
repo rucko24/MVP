@@ -1,4 +1,4 @@
-package com.Core.vaadin.tables;
+package com.Core.vaadin.arduino;
 
 import com.panamahitek.PanamaHitek_Arduino;
 

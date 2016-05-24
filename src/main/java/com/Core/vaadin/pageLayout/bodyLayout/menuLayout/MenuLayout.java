@@ -1,4 +1,4 @@
-package com.Core.vaadin;
+package com.Core.vaadin.pageLayout.bodyLayout.menuLayout;
 
 import com.vaadin.server.ThemeResource;
 import com.vaadin.shared.ui.label.ContentMode;
@@ -25,7 +25,7 @@ public class MenuLayout extends VerticalLayout {
 	public static final String TIPOSDETEMAS = "DashBoard";
 	public static final String TRIANGULO = "Triángulos";
 	public static final String CALCULADOR = "Calculador Básico";
-	public static final String VALIDAR = "Validaciones";
+	public static final String VALIDAR = "Workin with forms";
 	public static final String PUSH_SERVER = "PUSH SERVER";
 	public static final String PRUEBA_LABEL = "Label Push";
 	public static final String PRUEBA_LABEL2 = "Label Push";
