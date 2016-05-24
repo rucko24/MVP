@@ -150,7 +150,7 @@ public class Chart extends VerticalLayout {
 			//dividirlo entre 180 para lograr la 
 			//conversion,,,la funsion seno recibe radianes
 			double radianes = x[f] * Math.PI / 180;
-			//y[f] = Math.sin(radianes);
+			//y[f] = Math.sin(radianes);//senoidal
 			y[f] = Math.exp(f);//para graficar en una escala logaritmica tendria que ser una linea recta
 		}
 		
