@@ -52,6 +52,7 @@ public class JfreeGrafico extends VerticalLayout {
 	}
 	
 	public static JFreeChartWrapper createBasicDemo() {
+		
         JFreeChart createchart = createchart(createDataset());
         JFreeChartWrapper jWrapper = new JFreeChartWrapper(createchart) {
         	@Override

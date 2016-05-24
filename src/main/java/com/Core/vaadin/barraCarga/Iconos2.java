@@ -1,5 +1,6 @@
 package com.Core.vaadin.barraCarga;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -91,8 +92,8 @@ public class Iconos2 extends VerticalLayout {
 		Chart linea = new Chart(Chart.LINEA, "Chart Linea");
 		Chart polar = new Chart(Chart.POLAR, "Chart Polar");
 		Chart serieTiempo = new Chart(Chart.SERIETIEMPO, "Chart Serie Tiempo");
-		
-		VerticalLayout centrar = new VerticalLayout(dispercion,area,paso, pasoArea, linea, polar, serieTiempo);
+		Chart logaritmica = new Chart(Chart.LOGARITMICA, "Chart logaritmica");
+		VerticalLayout centrar = new VerticalLayout(dispercion,area,paso, pasoArea, linea, polar, serieTiempo, logaritmica);
 		centrar.setSizeUndefined();
 		centrar.setSpacing(true);
 		

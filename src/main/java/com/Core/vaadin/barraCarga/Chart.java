@@ -1,5 +1,8 @@
 package com.Core.vaadin.barraCarga;
 
+import java.awt.Color;
+import java.awt.Paint;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.LogarithmicAxis;
@@ -40,6 +43,8 @@ public class Chart extends VerticalLayout {
 		setSizeFull();
 		this.titulo = titulo;
 		tipoGrafica(tipo);
+		
+		this.addComponent(jWrapper());
 	}
 	
 	public void tipoGrafica(int tipo) {
@@ -78,27 +83,25 @@ public class Chart extends VerticalLayout {
 			break;
 		}
 
-		x = rango(1,360,0.5);
+		x = rango(1,360,10);
 		//llenando los valores de y con respecto al los de x
 		//donde pasamos el vector x, y regresara el SENO
 		y = f(x);
 		
 		agregarGrafica("sin(x)", x, y);
 		
-		this.addComponent(jWrapper());
+		
 	}
 	
 	public JFreeChartWrapper jWrapper() {
 		
-		JFreeChartWrapper wrapper = new JFreeChartWrapper(grafica) {
-        	@Override
-        	public void attach() {
-        		super.attach();
-        		setResource("src", getSource());
-        	}
+		return new JFreeChartWrapper(grafica) {
+			@Override
+			public void attach() {
+				super.attach();
+				setResource("src", getSource());
+			}
 		};
-		
-		return wrapper;
 	}
 	
 	public void agregarGrafica(String id, double x[], double y[]) {
@@ -147,7 +150,8 @@ public class Chart extends VerticalLayout {
 			//dividirlo entre 180 para lograr la 
 			//conversion,,,la funsion seno recibe radianes
 			double radianes = x[f] * Math.PI / 180;
-			y[f] = Math.sin(radianes);
+			//y[f] = Math.sin(radianes);
+			y[f] = Math.exp(f);//para graficar en una escala logaritmica tendria que ser una linea recta
 		}
 		
 		return y;
