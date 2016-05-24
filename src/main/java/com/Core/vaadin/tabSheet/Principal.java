@@ -1,12 +1,8 @@
 package com.Core.vaadin.tabSheet;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-
-import org.jfree.chart.ChartFactory;
-
 import com.Core.vaadin.tabSheet.graficos.Chart;
 import com.Core.vaadin.tabSheet.graficos.JfreeGrafico;
 import com.vaadin.server.ClassResource;
@@ -22,7 +18,7 @@ import com.vaadin.ui.Image;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.VerticalLayout;
 
-public class Iconos2 extends VerticalLayout {
+public class Principal extends VerticalLayout {
 	
 	/**
 	 * 
@@ -30,7 +26,7 @@ public class Iconos2 extends VerticalLayout {
 	private static final long serialVersionUID = 1L;
 	private TabSheet tab = new TabSheet();
 	
-	public Iconos2() {
+	public Principal() {
 		
 		setHeight("580px");;
 		tab.setSizeFull();

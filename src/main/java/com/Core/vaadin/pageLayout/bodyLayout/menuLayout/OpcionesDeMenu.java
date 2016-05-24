@@ -9,7 +9,7 @@ import com.Core.vaadin.pushServer.PruebaLabel;
 import com.Core.vaadin.tabSheet.ContextMenu;
 import com.Core.vaadin.tabSheet.Downloader;
 import com.Core.vaadin.tabSheet.EjemploTema;
-import com.Core.vaadin.tabSheet.Iconos2;
+import com.Core.vaadin.tabSheet.Principal;
 import com.Core.vaadin.tabSheet.progressBar.BarraCarga;
 import com.Core.vaadin.tables.FieldFactory;
 import com.Core.vaadin.tables.TreeTabla;
@@ -61,7 +61,7 @@ public class OpcionesDeMenu implements ItemClickListener {
 			
 		}else if(MenuLayout.ICONO2.equals(value)) {
 			
-			Iconos2 icono = new Iconos2();
+			Principal icono = new Principal();
 			contentLayout.addComponent(icono);
 			
 		}else if(MenuLayout.DOWNLOADER.equals(value)) {
