@@ -26,9 +26,8 @@ public class Arduino2 extends VerticalLayout {
 	
 	private int f;
 	private static PanamaHitek_Arduino arduino = new PanamaHitek_Arduino();
-	
-	public Arduino2() {
 		
+	public Arduino2() {
 		
 		this.f = 0;
 		xySeries = new XYSeries("Temperatura");
@@ -36,7 +35,6 @@ public class Arduino2 extends VerticalLayout {
 		
 		serialPortE = new SerialPortEventListener() {
 			
-			@Override
 			public void serialEvent(SerialPortEvent arg0) {
 				if(arduino.isMessageAvailable() == true) {
 					
@@ -47,23 +45,10 @@ public class Arduino2 extends VerticalLayout {
 			}
 		};
 		
-		iniciarConexion();
 		
-		addComponent(wrapper());
 	}
 	
-	public JFreeChartWrapper wrapper() {
-		return new JFreeChartWrapper(jfreeChar) {
-			
-			@Override
-			public void attach() {
-				super.attach();
-				setResource("src", getSource());
-			}
-		};
-	}
-	
-	public void iniciarConexion() {
+	public void init() {
 		
 		try {
 			arduino.arduinoRX("/dev/ttyS0", 9600, serialPortE);
@@ -78,6 +63,19 @@ public class Arduino2 extends VerticalLayout {
 		
 		jfreeChar = ChartFactory.createXYLineChart("Temperatura vs Tiempo", "TIEMPO", "TEMPERATURA"
 				, xySeriesCollection, PlotOrientation.VERTICAL, true, true, false);
+		
+		addComponent(wrapper());
+	}
+
+	public JFreeChartWrapper wrapper() {
+		return new JFreeChartWrapper(jfreeChar) {
+			
+			@Override
+			public void attach() {
+				super.attach();
+				setResource("src", getSource());
+			}
+		};
 	}
 	
 	public void stopConexion() {
@@ -90,7 +88,5 @@ public class Arduino2 extends VerticalLayout {
 		}
 		
 	}
-	public static PanamaHitek_Arduino getArduinoPanameño() {
-		return arduino;
-	}
+	
 }

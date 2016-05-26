@@ -26,7 +26,7 @@ public class BotonSwitch extends TabSheet {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private static Arduino2 arduino2;
+	private Arduino2 arduino;
 	
 	private Label label = new Label("<h1><strong>Testing-the-foc@</strong></h1>",ContentMode.HTML);
 	private Button btnSwitch = new Button();
@@ -44,6 +44,7 @@ public class BotonSwitch extends TabSheet {
 	
 	private Switch botonSwitch = new Switch();
 	private Button botonIniciar = new Button("iniciar");
+	private VerticalLayout layoutOnOff = new VerticalLayout();
 	
 	public BotonSwitch() {
 		
@@ -108,15 +109,18 @@ public class BotonSwitch extends TabSheet {
 		botonSwitch.setImmediate(true);
 		
 		Component header = getHeader();
+		Component iniciar = botonIniciar();
 		
-		VerticalLayout layoutArdu = new VerticalLayout( header);
-		layoutArdu.setSpacing(true);
-		layoutArdu.setSizeFull();
-		layoutArdu.setComponentAlignment(header, Alignment.BOTTOM_CENTER);
-		//layoutArdu.setComponentAlignment(arduino, Alignment.BOTTOM_CENTER);
+		
+		layoutOnOff.addComponents(header, iniciar);
+		layoutOnOff.setSpacing(true);
+		layoutOnOff.setSizeFull();
+		layoutOnOff.setComponentAlignment(header, Alignment.BOTTOM_CENTER);
+		layoutOnOff.setComponentAlignment(iniciar, Alignment.BOTTOM_CENTER);
+	
 		
 		addTab(vLayout,"ON/OFF");
-		addTab(layoutArdu, "Gráfico-LM35");
+		addTab(layoutOnOff, "Gráfico-LM35");
 		
 		
 		Core.atachListening(this);		
@@ -132,13 +136,6 @@ public class BotonSwitch extends TabSheet {
 		labelArduino.setIcon(logoArduino);
 		labelArduino.setSizeUndefined();
 		
-		Component init = botonIniciar();
-		Component stop = botonStop();
-		
-		layout.addComponents(init, stop);
-		layout.setComponentAlignment(init, Alignment.MIDDLE_CENTER);
-		layout.setComponentAlignment(stop, Alignment.MIDDLE_RIGHT);
-		
 		return layout;
 		
 	}
@@ -149,8 +146,14 @@ public class BotonSwitch extends TabSheet {
 		botonIniciar.addClickListener( e -> {
 			botonIniciar.setComponentError(null);
 			try {
-				//arduino2 = new Arduino2();
-				//arduino2(arduino2);
+				if(arduino == null) {
+					
+					grafico();
+					System.out.println("botonnnnnnnn");
+					botonIniciar.setEnabled(false);
+				}
+				
+				
 			}catch(UnsatisfiedLinkError ex) {
 				Notification.show(ex.getMessage(), Notification.Type.ERROR_MESSAGE);
 			}catch(NoClassDefFoundError ex) {
@@ -158,9 +161,18 @@ public class BotonSwitch extends TabSheet {
 			}
 			
 		});
-		
+				
 		return botonIniciar;
 	}
+	
+	public void grafico() {
+		
+		arduino = new Arduino2();
+		arduino.init();
+		layoutOnOff.addComponent(arduino);
+		
+	}
+
 	
 	public Component botonStop( ) {
 		
