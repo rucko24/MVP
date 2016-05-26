@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.annotation.WebServlet;
 
+import com.Core.vaadin.arduino.Arduino;
 import com.Core.vaadin.arduino.BotonSwitch;
 import com.Core.vaadin.pageLayout.PageLayout;
 import com.Core.vaadin.tabSheet.graficos.JfreeGrafico;
@@ -36,8 +37,6 @@ public class Core extends UI {
     @Override
     protected void init(VaadinRequest vaadinRequest) {
     	
-    	
-    	
     	pageLayout = new PageLayout();
     	
     	Navigator navigator = new Navigator(this, this);
@@ -45,7 +44,7 @@ public class Core extends UI {
     	navigator.addView(Login.LOGIN_VIEW, new Login());
     	navigator.addView(PageLayout.PAGELAYOUT_VIEW, pageLayout);
     	
-    	navigator.navigateTo(PageLayout.PAGELAYOUT_VIEW);
+    	navigator.navigateTo(Login.LOGIN_VIEW);
     	
     	
     	//agrega el layout MAIN

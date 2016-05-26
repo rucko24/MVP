@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
+import com.Core.vaadin.Core;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.ProgressBar;
 import com.vaadin.ui.Upload.FinishedEvent;
@@ -19,13 +20,13 @@ import com.vaadin.ui.VerticalLayout;
  */
 public class ProgressBarListener extends VerticalLayout implements Receiver, ProgressListener, StartedListener, FinishedListener{
 	
-	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
 	private final ProgressBar indicator;
+	private Core getUI = Core.getCurrent();
 	
 	public ProgressBarListener(ProgressBar indicator) {
 		this.indicator = indicator;
@@ -55,22 +56,29 @@ public class ProgressBarListener extends VerticalLayout implements Receiver, Pro
 			e.printStackTrace();
 		}
 		float newValue = readBytes / (float) contentLength;
-		indicator.setValue(newValue);
+		
+		getUI.access(new Runnable() {
+			@Override
+			public void run() {
+				indicator.setValue(newValue);
+			}
+		});
+		
 	}
 
 	@Override
 	public void uploadStarted(StartedEvent event) {
-		addComponent(indicator);
+		this.addComponent(indicator);
+		getUI.setPollInterval(120);
 		Notification.show("Carga, iniciada", Notification.Type.TRAY_NOTIFICATION);
 		
 	}
 	
 	@Override
 	public void uploadFinished(FinishedEvent event) {
-		removeComponent(indicator);
-		Notification.show("Carga, finalizada", Notification.Type.TRAY_NOTIFICATION);;
+		this.removeComponent(indicator);
+		Notification.show("Carga, finalizada", Notification.Type.TRAY_NOTIFICATION);
+		getUI.setPollInterval(-1);
 	}
-
-	
 	
 }

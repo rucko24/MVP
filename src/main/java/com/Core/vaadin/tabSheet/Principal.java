@@ -85,8 +85,6 @@ public class Principal extends VerticalLayout {
 		
 		JfreeGrafico o = new JfreeGrafico();
 		
-		
-		
 		Chart dispercion = new Chart(Chart.DISPERSION, "Chart Dispercion");
 		Chart area = new Chart(Chart.AREA, "Chart Area");
 		Chart paso = new Chart(Chart.PASO, "Chart Paso");
@@ -101,13 +99,14 @@ public class Principal extends VerticalLayout {
 		
 		VerticalLayout layoutChart = new VerticalLayout(centrar);
 		layoutChart.setComponentAlignment(centrar, Alignment.BOTTOM_CENTER);
-		/*
-		 * 
-		 */
 		
+		/*
+		 * BARRA DE CARGAR CON IMAGEN, MODIFICAR, NO AGREGA EL INDICADOR DE SUBIDA, PROGRESSBAR
+		 */
 		ProgressBar indicator = new ProgressBar(0.0f);
 		ProgressBarListener  progressBarListener = new ProgressBarListener(indicator);
-		Upload upload = new Upload("Cargando", progressBarListener);
+		Upload upload = new Upload("Cargar Imagen", progressBarListener);
+		upload.setButtonCaption("cargar");
 		upload.addProgressListener(progressBarListener);
 		upload.addFinishedListener(progressBarListener);
 		upload.addStartedListener(progressBarListener);
