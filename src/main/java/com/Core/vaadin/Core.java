@@ -25,7 +25,6 @@ import com.vaadin.ui.UI;
 public class Core extends UI {
 	
 	private PageLayout pageLayout;
-	
 	private static PanamaHitek_Arduino arduino = new PanamaHitek_Arduino();
 
 	//este flag te va servir para el estado del bombillo

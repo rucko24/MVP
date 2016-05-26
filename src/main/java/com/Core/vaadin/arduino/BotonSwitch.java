@@ -84,6 +84,15 @@ public class BotonSwitch extends VerticalLayout {
 		
 		botonSwitch.addValueChangeListener( e -> {
 			
+			boolean isValid = (boolean) e.getProperty().getValue();
+			
+			if(isValid) {
+				
+				Notification.show("ON");
+				
+			}else {
+				Notification.show("OFF");
+			}
 			
 			
 		});
