@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.annotation.WebServlet;
-
-import com.Core.vaadin.arduino.Arduino;
 import com.Core.vaadin.arduino.Arduino2;
 import com.Core.vaadin.arduino.BotonSwitch;
 import com.Core.vaadin.pageLayout.PageLayout;
@@ -80,7 +78,7 @@ public class Core extends UI {
 
 //con este metodo remuevo botones a la lista botones
   public static void detachListening(BotonSwitch boton){
-	  botones.remove(boton);		
+	  botones.remove(boton);	
   }
 
   /*public static Arduino2 getArduino() {

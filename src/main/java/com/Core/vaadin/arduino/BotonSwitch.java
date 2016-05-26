@@ -7,6 +7,7 @@ import com.vaadin.server.ThemeResource;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
@@ -14,6 +15,7 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.themes.ValoTheme;
 
 
 
@@ -24,7 +26,7 @@ public class BotonSwitch extends TabSheet {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	//private  Arduino2 arduino = Core.getArduino();
+	private static Arduino2 arduino2;
 	
 	private Label label = new Label("<h1><strong>Testing-the-foc@</strong></h1>",ContentMode.HTML);
 	private Button btnSwitch = new Button();
@@ -41,6 +43,7 @@ public class BotonSwitch extends TabSheet {
 	private Label bombilla = new Label();	
 	
 	private Switch botonSwitch = new Switch();
+	private Button botonIniciar = new Button("iniciar");
 	
 	public BotonSwitch() {
 		
@@ -92,28 +95,34 @@ public class BotonSwitch extends TabSheet {
 		botonSwitch.setAnimationEnabled(true);
 		
 		botonSwitch.addValueChangeListener( e -> {
-			boolean isValid = (boolean) e.getProperty().getValue();
-			if(isValid) 	
+			Core.changeSwitch();
+			
+			if(Core.isSwitchOn()) {
 				Notification.show("ON");
-			else 
-				Notification.show("OFF");
+			}else {
+				Notification.show("Off");
+
+			}
+			
 		});
 		botonSwitch.setImmediate(true);
 		
-		/*VerticalLayout layoutArdu = new VerticalLayout( getresourceIdHeader, arduino);
+		Component header = getHeader();
+		
+		VerticalLayout layoutArdu = new VerticalLayout( header);
 		layoutArdu.setSpacing(true);
 		layoutArdu.setSizeFull();
-		layoutArdu.setComponentAlignment(getHeader, Alignment.BOTTOM_CENTER);
-		//layoutArdu.setComponentAlignment(arduino, Alignment.BOTTOM_CENTER);*/
+		layoutArdu.setComponentAlignment(header, Alignment.BOTTOM_CENTER);
+		//layoutArdu.setComponentAlignment(arduino, Alignment.BOTTOM_CENTER);
 		
 		addTab(vLayout,"ON/OFF");
-		//addTab(layoutArdu, "Gráfico-LM35");
+		addTab(layoutArdu, "Gráfico-LM35");
 		
 		
 		Core.atachListening(this);		
 		
 	}
-
+	
 	private Component getHeader() {
 		
 		//retorna el titulo del Ardu
@@ -122,12 +131,47 @@ public class BotonSwitch extends TabSheet {
 		layout.setWidth("70%");
 		labelArduino.setIcon(logoArduino);
 		labelArduino.setSizeUndefined();
-		layout.addComponents(labelArduino);
-		//layout.setComponentAlignment(label, Alignment.MIDDLE_CENTER);
-		layout.setComponentAlignment(labelArduino, Alignment.MIDDLE_RIGHT);
+		
+		Component init = botonIniciar();
+		Component stop = botonStop();
+		
+		layout.addComponents(init, stop);
+		layout.setComponentAlignment(init, Alignment.MIDDLE_CENTER);
+		layout.setComponentAlignment(stop, Alignment.MIDDLE_RIGHT);
 		
 		return layout;
 		
+	}
+	
+	public Component botonIniciar() {
+		
+		botonIniciar.addStyleName(ValoTheme.BUTTON_PRIMARY);
+		botonIniciar.addClickListener( e -> {
+			botonIniciar.setComponentError(null);
+			try {
+				//arduino2 = new Arduino2();
+				//arduino2(arduino2);
+			}catch(UnsatisfiedLinkError ex) {
+				Notification.show(ex.getMessage(), Notification.Type.ERROR_MESSAGE);
+			}catch(NoClassDefFoundError ex) {
+				Notification.show(ex.getMessage(), Notification.Type.ERROR_MESSAGE);
+			}
+			
+		});
+		
+		return botonIniciar;
+	}
+	
+	public Component botonStop( ) {
+		
+		final Button btnStop = new Button("stop connection");
+		btnStop.addStyleName("danger");
+		btnStop.addClickListener( e -> {
+			btnStop.setComponentError(null);
+				//arduino2().stopConexion();
+		});
+		
+		return btnStop;	
 	}
 	
 	private Component getArea1() {
@@ -161,13 +205,13 @@ public class BotonSwitch extends TabSheet {
 	public void changeButtonOnOff(){
 		
 			if(Core.isSwitchOn()) {
-				btnSwitch.addStyleName("switchOn");
-				btnSwitch.removeStyleName("switchOff");
+				
+				
 				bombilla.setIcon(bombillaON);
 			}else {
-			    bombilla.setIcon(bombillaOFF);
-				btnSwitch.addStyleName("switchOff");
-				btnSwitch.removeStyleName("switchOn");
+				
+				
+				bombilla.setIcon(bombillaOFF);
 			}
 	}
 
@@ -175,7 +219,7 @@ public class BotonSwitch extends TabSheet {
 	public void detach(){
 		super.detach();
 		Core.detachListening(this);		
-	}	
+	}
 	
 	
 }

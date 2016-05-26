@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.Core.vaadin.Core;
-import com.Core.vaadin.arduino.Arduino;
 import com.github.wolfie.refresher.Refresher;
 import com.vaadin.event.FieldEvents.BlurEvent;
 import com.vaadin.event.FieldEvents.BlurListener;
@@ -18,10 +17,10 @@ import com.vaadin.ui.TextArea;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
-
+/*
 public class NoticeBoard extends VerticalLayout {
 	
-	private static List<Nota> notas = new ArrayList<>();
+/*	private static List<Nota> notas = new ArrayList<>();
 	private List<Window> windows = new ArrayList<>();
 	private static int userCount;
 	private int userId;
@@ -224,4 +223,4 @@ public class NoticeBoard extends VerticalLayout {
 	}
 	
 	
-}
+}*/

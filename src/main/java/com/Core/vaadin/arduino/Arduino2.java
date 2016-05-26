@@ -1,7 +1,7 @@
 package com.Core.vaadin.arduino;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.awt.List;
+import java.util.ArrayList;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -10,7 +10,6 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.vaadin.addon.JFreeChartWrapper;
 
-import com.Core.vaadin.Core;
 import com.panamahitek.PanamaHitek_Arduino;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
@@ -26,11 +25,11 @@ public class Arduino2 extends VerticalLayout {
 	private SerialPortEventListener serialPortE;
 	
 	private int f;
-	private PanamaHitek_Arduino arduino = new PanamaHitek_Arduino();
+	private static PanamaHitek_Arduino arduino = new PanamaHitek_Arduino();
 	
 	public Arduino2() {
 		
-		setSizeFull();
+		
 		this.f = 0;
 		xySeries = new XYSeries("Temperatura");
 		xySeriesCollection = new XYSeriesCollection();
@@ -42,7 +41,7 @@ public class Arduino2 extends VerticalLayout {
 				if(arduino.isMessageAvailable() == true) {
 					
 					f++;
-				    xySeries.add(f, Integer.valueOf(arduino.printMessage()) );
+				    xySeries.add(f, Integer.parseInt(arduino.printMessage()) );
 					
 				}
 			}
@@ -79,11 +78,19 @@ public class Arduino2 extends VerticalLayout {
 		
 		jfreeChar = ChartFactory.createXYLineChart("Temperatura vs Tiempo", "TIEMPO", "TEMPERATURA"
 				, xySeriesCollection, PlotOrientation.VERTICAL, true, true, false);
-		
-		
 	}
 	
 	public void stopConexion() {
 		
+		try {
+			arduino.killArduinoConnection();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
+		}
+		
+	}
+	public static PanamaHitek_Arduino getArduinoPanameño() {
+		return arduino;
 	}
 }

@@ -15,7 +15,7 @@ import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
 import gnu.io.UnsupportedCommOperationException;
-
+/*
 public class Arduino {
 	
 	private static final String AMARILLO_OFF = "0"; //APAGAR
@@ -90,4 +90,4 @@ public class Arduino {
     	Notification.show(" error "+mensaje);
     }
 	
-}
+}*/

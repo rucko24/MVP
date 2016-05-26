@@ -1,7 +1,6 @@
 package com.Core.vaadin.tabSheet;
 
 import com.Core.vaadin.Core;
-import com.Core.vaadin.arduino.Arduino;
 import com.vaadin.ui.ColorPicker;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Slider;
@@ -16,7 +15,7 @@ public class Deslisador extends VerticalLayout{
 	private static final long serialVersionUID = 1L;
 	private Slider slider = new Slider();
 	private Core ui = Core.getCurrent();
-	private Arduino ardu;
+	//private Arduino ardu;
 	public Deslisador() {
 		
 		setMargin(true);

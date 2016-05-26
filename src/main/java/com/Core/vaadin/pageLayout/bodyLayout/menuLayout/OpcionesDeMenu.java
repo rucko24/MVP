@@ -4,7 +4,6 @@ import com.Core.vaadin.Calculador;
 import com.Core.vaadin.Core;
 import com.Core.vaadin.arduino.BotonSwitch;
 import com.Core.vaadin.pageLayout.bodyLayout.contentLayout.ContentLayout;
-import com.Core.vaadin.pushServer.NoticeBoard;
 import com.Core.vaadin.pushServer.PruebaLabel;
 import com.Core.vaadin.tabSheet.ContextMenu;
 import com.Core.vaadin.tabSheet.Downloader;
@@ -89,8 +88,8 @@ public class OpcionesDeMenu implements ItemClickListener {
 			contentLayout.addComponent(validar);
 			
 		}else if(MenuLayout.PUSH_SERVER.equals(value)) {
-			NoticeBoard nota = new NoticeBoard();
-			contentLayout.addComponent(nota);
+			//NoticeBoard nota = new NoticeBoard();
+			//contentLayout.addComponent(nota);
 		}else if(MenuLayout.PRUEBA_LABEL.equals(value)) {
 			PruebaLabel pruebaLabel = new PruebaLabel();
 			contentLayout.addComponent(pruebaLabel);
