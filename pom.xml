@@ -108,11 +108,7 @@
 			   <version>2.0.3</version>
 			</dependency>
 
-		<dependency>
-			<groupId>com.github.PanamaHitek</groupId>
-			<artifactId>PanamaHitek_Arduino</artifactId>
-			<version>2.7.3</version>
-		</dependency>
+		
 
 
 		<dependency>
@@ -121,12 +117,12 @@
 		</dependency>
 
 		<!-- Dependencia para gnu.io puerto serial librerias -->
+		
 		<dependency>
-			<groupId>org.rxtx</groupId>
-			<artifactId>rxtx</artifactId>
-			<version>2.1.7</version>
+			<groupId>com.github.PanamaHitek</groupId>
+			<artifactId>PanamaHitek_Arduino</artifactId>
+			<version>2.7.3</version>
 		</dependency>
-
 
 	</dependencies>
 	<build>

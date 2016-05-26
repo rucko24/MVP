@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import com.Core.vaadin.arduino.Arduino2;
 import com.Core.vaadin.tabSheet.graficos.Chart;
 import com.Core.vaadin.tabSheet.graficos.JfreeGrafico;
 import com.Core.vaadin.tabSheet.progressBar.ProgressBarListener;
@@ -115,6 +116,10 @@ public class Principal extends VerticalLayout {
 		layoutIndicador.setMargin(true);
 		layoutIndicador.addComponent(upload);
 		
+		Arduino2 arduino = new Arduino2();
+		VerticalLayout layout = new VerticalLayout(arduino);
+		layout.setMargin(true);
+		
 		tab.addTab(imgFromTheme,"Img tema runo");
 		tab.addTab(imgFromClassPath,"Img Globo");
 		tab.addTab(lPagina,"WEB");
@@ -125,6 +130,7 @@ public class Principal extends VerticalLayout {
 		tab.addTab(o, "JFreeChart");
 		tab.addTab(layoutChart, "JFreeChart 2");
 		tab.addTab(layoutIndicador, "Cargar Imagen");
+		
 		addComponent(tab);
 	}
 }

@@ -5,10 +5,9 @@ import java.util.List;
 
 import javax.servlet.annotation.WebServlet;
 
-import com.Core.vaadin.arduino.Arduino;
+import com.Core.vaadin.arduino.Arduino2;
 import com.Core.vaadin.arduino.BotonSwitch;
 import com.Core.vaadin.pageLayout.PageLayout;
-import com.Core.vaadin.tabSheet.graficos.JfreeGrafico;
 import com.panamahitek.PanamaHitek_Arduino;
 import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;
@@ -18,7 +17,6 @@ import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
 
 @Push
 @SuppressWarnings("serial")
@@ -28,7 +26,7 @@ public class Core extends UI {
 	
 	private PageLayout pageLayout;
 	
-	//private static Arduino arduino = new Arduino();
+	private static PanamaHitek_Arduino arduino = new PanamaHitek_Arduino();
 
 	//este flag te va servir para el estado del bombillo
 	private static boolean switchOn = false;
@@ -86,10 +84,10 @@ public class Core extends UI {
 	  botones.remove(boton);		
   }
 
-  /*public static Arduino getArduino() {
+  public static PanamaHitek_Arduino getArduino() {
 	   
 	   return arduino;
-  }*/
+  }
     
     @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
     @VaadinServletConfiguration(ui = Core.class, productionMode = false)

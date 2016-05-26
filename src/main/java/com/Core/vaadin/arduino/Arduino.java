@@ -71,6 +71,7 @@ public class Arduino {
 	            System.exit( 0 );
 	        }
     }
+	
     public void enviarDato( String datos ) {
        
         try {

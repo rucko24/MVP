@@ -3,8 +3,6 @@ package com.Core.vaadin.arduino;
 import org.vaadin.teemu.switchui.Switch;
 
 import com.Core.vaadin.Core;
-import com.github.wolfie.refresher.Refresher;
-import com.panamahitek.PanamaHitek_Arduino;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Alignment;
@@ -63,37 +61,46 @@ public class BotonSwitch extends VerticalLayout {
 			bombilla.setIcon(bombillaOFF);
 			btnSwitch.setPrimaryStyleName("switchOff");
 		}
-			btnSwitch.setSizeUndefined();
-			//Arduino arduino = ui.getArduino();
-			
-			//linea fundamental para conectar con ardu, multiples veces. 
-		btnSwitch.addClickListener( e -> {
-			Core.changeSwitch();
-			if(Core.isSwitchOn()) {
-			//	arduino.enviarDato("255");
-				
-			}else {
-			 //   arduino.enviarDato("0");
-			}
-		});
 		
+		Core.changeSwitch();
+		if(Core.isSwitchOn()) {
+		//	arduino.enviarDato("255");
+			
+		}else {
+		 //   arduino.enviarDato("0");
+		}
 		
 		//bombillo mas botonSwitch
+		Component getHeader = getHeader();
 		Component getArea1 = getArea1();
 		
 		VerticalLayout vLayout = new VerticalLayout(getHeader(),getArea1);
 		
 		tab.addTab(vLayout,"ON/OFF");
 		botonSwitch.setAnimationEnabled(true);
-		botonSwitch.setStyleName("v-switch");
+		//botonSwitch.setStyleName("v-switch");
+		
+
+		
 		botonSwitch.addValueChangeListener( e -> {
 			
-			Notification.show("Hola "+e.getProperty().getType());
+			
 			
 		});
 		botonSwitch.setImmediate(true);
 		
-		this.addComponents(botonSwitch);
+		
+		//
+		Arduino2 arduino = new Arduino2();
+		VerticalLayout layoutArdu = new VerticalLayout( getHeader, arduino);
+		layoutArdu.setSpacing(true);
+		layoutArdu.setComponentAlignment(getHeader, Alignment.BOTTOM_CENTER);
+		layoutArdu.setComponentAlignment(arduino, Alignment.BOTTOM_CENTER);
+		
+		
+		tab.addTab(layoutArdu, "CHART-LM35");
+		
+		this.addComponents(tab);
 		Core.atachListening(this);		
 		
 	}
