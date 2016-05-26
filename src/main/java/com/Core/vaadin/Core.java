@@ -5,10 +5,10 @@ import java.util.List;
 
 import javax.servlet.annotation.WebServlet;
 
+import com.Core.vaadin.arduino.Arduino;
 import com.Core.vaadin.arduino.Arduino2;
 import com.Core.vaadin.arduino.BotonSwitch;
 import com.Core.vaadin.pageLayout.PageLayout;
-import com.panamahitek.PanamaHitek_Arduino;
 import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
@@ -25,7 +25,7 @@ import com.vaadin.ui.UI;
 public class Core extends UI {
 	
 	private PageLayout pageLayout;
-	private static PanamaHitek_Arduino arduino = new PanamaHitek_Arduino();
+	private static Arduino2 arduino = new Arduino2();
 
 	//este flag te va servir para el estado del bombillo
 	private static boolean switchOn = false;
@@ -41,7 +41,7 @@ public class Core extends UI {
     	navigator.addView(Login.LOGIN_VIEW, new Login());
     	navigator.addView(PageLayout.PAGELAYOUT_VIEW, pageLayout);
     	
-    	navigator.navigateTo(Login.LOGIN_VIEW);
+    	navigator.navigateTo(PageLayout.PAGELAYOUT_VIEW);
     	
     	
     	//agrega el layout MAIN
@@ -83,7 +83,7 @@ public class Core extends UI {
 	  botones.remove(boton);		
   }
 
-  public static PanamaHitek_Arduino getArduino() {
+  public static Arduino2 getArduino() {
 	   
 	   return arduino;
   }

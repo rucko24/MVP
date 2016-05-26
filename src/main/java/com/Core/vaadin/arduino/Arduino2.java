@@ -27,7 +27,7 @@ public class Arduino2 extends VerticalLayout {
 	
 	private int f;
 	private Core getUI = Core.getCurrent();
-	private PanamaHitek_Arduino arduino = getUI.getArduino();
+	private PanamaHitek_Arduino arduino = new PanamaHitek_Arduino();
 	
 	public Arduino2() {
 		
@@ -71,8 +71,8 @@ public class Arduino2 extends VerticalLayout {
 			arduino.arduinoRX("/dev/ttyS0", 9600, serialPortE);
 			
 		}catch(Exception e) {
-			Logger.getLogger(Arduino.class.getName()).log(Level.SEVERE, null, e );
-			Notification.show(e.getMessage());
+			//Logger.getLogger(Arduino.class.getName()).log(Level.SEVERE, null, e );
+			Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
 		}
 		
 		xySeries.add(0,0);

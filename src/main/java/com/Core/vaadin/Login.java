@@ -32,6 +32,8 @@ public class Login extends VerticalLayout implements View {
 	public Login() {			
 		setSizeFull();
 		
+		bar.setImmediate(true);
+		
 		textfield.focus();
 		textfield.setNullRepresentation("");
 		textfield.setNullSettingAllowed(false);
@@ -52,6 +54,7 @@ public class Login extends VerticalLayout implements View {
 				
 				//txt.validate();
 				pass.validate();
+				
 				ui.getNavigator().navigateTo(PageLayout.PAGELAYOUT_VIEW);
 				pass.setValue("");
 				textfield.setValue("");

@@ -116,9 +116,6 @@ public class Principal extends VerticalLayout {
 		layoutIndicador.setMargin(true);
 		layoutIndicador.addComponent(upload);
 		
-		Arduino2 arduino = new Arduino2();
-		VerticalLayout layout = new VerticalLayout(arduino);
-		layout.setMargin(true);
 		
 		tab.addTab(imgFromTheme,"Img tema runo");
 		tab.addTab(imgFromClassPath,"Img Globo");

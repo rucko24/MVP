@@ -18,7 +18,9 @@ import com.vaadin.ui.VerticalLayout;
 
 public class BotonSwitch extends VerticalLayout {
 	
-	private Core ui = Core.getCurrent();
+	private Core getUI = Core.getCurrent();
+	private Arduino2 arduino = getUI.getArduino();
+	
 	private Label label = new Label("<h1><strong>Testing-Arduino</strong></h1>",ContentMode.HTML);
 	private Button btnSwitch = new Button();
 	private HorizontalLayout row = new HorizontalLayout();
@@ -78,9 +80,6 @@ public class BotonSwitch extends VerticalLayout {
 		
 		tab.addTab(vLayout,"ON/OFF");
 		botonSwitch.setAnimationEnabled(true);
-		//botonSwitch.setStyleName("v-switch");
-		
-
 		
 		botonSwitch.addValueChangeListener( e -> {
 			
@@ -100,7 +99,7 @@ public class BotonSwitch extends VerticalLayout {
 		
 		
 		//
-		Arduino2 arduino = new Arduino2();
+		
 		VerticalLayout layoutArdu = new VerticalLayout( getHeader, arduino);
 		layoutArdu.setSpacing(true);
 		layoutArdu.setComponentAlignment(getHeader, Alignment.BOTTOM_CENTER);
