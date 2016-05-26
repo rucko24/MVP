@@ -26,14 +26,13 @@ public class Arduino2 extends VerticalLayout {
 	private SerialPortEventListener serialPortE;
 	
 	private int f;
-	private Core getUI = Core.getCurrent();
 	private PanamaHitek_Arduino arduino = new PanamaHitek_Arduino();
 	
 	public Arduino2() {
 		
-		
+		setSizeFull();
 		this.f = 0;
-		xySeries = new XYSeries("Luminosidad");
+		xySeries = new XYSeries("Temperatura");
 		xySeriesCollection = new XYSeriesCollection();
 		
 		serialPortE = new SerialPortEventListener() {
@@ -78,7 +77,7 @@ public class Arduino2 extends VerticalLayout {
 		xySeries.add(0,0);
 		xySeriesCollection.addSeries(xySeries);
 		
-		jfreeChar = ChartFactory.createXYLineChart("Luminosidad vs Tiempo", "TIEMPO", "LUMINOSIDAD"
+		jfreeChar = ChartFactory.createXYLineChart("Temperatura vs Tiempo", "TIEMPO", "TEMPERATURA"
 				, xySeriesCollection, PlotOrientation.VERTICAL, true, true, false);
 		
 		

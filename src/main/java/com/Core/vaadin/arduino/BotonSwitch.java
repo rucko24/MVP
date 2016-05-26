@@ -11,17 +11,22 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.VerticalLayout;
 
 
 
-public class BotonSwitch extends VerticalLayout {
+public class BotonSwitch extends TabSheet {
 	
-	private Core getUI = Core.getCurrent();
-	private Arduino2 arduino = getUI.getArduino();
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
-	private Label label = new Label("<h1><strong>Testing-Arduino</strong></h1>",ContentMode.HTML);
+	//private  Arduino2 arduino = Core.getArduino();
+	
+	private Label label = new Label("<h1><strong>Testing-the-foc@</strong></h1>",ContentMode.HTML);
 	private Button btnSwitch = new Button();
 	private HorizontalLayout row = new HorizontalLayout();
 	
@@ -31,14 +36,15 @@ public class BotonSwitch extends VerticalLayout {
 	private ThemeResource bombillaON = new ThemeResource("img/on.png");
 	private ThemeResource bombillaOFF = new ThemeResource("img/off.png");
 	private ThemeResource udo = new ThemeResource("img/udo.png");
+	private ThemeResource logoArduino = new ThemeResource("img/ardu2.png");
+	private Label labelArduino = new Label();
 	private Label bombilla = new Label();	
 	
-	private TabSheet tab = new TabSheet();
 	private Switch botonSwitch = new Switch();
 	
 	public BotonSwitch() {
 		
-		setSpacing(true);
+		setSizeFull();
 		
 		label.addStyleName("labelMenu");
 		label.setSizeUndefined();
@@ -76,39 +82,34 @@ public class BotonSwitch extends VerticalLayout {
 		Component getHeader = getHeader();
 		Component getArea1 = getArea1();
 		
-		VerticalLayout vLayout = new VerticalLayout(getHeader(),getArea1);
+		VerticalLayout vLayout = new VerticalLayout(getHeader,getArea1);
+		vLayout.setHeight("600px");;
+		vLayout.setSpacing(true);
+		vLayout.setComponentAlignment(getHeader, Alignment.BOTTOM_CENTER);
+		vLayout.setComponentAlignment(getArea1, Alignment.TOP_CENTER);
+		vLayout.setExpandRatio(getArea1, 1);
 		
-		tab.addTab(vLayout,"ON/OFF");
 		botonSwitch.setAnimationEnabled(true);
 		
 		botonSwitch.addValueChangeListener( e -> {
-			
 			boolean isValid = (boolean) e.getProperty().getValue();
-			
-			if(isValid) {
-				
+			if(isValid) 	
 				Notification.show("ON");
-				
-			}else {
+			else 
 				Notification.show("OFF");
-			}
-			
-			
 		});
 		botonSwitch.setImmediate(true);
 		
-		
-		//
-		
-		VerticalLayout layoutArdu = new VerticalLayout( getHeader, arduino);
+		/*VerticalLayout layoutArdu = new VerticalLayout( getresourceIdHeader, arduino);
 		layoutArdu.setSpacing(true);
+		layoutArdu.setSizeFull();
 		layoutArdu.setComponentAlignment(getHeader, Alignment.BOTTOM_CENTER);
-		layoutArdu.setComponentAlignment(arduino, Alignment.BOTTOM_CENTER);
+		//layoutArdu.setComponentAlignment(arduino, Alignment.BOTTOM_CENTER);*/
+		
+		addTab(vLayout,"ON/OFF");
+		//addTab(layoutArdu, "Gráfico-LM35");
 		
 		
-		tab.addTab(layoutArdu, "CHART-LM35");
-		
-		this.addComponents(tab);
 		Core.atachListening(this);		
 		
 	}
@@ -117,9 +118,14 @@ public class BotonSwitch extends VerticalLayout {
 		
 		//retorna el titulo del Ardu
 		HorizontalLayout layout = new HorizontalLayout();
-		layout.setWidth("100%");
-		layout.addComponent(label);
-		layout.setComponentAlignment(label, Alignment.MIDDLE_CENTER);
+		layout.setMargin(true);
+		layout.setWidth("70%");
+		labelArduino.setIcon(logoArduino);
+		labelArduino.setSizeUndefined();
+		layout.addComponents(labelArduino);
+		//layout.setComponentAlignment(label, Alignment.MIDDLE_CENTER);
+		layout.setComponentAlignment(labelArduino, Alignment.MIDDLE_RIGHT);
+		
 		return layout;
 		
 	}
@@ -128,14 +134,18 @@ public class BotonSwitch extends VerticalLayout {
 		//bombillo mas switch
 		VerticalLayout layout = new VerticalLayout();
 		layout.setSpacing(true);
-		layout.setWidth("250px");
-		layout.setHeight("250px");
 		bombilla.setSizeUndefined();
 		layout.addComponents(bombilla, botonSwitch);
 		layout.setComponentAlignment(bombilla, Alignment.BOTTOM_CENTER);
 		layout.setComponentAlignment(botonSwitch, Alignment.BOTTOM_CENTER);
 		
-		return layout;
+		Panel panel = new Panel();
+		panel.setCaption(" ");
+		panel.setWidth("30%");
+		panel.setHeight("70%");
+		panel.setContent(layout);
+		
+		return panel;
 	}
 	
 	private Component getArea2() {
