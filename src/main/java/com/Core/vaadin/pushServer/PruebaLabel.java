@@ -1,6 +1,5 @@
 package com.Core.vaadin.pushServer;
 
-
 import java.time.Instant;
 
 import com.Core.vaadin.Core;
@@ -17,58 +16,54 @@ import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
 
 public class PruebaLabel extends VerticalLayout {
-	
+
 	private Label label = new Label("Ahora: ");
-	
+
 	public PruebaLabel() {
-		
+
 		setMargin(true);
 		addComponent(label);
 		new Hilo().start();
 	}
-	
+
 	public void dimeLaHora() {
-		label.setValue("Ahora: "+Instant.now());
+		label.setValue("Ahora: " + Instant.now());
 	}
-	
+
 	public class Hilo extends Thread {
-		
+
 		int c = 0;
-		
+
 		@Override
 		public void run() {
 			try {
-				
-				//actualizando la data mientras
-				while(c < 2) {
+
+				// actualizando la data mientras
+				while (c < 2) {
 					Thread.sleep(1000);
-					
-					Core.getCurrent().access( new Runnable () {
-						
+
+					Core.getCurrent().access(new Runnable() {
+
 						@Override
 						public void run() {
 							c++;
 							dimeLaHora();
 						}
-						
 					});
-					
 				}
-				
 				Core.getCurrent().access(new Runnable() {
-					
+
 					@Override
 					public void run() {
 						label.setValue("DONE");
 					}
 				});
-				
-			}catch(InterruptedException ex) {
-				
+
+			} catch (InterruptedException ex) {
+
 				Notification.show(ex.getMessage(), Notification.Type.ERROR_MESSAGE);
 			}
 		}
 	}
-	
-}
 
+}
