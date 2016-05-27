@@ -14,6 +14,7 @@ import com.vaadin.annotations.Widgetset;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
+import com.vaadin.shared.communication.PushMode;
 import com.vaadin.ui.UI;
 
 @Push
@@ -23,7 +24,7 @@ import com.vaadin.ui.UI;
 public class Core extends UI {
 	
 	private PageLayout pageLayout;
-	//private static Arduino2 arduino = new Arduino2();
+	public static Arduino2 ARDUINO;
 
 	//este flag te va servir para el estado del bombillo
 	private static boolean switchOn = false;
