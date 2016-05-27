@@ -40,7 +40,7 @@ public class Core extends UI {
     	navigator.addView(Login.LOGIN_VIEW, new Login());
     	navigator.addView(PageLayout.PAGELAYOUT_VIEW, pageLayout);
     	
-    	navigator.navigateTo(PageLayout.PAGELAYOUT_VIEW);
+    	navigator.navigateTo(Login.LOGIN_VIEW);
     	
     	
     	//agrega el layout MAIN

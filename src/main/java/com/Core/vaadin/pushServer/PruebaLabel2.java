@@ -71,10 +71,8 @@ public class PruebaLabel2 extends VerticalLayout {
 
 		@Override
 		public void run() {
-
 			try {
-
-				while (c < 10) {
+				while (c < 2) {
 					Thread.sleep(1000);
 
 					Core.getCurrent().access(new Runnable() {
@@ -86,7 +84,6 @@ public class PruebaLabel2 extends VerticalLayout {
 						}
 					});
 				}
-
 				Core.getCurrent().access(new Runnable() {
 					@Override
 					public void run() {

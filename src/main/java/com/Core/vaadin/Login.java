@@ -10,6 +10,7 @@ import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
@@ -51,13 +52,10 @@ public class Login extends VerticalLayout implements View {
 			textfield.setValidationVisible(false);
 			pass.setValidationVisible(false);
 			try {
-				
-				//txt.validate();
+	
 				pass.validate();
+				new Hilo().start();
 				
-				ui.getNavigator().navigateTo(PageLayout.PAGELAYOUT_VIEW);
-				pass.setValue("");
-				textfield.setValue("");
 			}catch(InvalidValueException ee) {
 				
 				notification(ee.getMessage());
@@ -78,6 +76,15 @@ public class Login extends VerticalLayout implements View {
 		setComponentAlignment(centrar, Alignment.MIDDLE_CENTER);
 		
 		
+	}
+	
+	public Component getBar() {
+		VerticalLayout layout = new VerticalLayout();
+		layout.setSizeFull();
+		bar.setIndeterminate(true);
+		layout.addComponent(bar);
+		layout.setComponentAlignment(bar, Alignment.MIDDLE_CENTER);
+		return layout;
 	}
 	
 	public Notification notification(String mensajeError) {
@@ -104,6 +111,41 @@ public class Login extends VerticalLayout implements View {
 		}
 		
 	}
+	
+	public class Hilo extends Thread {
+		
+		int c=0;
+		@Override
+		public void run() {
+			try {
+				
+				while( c < 2) {
+					Thread.sleep(1000);
+					Core.getCurrent().access(new Runnable() {
+						@Override
+						public void run() {
+							c++;
+							removeAllComponents();
+							addComponent(getBar());
+						}
+					});
+				}
+				
+				Core.getCurrent().access(new Runnable() {
+					@Override
+					public void run() {
+						Core.getCurrent().getNavigator().navigateTo(PageLayout.PAGELAYOUT_VIEW);
+					}
+					
+				});
+				
+			}catch(InterruptedException ex) {
+				ex.printStackTrace();
+			}
+		}
+		
+	}
+	
 	@Override
 	public void enter(ViewChangeEvent event) {
 		ui.getPage().setTitle("Login");
