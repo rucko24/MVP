@@ -29,7 +29,8 @@ public class Arduino2 extends VerticalLayout {
 
 	public Arduino2() {
 		
-		setSizeUndefined();
+		setWidth("500px");
+		setHeight("750px");
 		this.f = 0;
 		xySeries = new XYSeries("Temperatura");
 		xySeriesCollection = new XYSeriesCollection();

@@ -1,5 +1,6 @@
 package com.Core.vaadin.tabSheet.progressBar;
 
+import com.Core.vaadin.Core;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ProgressBar;
 import com.vaadin.ui.VerticalLayout;
@@ -13,7 +14,6 @@ public class BarraCarga extends VerticalLayout {
 		
 		setMargin(true);
 		setSpacing(true);
-		barra.setIndeterminate(true);
 		
 		btn.addClickListener( e -> {
 			new Algoritmo().start();
@@ -23,11 +23,22 @@ public class BarraCarga extends VerticalLayout {
 	}
 	
 	private class Algoritmo extends Thread {
+		
+		
+		@Override
 		public void run() {
 			for( int i=0; i<10; i++ ) {
 				try {
-					sleep(1000);
-					barra.setValue(i * 0.1f);
+						Thread.sleep(1000);
+						Core.getCurrent().access(new Runnable() {
+							@Override
+							public void run() {
+								int f=0;
+								f++;
+								barra.setValue(f * 0.1f);
+							}
+						});
+					
 				} catch (InterruptedException e) {
 					
 					e.printStackTrace();

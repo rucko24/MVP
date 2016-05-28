@@ -91,6 +91,12 @@
 
 		<dependency>
 			<groupId>org.vaadin.addons</groupId>
+			<artifactId>icepush</artifactId>
+			<version>0.5.6</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.vaadin.addons</groupId>
 			<artifactId>refresher</artifactId>
 			<version>1.2.3.7</version>
 		</dependency>
@@ -102,14 +108,11 @@
 			<version>3.0.2</version>
 		</dependency>
 
-			<dependency>
-			   <groupId>org.vaadin.teemu</groupId>
-			   <artifactId>switch</artifactId>
-			   <version>2.0.3</version>
-			</dependency>
-
-		
-
+		<dependency>
+			<groupId>org.vaadin.teemu</groupId>
+			<artifactId>switch</artifactId>
+			<version>2.0.3</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.vaadin</groupId>
@@ -117,7 +120,7 @@
 		</dependency>
 
 		<!-- Dependencia para gnu.io puerto serial librerias -->
-		
+
 		<dependency>
 			<groupId>com.github.PanamaHitek</groupId>
 			<artifactId>PanamaHitek_Arduino</artifactId>

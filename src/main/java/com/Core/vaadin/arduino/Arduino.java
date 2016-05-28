@@ -1,21 +1,16 @@
 package com.Core.vaadin.arduino;
 
-import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.Scanner;
 
-import javax.swing.JOptionPane;
-
+import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Notification;
 
 import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
-import gnu.io.SerialPortEvent;
-import gnu.io.SerialPortEventListener;
-import gnu.io.UnsupportedCommOperationException;
-/*
+
 public class Arduino {
 	
 	private static final String AMARILLO_OFF = "0"; //APAGAR
@@ -45,10 +40,10 @@ public class Arduino {
 	public void initComponentes() {
 
 		
-		
 		CommPortIdentifier puertoID = null;
         Enumeration<?> puertoEnum = CommPortIdentifier.getPortIdentifiers();
         
+        try {
         while( puertoEnum.hasMoreElements()) {
             CommPortIdentifier actualPuertoID = (CommPortIdentifier) puertoEnum.nextElement();
            
@@ -57,9 +52,13 @@ public class Arduino {
                 break;
             }
         }
+        }catch(UnsatisfiedLinkError e) {
+        	Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
+        }catch(ExceptionInInitializerError e) {
+        	Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
+        }
         if( puertoID == null ) {
-            mostrarError("NO SE PUEDE CONECTAR AL PUERTO");
-            System.exit( 0 );
+            Notification.show("Puerto en uso", Notification.Type.ERROR_MESSAGE);
             return;
         }
 	        try {
@@ -67,8 +66,7 @@ public class Arduino {
 	            serialPort.setSerialPortParams(DATA_RATE,SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
 	            outPut = serialPort.getOutputStream();
 	        } catch( Exception e) {
-	            mostrarError(e.getMessage());
-	            System.exit( 0 );
+	           Notification.show(e.getMessage());
 	        }
     }
 	
@@ -78,16 +76,11 @@ public class Arduino {
         	
             outPut.write( datos.getBytes() );
         }catch( Exception e ) {
-            mostrarError("ERROR");
-            System.exit(0);
+            Notification.show(e.getMessage());
+            
         }
     }
     
-    public static void mostrarError( String mensaje ) {
-        
-      //JOptionPane.showMessageDialg(null,"ERROR",mensaje);
-    	System.out.println(mensaje);
-    	Notification.show(" error "+mensaje);
-    }
+   
 	
-}*/
+}

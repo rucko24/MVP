@@ -21,7 +21,7 @@ public class BotonSwitch extends TabSheet {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	/*private static final long serialVersionUID = 1L;
 
 	private Arduino2 arduino = Core.ARDUINO;
 
@@ -154,7 +154,7 @@ public class BotonSwitch extends TabSheet {
 				}
 
 			} catch (UnsatisfiedLinkError ex) {
-				Notification.show(ex.getMessage(), Notification.Type.ERROR_MESSAGE);
+				Notification.show("Pare y reinicie el server", Notification.Type.ERROR_MESSAGE);
 			} catch (NoClassDefFoundError ex) {
 				Notification.show(ex.getMessage(), Notification.Type.ERROR_MESSAGE);
 			}
@@ -185,14 +185,16 @@ public class BotonSwitch extends TabSheet {
 
 		arduino = new Arduino2();
 		arduino.init();
+		layoutOnOff.setSizeFull();
 		layoutOnOff.addComponent(arduino);
 		layoutOnOff.setComponentAlignment(arduino, Alignment.MIDDLE_CENTER);
-		layoutOnOff.setExpandRatio(arduino, 1);
+	
 	}
 
 	public void stop() {
 
-		arduino.stopConexion();
+		//arduino.stopConexion();
+		Core.getCurrent().close();
 	}
 
 	private Component getArea1() {
@@ -240,5 +242,5 @@ public class BotonSwitch extends TabSheet {
 		super.detach();
 		Core.detachListening(this);
 	}
-
+*/
 }

@@ -18,6 +18,7 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.BrowserFrame;
 import com.vaadin.ui.Flash;
 import com.vaadin.ui.Image;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.ProgressBar;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.Upload;
@@ -30,7 +31,7 @@ public class Principal extends VerticalLayout {
 	 */
 	private static final long serialVersionUID = 1L;
 	private TabSheet tab = new TabSheet();
-	
+	private Deslisador slider;
 	public Principal() {
 		
 		setHeight("580px");;
@@ -82,7 +83,12 @@ public class Principal extends VerticalLayout {
 		video.addComponent(flashFromUrl);
 		video.setComponentAlignment(flashFromUrl, Alignment.MIDDLE_CENTER);
 		
-		Deslisador slider = new Deslisador();
+		try {
+			 slider = new Deslisador();
+			
+		}catch(UnsatisfiedLinkError ex) {
+			Notification.show("Reiniciar el servidor, puerto ocupado", Notification.Type.ERROR_MESSAGE);
+		}
 		
 		JfreeGrafico o = new JfreeGrafico();
 		

@@ -1,4 +1,4 @@
-package com.Core.vaadin.pushServer;
+package com.Core.vaadin.pushServer.push;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +17,10 @@ import com.vaadin.ui.TextArea;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
-/*
+
 public class NoticeBoard extends VerticalLayout {
 	
-/*	private static List<Nota> notas = new ArrayList<>();
+	private static List<Nota> notas = new ArrayList<>();
 	private List<Window> windows = new ArrayList<>();
 	private static int userCount;
 	private int userId;
@@ -200,6 +200,7 @@ public class NoticeBoard extends VerticalLayout {
 				try {
 					Thread.sleep(UPDATE_INTERVAL);
 					
+					
 				}catch(InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -210,6 +211,7 @@ public class NoticeBoard extends VerticalLayout {
 				
 				try {
 					updateNoticeBoard();
+					
 				}finally {
 					
 					ui.getSession().getLockInstance().unlock();
@@ -223,4 +225,4 @@ public class NoticeBoard extends VerticalLayout {
 	}
 	
 	
-}*/
+}

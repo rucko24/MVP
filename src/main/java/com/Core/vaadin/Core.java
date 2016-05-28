@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.annotation.WebServlet;
+
+import com.Core.vaadin.arduino.Arduino;
 import com.Core.vaadin.arduino.Arduino2;
 import com.Core.vaadin.arduino.BotonSwitch;
 import com.Core.vaadin.pageLayout.PageLayout;
@@ -24,8 +26,8 @@ import com.vaadin.ui.UI;
 public class Core extends UI {
 	
 	private PageLayout pageLayout;
-	public static Arduino2 ARDUINO;
-
+	//public static Arduino2 ARDUINO;
+	//public static Arduino arduino = new Arduino();
 	//este flag te va servir para el estado del bombillo
 	private static boolean switchOn = false;
 	private static List<BotonSwitch> botones = new ArrayList<BotonSwitch>(); 
@@ -40,7 +42,7 @@ public class Core extends UI {
     	navigator.addView(Login.LOGIN_VIEW, new Login());
     	navigator.addView(PageLayout.PAGELAYOUT_VIEW, pageLayout);
     	
-    	navigator.navigateTo(Login.LOGIN_VIEW);
+    	navigator.navigateTo(PageLayout.PAGELAYOUT_VIEW);
     	
     	
     	//agrega el layout MAIN
@@ -59,13 +61,13 @@ public class Core extends UI {
 	  
    }
 	//metodo para cambiar de estado la variable switchOn basta con un solo metodo
-   public static void changeSwitch(){
+  /* public static void changeSwitch(){
 		switchOn = !switchOn;
 		for(BotonSwitch tmpBtn : botones){
 			tmpBtn.changeButtonOnOff();
 		}
 	
-   }
+   }*/
 
    //metodo para chequear valor de swtichOn
    public static boolean isSwitchOn(){
@@ -82,7 +84,7 @@ public class Core extends UI {
 	  botones.remove(boton);	
   }
 
-  /*public static Arduino2 getArduino() {
+  /*public static Arduino getArduino() {
 	   
 	   return arduino;
   }*/

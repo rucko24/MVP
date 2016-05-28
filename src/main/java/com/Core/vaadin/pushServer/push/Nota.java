@@ -1,4 +1,4 @@
-package com.Core.vaadin.pushServer;
+package com.Core.vaadin.pushServer.push;
 
 import java.io.Serializable;
 

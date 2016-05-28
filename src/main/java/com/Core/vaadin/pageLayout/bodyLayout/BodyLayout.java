@@ -1,15 +1,15 @@
 package com.Core.vaadin.pageLayout.bodyLayout;
 
+import com.Core.vaadin.arduino.Arduino;
 import com.Core.vaadin.pageLayout.bodyLayout.contentLayout.ContentLayout;
 import com.Core.vaadin.pageLayout.bodyLayout.menuLayout.MenuLayout;
-import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.HorizontalSplitPanel;
-import com.vaadin.ui.Label;
 
 public class BodyLayout extends HorizontalSplitPanel {
 	
 	private ContentLayout contendLayout = new ContentLayout();
 	private MenuLayout menuLayout = new MenuLayout();
+	
 	private static final float ANCHO = 19f;
 	
 	public BodyLayout() {
@@ -25,4 +25,5 @@ public class BodyLayout extends HorizontalSplitPanel {
 		
 		return contendLayout;
 	}
+	
 }
