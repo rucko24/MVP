@@ -28,6 +28,7 @@ public class Core extends UI {
 	private PageLayout pageLayout;
 	//public static Arduino2 ARDUINO;
 	//public static Arduino arduino = new Arduino();
+	
 	//este flag te va servir para el estado del bombillo
 	private static boolean switchOn = false;
 	private static List<BotonSwitch> botones = new ArrayList<BotonSwitch>(); 

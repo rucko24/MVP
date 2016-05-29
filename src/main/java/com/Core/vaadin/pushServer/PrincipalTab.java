@@ -1,7 +1,8 @@
 package com.Core.vaadin.pushServer;
 
 import com.Core.vaadin.pushServer.icePush.IcePushServerAddOn;
-import com.Core.vaadin.pushServer.push.NoticeBoard;
+import com.Core.vaadin.pushServer.icePush.MenuMessageBar;
+import com.Core.vaadin.pushServer.ventanaEditablePush.NoticeBoard;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.TabSheet;
@@ -13,8 +14,8 @@ public class PrincipalTab extends TabSheet{
 	
 	public PrincipalTab() {
 		
-		
 		addTab(createIcePushAddon());
+		addTab(createMenuMensajes());
 	}
 	
 	private Layout createIcePushAddon() {
@@ -22,6 +23,7 @@ public class PrincipalTab extends TabSheet{
 		IcePushServerAddOn icePush = new IcePushServerAddOn();
 		icePush.setSizeFull();
 		layout.addComponent(icePush);
+		
 		return layout;
 	}
 	
@@ -29,6 +31,16 @@ public class PrincipalTab extends TabSheet{
 		Layout layout = new VerticalLayout();
 		layout.setCaption(caption);
 		layout.setHeight(HEIGHT , Unit.PIXELS);
+		
+		return layout;
+	}
+	
+	private Layout createMenuMensajes() {
+		Layout layout = createLayout("Message Bar");
+		MenuMessageBar menu = new MenuMessageBar();
+		
+		layout.addComponent(menu);
+		
 		return layout;
 	}
 }

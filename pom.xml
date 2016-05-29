@@ -72,6 +72,7 @@
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-push</artifactId>
 		</dependency>
+		
 		<dependency>
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-client</artifactId>
@@ -81,18 +82,17 @@
 			For widgetset compilation, vaadin-client-compiler is automatically added 
 			on the compilation classpath by vaadin-maven-plugin so normally there is 
 			no need for an explicit dependency. -->
-		<!-- <dependency> <groupId>com.vaadin</groupId> <artifactId>vaadin-client-compiler</artifactId> 
-			<scope>provided</scope> </dependency> -->
+		
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-client-compiler</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-push</artifactId>
 			<version>${vaadin.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.vaadin.addons</groupId>
-			<artifactId>icepush</artifactId>
-			<version>0.5.6</version>
 		</dependency>
 
 		<dependency>
