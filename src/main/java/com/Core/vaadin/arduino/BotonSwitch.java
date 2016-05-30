@@ -69,13 +69,13 @@ public class BotonSwitch extends TabSheet {
 
 		// btnSwitch.setPrimaryStyleName("switchOff");
 
-		if (Core.isSwitchOn()) {
+	/*	if (Core.isSwitchOn()) {
 			bombilla.setIcon(bombillaON);
 			btnSwitch.setPrimaryStyleName("switchOn");
 		} else {
 			bombilla.setIcon(bombillaOFF);
 			btnSwitch.setPrimaryStyleName("switchOff");
-		}
+		}*/
 
 		/*Core.changeSwitch();
 		if (Core.isSwitchOn()) {
@@ -86,6 +86,15 @@ public class BotonSwitch extends TabSheet {
 		}*/
 
 		// bombillo mas botonSwitch
+		
+		botonSwitch.setAnimationEnabled(true);
+		botonSwitch.addValueChangeListener(e -> {
+			
+
+		});
+		botonSwitch.setImmediate(true);
+		botoneSwitches.add(botonSwitch);
+		
 		Component getHeader = getHeader();
 		Component getArea1 = getArea1();
 
@@ -97,21 +106,7 @@ public class BotonSwitch extends TabSheet {
 		vLayout.setComponentAlignment(getArea1, Alignment.TOP_CENTER);
 		vLayout.setExpandRatio(getArea1, 1);
 
-		botonSwitch.setAnimationEnabled(true);
-
-		botonSwitch.addValueChangeListener(e -> {
-			/*Core.changeSwitch();
-
-			if (Core.isSwitchOn()) {
-				Notification.show("ON");
-			} else {
-				Notification.show("Off");
-
-			}*/
-
-		});
-		botonSwitch.setImmediate(true);
-		botoneSwitches.add(botonSwitch);
+		
 		//
 		Component header = getHeader();
 
@@ -122,7 +117,7 @@ public class BotonSwitch extends TabSheet {
 		addTab(vLayout, "ON/OFF");
 		addTab(layoutOnOff, "Gráfico-LM35");
 
-		Core.atachListening(this);
+		//Core.atachListening(this);
 
 	}
 
@@ -135,10 +130,10 @@ public class BotonSwitch extends TabSheet {
 		labelArduino.setIcon(logoArduino);
 		labelArduino.setSizeUndefined();
 
-		Component iniciar = botonIniciar();
-		Component parar = botonParar();
+		//Component iniciar = botonIniciar();
+		//Component parar = botonParar();
 
-		layout.addComponents(iniciar, parar);
+		//layout.addComponents(iniciar, parar);
 
 		return layout;
 
@@ -195,11 +190,11 @@ public class BotonSwitch extends TabSheet {
 	
 	}*/
 
-	public void stop() {
+	/*public void stop() {
 
 		//arduino.stopConexion();
 		Core.getCurrent().close();
-	}
+	}*/
 
 	private Component getArea1() {
 		// bombillo mas switch
@@ -223,7 +218,7 @@ public class BotonSwitch extends TabSheet {
 	// este metodo cambia el estilo del boton, pero se ejecutara en la clase
 	// Core
 	// para todos los botones atachados
-	public void changeButtonOnOff() {
+	/*public void changeButtonOnOff() {
 
 		if (Core.isSwitchOn()) {
 
@@ -232,12 +227,12 @@ public class BotonSwitch extends TabSheet {
 
 			bombilla.setIcon(bombillaOFF);
 		}
-	}
+	}*/
 
-	@Override
+	/*@Override
 	public void detach() {
 		super.detach();
 		Core.detachListening(this);
-	}
-*/
+	}*/
+
 }
