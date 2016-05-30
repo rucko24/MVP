@@ -16,6 +16,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.TabSheet;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
@@ -41,7 +42,8 @@ public class BotonSwitch extends TabSheet {
 	private ThemeResource logoArduino = new ThemeResource("img/ardu2.png");
 	private Label labelArduino = new Label();
 	private Label bombilla = new Label();
-
+	private static List<Label> bombillas = new ArrayList<Label>();
+		
 	private Switch botonSwitch = new Switch();
 	private static List<Switch> botoneSwitches = new ArrayList<Switch>();
 	private Button botonIniciar = new Button("iniciar");
@@ -87,13 +89,24 @@ public class BotonSwitch extends TabSheet {
 
 		// bombillo mas botonSwitch
 		
+		bombilla.setIcon(bombillaOFF);
 		botonSwitch.setAnimationEnabled(true);
 		botonSwitch.addValueChangeListener(e -> {
 			
-
+			boolean isEnable = (boolean)e.getProperty().getValue();
+			if(isEnable) {
+				Notification.show("ON");
+				bombilla.setIcon(bombillaON);
+			}else {
+				
+				Notification.show("off");
+				bombilla.setIcon(bombillaOFF);
+			}
 		});
+		
 		botonSwitch.setImmediate(true);
 		botoneSwitches.add(botonSwitch);
+		bombillas.add(bombilla);
 		
 		Component getHeader = getHeader();
 		Component getArea1 = getArea1();
@@ -118,7 +131,7 @@ public class BotonSwitch extends TabSheet {
 		addTab(layoutOnOff, "Gráfico-LM35");
 
 		//Core.atachListening(this);
-
+		
 	}
 
 	private Component getHeader() {
@@ -138,68 +151,18 @@ public class BotonSwitch extends TabSheet {
 		return layout;
 
 	}
-
-	/*public Component botonIniciar() {
-
-		botonIniciar.addStyleName(ValoTheme.BUTTON_PRIMARY);
-		botonIniciar.addClickListener(e -> {
-			botonIniciar.setComponentError(null);
-			try {
-				if (arduino == null) {
-
-					grafico();
-					System.out.println("botonnnnnnnn");
-					botonIniciar.setEnabled(false);
-				}
-
-			} catch (UnsatisfiedLinkError ex) {
-				Notification.show("Pare y reinicie el server", Notification.Type.ERROR_MESSAGE);
-			} catch (NoClassDefFoundError ex) {
-				Notification.show(ex.getMessage(), Notification.Type.ERROR_MESSAGE);
-			}
-
-		});
-
-		return botonIniciar;
-	}*/
-
-	/*public Component botonParar() {
-
-		botonStop.addStyleName("danger");
-		botonStop.addClickListener(e -> {
-			botonStop.setComponentError(null);
-
-			if (botonIniciar.isReadOnly() == false) {
-				stop();
-				System.out.println("KILLconexion");
-			}
-
-		});
-
-		return botonStop;
-
-	}*/
-
-	/*public void grafico() {
-
-		arduino = new Arduino2();
-		arduino.init();
-		layoutOnOff.setSizeFull();
-		layoutOnOff.addComponent(arduino);
-		layoutOnOff.setComponentAlignment(arduino, Alignment.MIDDLE_CENTER);
 	
-	}*/
-
-	/*public void stop() {
-
-		//arduino.stopConexion();
-		Core.getCurrent().close();
-	}*/
-
+	private void cambiarEstiloBoton() {
+		for( Switch tmpBotones : botoneSwitches ) {
+			
+		}
+	}
+	
 	private Component getArea1() {
 		// bombillo mas switch
 		VerticalLayout layout = new VerticalLayout();
 		layout.setSpacing(true);
+		layout.setHeight("75%");
 		bombilla.setSizeUndefined();
 		layout.addComponents(bombilla, botonSwitch);
 		layout.setComponentAlignment(bombilla, Alignment.BOTTOM_CENTER);
@@ -213,7 +176,23 @@ public class BotonSwitch extends TabSheet {
 
 		return panel;
 	}
-
+	
+	public class SubProceso extends Thread {
+		@Override
+		public void run() {
+			while(true) {
+				try {
+					Thread.sleep(1000);
+					UI.getCurrent().access(() -> {
+						cambiarEstiloBoton();
+					});
+					
+				}catch(InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 
 	// este metodo cambia el estilo del boton, pero se ejecutara en la clase
 	// Core
