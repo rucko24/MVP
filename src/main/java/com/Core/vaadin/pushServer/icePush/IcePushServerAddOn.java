@@ -1,6 +1,5 @@
 package com.Core.vaadin.pushServer.icePush;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,55 +15,50 @@ public class IcePushServerAddOn extends VerticalLayout {
 	private Button boton = new Button("click");
 	private List<Button> botones = new ArrayList<Button>();
 	private Refresher refresher = new Refresher();
-	private static int INTERVALO = 6000;
+	private static int INTERVALO = 1500;
 	
 	public IcePushServerAddOn() {
-		
 		setMargin(true);
 		setSpacing(true);
 		//aqui agregamos el push componente
 		refresher.setRefreshInterval(INTERVALO);
+		/*boton.addClickListener(e -> {
+			
+			new SubProceso().start();
+		});*/
 		botones.add(boton);
-		
-		//agregar el boton para empesar el trabajo detras
-		
-		
 		
 		addComponent(boton);
 		addExtension(refresher);
+		new SubProceso().start();
 	}
 	
-	public void cambiarEjecutar() {
-		
-		for( Button tmpBotones : botones) {
-			tmpBotones.addBlurListener( e -> {
-				addComponent(new Label("Esperando que el"
-						+ "proceso detras se complete"));
-				new HiloTrasero().start();
-				tmpBotones.addStyleName("danger");
-			});
+	public void cambiarEstilo() {
+		for( Button tmpBoton : botones) {
+			tmpBoton.setCaption("danger");
 		}
 	}
 	
-	public class HiloTrasero extends Thread {
+	public class SubProceso extends Thread {
 		
 		@Override
 		public void run() {
 			//aqui simulamos el trabajo detras
 			try {
-				Thread.sleep(INTERVALO);
-				
+				while(true) {
+					Thread.sleep(INTERVALO);
+					ui.access(new Runnable() {
+						@Override
+						public void run() {
+							cambiarEstilo();
+							addComponent(new Label("All done"));
+							
+						}
+					});
+				}
 			}catch(InterruptedException ex) {
 				ex.printStackTrace();
 			}
-			
-			Core.getCurrent().access(new Runnable() {
-				@Override
-				public void run() {
-					addComponent(new Label("All done"));
-					
-				}
-			});
 		}
 	}
 }

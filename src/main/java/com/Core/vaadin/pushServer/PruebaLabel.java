@@ -12,17 +12,19 @@ import com.vaadin.ui.VerticalLayout;
 
 public class PruebaLabel extends VerticalLayout {
 
+	private Core ui = Core.getCurrent();
+	
 	private Label label = new Label("Ahora: ");
 	private static List<Label> labels = new ArrayList<Label>();
-	private Core ui = Core.getCurrent();
 	private Refresher refreh = new Refresher();
 	private static final int INTERVALO = 1500;
 	
 	public PruebaLabel() {
 		setMargin(true);
-			
 		refreh.setRefreshInterval(INTERVALO);
+		
 		labels.add(label);
+		
 		addComponent(label);
 		addExtension(refreh);
 		new Hilo().start();
@@ -39,25 +41,23 @@ public class PruebaLabel extends VerticalLayout {
 
 		@Override
 		public void run() {
-			try {
-				// actualizando la data mientras
-				while (true) {
+			while(true) {
+				try {
 					Thread.sleep(INTERVALO);
-
-					ui.access(new Runnable() {
-
-						@Override
-						public void run() {
-							
-							dimeLaHora();
-						}
-					});
+					
+					// actualizando la data mientras
+						ui.access(new Runnable() {
+							@Override
+							public void run() {
+								dimeLaHora();
+							}
+						});					
+						
+					
+				} catch (InterruptedException ex) {
+					ex.printStackTrace();
+					Notification.show(ex.getMessage(), Notification.Type.ERROR_MESSAGE);
 				}
-			
-
-			} catch (InterruptedException ex) {
-
-				Notification.show(ex.getMessage(), Notification.Type.ERROR_MESSAGE);
 			}
 		}
 	}
