@@ -205,7 +205,6 @@ public class NoticeBoard extends VerticalLayout {
 			 */
 			Window window = getWindow(tmpNota);
 			actualizarTextArea(window, tmpNota);
-
 			/*
 			 * Si no hay ninguna ventana de la nota seleccionada , entonces se
 			 * crea uno y enlazarlo con la nota
@@ -215,7 +214,6 @@ public class NoticeBoard extends VerticalLayout {
 				windows.add(window);
 				ui.addWindow(window);
 			}
-
 			/*
 			 * Si la nota está bloqueado por otro usuario, a continuación,
 			 * desHabilitamos esta ventana . Otras ventanas seran habilitadas.

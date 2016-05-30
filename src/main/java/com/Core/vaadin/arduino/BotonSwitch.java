@@ -1,5 +1,8 @@
 package com.Core.vaadin.arduino;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.vaadin.teemu.switchui.Switch;
 
 import com.Core.vaadin.Core;
@@ -21,9 +24,9 @@ public class BotonSwitch extends TabSheet {
 	/**
 	 * 
 	 */
-	/*private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-	private Arduino2 arduino = Core.ARDUINO;
+	//private Arduino2 arduino = Core.ARDUINO;
 
 	private Label label = new Label("<h1><strong>Testing-the-foc@</strong></h1>", ContentMode.HTML);
 	private Button btnSwitch = new Button();
@@ -40,6 +43,7 @@ public class BotonSwitch extends TabSheet {
 	private Label bombilla = new Label();
 
 	private Switch botonSwitch = new Switch();
+	private static List<Switch> botoneSwitches = new ArrayList<Switch>();
 	private Button botonIniciar = new Button("iniciar");
 	private Button botonStop = new Button("detener Conexion");
 
@@ -73,13 +77,13 @@ public class BotonSwitch extends TabSheet {
 			btnSwitch.setPrimaryStyleName("switchOff");
 		}
 
-		Core.changeSwitch();
+		/*Core.changeSwitch();
 		if (Core.isSwitchOn()) {
 			// arduino.enviarDato("255");
 
 		} else {
 			// arduino.enviarDato("0");
-		}
+		}*/
 
 		// bombillo mas botonSwitch
 		Component getHeader = getHeader();
@@ -96,18 +100,18 @@ public class BotonSwitch extends TabSheet {
 		botonSwitch.setAnimationEnabled(true);
 
 		botonSwitch.addValueChangeListener(e -> {
-			Core.changeSwitch();
+			/*Core.changeSwitch();
 
 			if (Core.isSwitchOn()) {
 				Notification.show("ON");
 			} else {
 				Notification.show("Off");
 
-			}
+			}*/
 
 		});
 		botonSwitch.setImmediate(true);
-
+		botoneSwitches.add(botonSwitch);
 		//
 		Component header = getHeader();
 
@@ -140,7 +144,7 @@ public class BotonSwitch extends TabSheet {
 
 	}
 
-	public Component botonIniciar() {
+	/*public Component botonIniciar() {
 
 		botonIniciar.addStyleName(ValoTheme.BUTTON_PRIMARY);
 		botonIniciar.addClickListener(e -> {
@@ -162,9 +166,9 @@ public class BotonSwitch extends TabSheet {
 		});
 
 		return botonIniciar;
-	}
+	}*/
 
-	public Component botonParar() {
+	/*public Component botonParar() {
 
 		botonStop.addStyleName("danger");
 		botonStop.addClickListener(e -> {
@@ -179,9 +183,9 @@ public class BotonSwitch extends TabSheet {
 
 		return botonStop;
 
-	}
+	}*/
 
-	public void grafico() {
+	/*public void grafico() {
 
 		arduino = new Arduino2();
 		arduino.init();
@@ -189,7 +193,7 @@ public class BotonSwitch extends TabSheet {
 		layoutOnOff.addComponent(arduino);
 		layoutOnOff.setComponentAlignment(arduino, Alignment.MIDDLE_CENTER);
 	
-	}
+	}*/
 
 	public void stop() {
 
@@ -215,13 +219,6 @@ public class BotonSwitch extends TabSheet {
 		return panel;
 	}
 
-	private Component getArea2() {
-		// Logo de la UDO
-		VerticalLayout layout = new VerticalLayout();
-
-		return layout;
-
-	}
 
 	// este metodo cambia el estilo del boton, pero se ejecutara en la clase
 	// Core

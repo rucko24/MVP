@@ -2,6 +2,8 @@ package com.Core.vaadin.pushServer;
 
 import com.Core.vaadin.pushServer.icePush.IcePushServerAddOn;
 import com.Core.vaadin.pushServer.icePush.MenuMessageBar;
+import com.Core.vaadin.pushServer.pruebas.PruebaLabel;
+import com.Core.vaadin.pushServer.pruebas.TestForo;
 import com.Core.vaadin.pushServer.ventanaEditablePush.NoticeBoard;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.TabSheet;
@@ -17,6 +19,7 @@ public class PrincipalTab extends TabSheet{
 		addTab(createMenuMensajes());
 		addTab(crearTableroDeAnuncios());
 		addTab(createLabelHora());
+		addTab(createTestForo());
 	}
 	
 	
@@ -30,7 +33,7 @@ public class PrincipalTab extends TabSheet{
 	}
 	
 	private Component createMenuMensajes() {
-		VerticalLayout layout = (VerticalLayout)createLayout("Message Bar");
+		VerticalLayout layout = createLayout("Message Bar");
 		MenuMessageBar menu = new MenuMessageBar();
 		layout.addComponent(menu);
 		
@@ -38,7 +41,7 @@ public class PrincipalTab extends TabSheet{
 	}
 	
 	private Component crearTableroDeAnuncios() {
-		VerticalLayout layout =  (VerticalLayout) createLayout("Tablero-Anuncios");
+		VerticalLayout layout =  createLayout("Tablero-Anuncios");
 		NoticeBoard noticia = new NoticeBoard();
 		layout.addComponent(noticia);
 		
@@ -46,14 +49,22 @@ public class PrincipalTab extends TabSheet{
 	}
 	
 	private Component createLabelHora() {
-		VerticalLayout layout = (VerticalLayout) createLayout("Label con Hora");
+		VerticalLayout layout = createLayout("Label con Hora");
 		PruebaLabel label = new PruebaLabel();
 		layout.addComponent(label);
 		
 		return layout;
 	}
 	
-	private Component createLayout(String caption) {
+	private Component createTestForo() {
+		VerticalLayout layout = createLayout("Test-Foro-Vaadin");
+		//TestForo foro = new TestForo();
+		//layout.addComponent(foro);
+		
+		return layout;
+	}
+	
+	private VerticalLayout createLayout(String caption) {
 		VerticalLayout layout = new VerticalLayout();
 		layout.setCaption(caption);
 		layout.setHeight(HEIGHT , Unit.PIXELS);

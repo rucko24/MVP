@@ -1,4 +1,4 @@
-package com.Core.vaadin.pushServer;
+package com.Core.vaadin.pushServer.pruebas;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -13,27 +13,27 @@ import com.vaadin.ui.VerticalLayout;
 public class PruebaLabel extends VerticalLayout {
 
 	private Core ui = Core.getCurrent();
-	
+
 	private Label label = new Label("Ahora: ");
 	private static List<Label> labels = new ArrayList<Label>();
 	private Refresher refreh = new Refresher();
-	private static final int INTERVALO = 1500;
-	
+	private static final int INTERVALO = 1000;
+
 	public PruebaLabel() {
 		setMargin(true);
 		refreh.setRefreshInterval(INTERVALO);
-		
+
 		labels.add(label);
-		
+
 		addComponent(label);
 		addExtension(refreh);
 		new Hilo().start();
 	}
 
 	public void dimeLaHora() {
-		//label.setValue("Ahora: " + Instant.now());
-		for(Label tmpLabel : labels) {
-			tmpLabel.setValue("Ahora: "+Instant.now());
+		// label.setValue("Ahora: " + Instant.now());
+		for (Label tmpLabel : labels) {
+			tmpLabel.setValue("Ahora: " + Instant.now());
 		}
 	}
 
@@ -41,19 +41,18 @@ public class PruebaLabel extends VerticalLayout {
 
 		@Override
 		public void run() {
-			while(true) {
+			while (true) {
 				try {
 					Thread.sleep(INTERVALO);
-					
+
 					// actualizando la data mientras
-						ui.access(new Runnable() {
-							@Override
-							public void run() {
-								dimeLaHora();
-							}
-						});					
-						
-					
+					ui.access(new Runnable() {
+						@Override
+						public void run() {
+							dimeLaHora();
+						}
+					});
+
 				} catch (InterruptedException ex) {
 					ex.printStackTrace();
 					Notification.show(ex.getMessage(), Notification.Type.ERROR_MESSAGE);

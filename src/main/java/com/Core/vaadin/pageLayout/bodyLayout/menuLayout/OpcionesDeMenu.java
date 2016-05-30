@@ -5,7 +5,7 @@ import com.Core.vaadin.Core;
 import com.Core.vaadin.arduino.BotonSwitch;
 import com.Core.vaadin.pageLayout.bodyLayout.contentLayout.ContentLayout;
 import com.Core.vaadin.pushServer.PrincipalTab;
-import com.Core.vaadin.pushServer.PruebaLabel2;
+import com.Core.vaadin.pushServer.pruebas.PruebaLabel2;
 import com.Core.vaadin.pushServer.ventanaEditablePush.NoticeBoard;
 import com.Core.vaadin.tabSheet.ContextMenu;
 import com.Core.vaadin.tabSheet.Downloader;
