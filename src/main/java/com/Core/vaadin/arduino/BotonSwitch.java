@@ -6,6 +6,7 @@ import java.util.List;
 import org.vaadin.teemu.switchui.Switch;
 
 import com.Core.vaadin.Core;
+import com.github.wolfie.refresher.Refresher;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Alignment;
@@ -41,11 +42,17 @@ public class BotonSwitch extends TabSheet {
 	private ThemeResource udo = new ThemeResource("img/udo.png");
 	private ThemeResource logoArduino = new ThemeResource("img/ardu2.png");
 	private Label labelArduino = new Label();
+	
+	//////////////////////
 	private Label bombilla = new Label();
 	private static List<Label> bombillas = new ArrayList<Label>();
-		
 	private Switch botonSwitch = new Switch();
 	private static List<Switch> botoneSwitches = new ArrayList<Switch>();
+	private static final int INTERVALO = 100;
+	private Refresher refresh = new Refresher();
+	///////////////
+	
+	
 	private Button botonIniciar = new Button("iniciar");
 	private Button botonStop = new Button("detener Conexion");
 
@@ -54,7 +61,7 @@ public class BotonSwitch extends TabSheet {
 	public BotonSwitch() {
 
 		setSizeFull();
-
+		refresh.setRefreshInterval(INTERVALO);
 		label.addStyleName("labelMenu");
 		label.setSizeUndefined();
 		Label udoLogo = new Label();
@@ -94,14 +101,15 @@ public class BotonSwitch extends TabSheet {
 		botonSwitch.addValueChangeListener(e -> {
 			
 			boolean isEnable = (boolean)e.getProperty().getValue();
+			
 			if(isEnable) {
 				Notification.show("ON");
 				bombilla.setIcon(bombillaON);
 			}else {
-				
 				Notification.show("off");
 				bombilla.setIcon(bombillaOFF);
 			}
+			
 		});
 		
 		botonSwitch.setImmediate(true);
@@ -129,7 +137,8 @@ public class BotonSwitch extends TabSheet {
 		
 		addTab(vLayout, "ON/OFF");
 		addTab(layoutOnOff, "Gráfico-LM35");
-
+		
+		addExtension(refresh);
 		//Core.atachListening(this);
 		
 	}
@@ -153,7 +162,7 @@ public class BotonSwitch extends TabSheet {
 	}
 	
 	private void cambiarEstiloBoton() {
-		for( Switch tmpBotones : botoneSwitches ) {
+		for( Switch tmpSwitches : botoneSwitches ) {
 			
 		}
 	}
@@ -182,10 +191,8 @@ public class BotonSwitch extends TabSheet {
 		public void run() {
 			while(true) {
 				try {
-					Thread.sleep(1000);
-					UI.getCurrent().access(() -> {
-						cambiarEstiloBoton();
-					});
+					Thread.sleep(INTERVALO);
+					
 					
 				}catch(InterruptedException e) {
 					e.printStackTrace();

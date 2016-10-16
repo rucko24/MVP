@@ -9,6 +9,7 @@ import com.Core.vaadin.arduino.Arduino;
 import com.Core.vaadin.arduino.Arduino2;
 import com.Core.vaadin.arduino.BotonSwitch;
 import com.Core.vaadin.pageLayout.PageLayout;
+import com.Core.vaadin.pushServer.compartirDatosVariasUI.BroadCastListener;
 import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
@@ -23,15 +24,15 @@ import com.vaadin.ui.UI;
 @SuppressWarnings("serial")
 @Theme("mytheme")
 @Widgetset("com.Core.vaadin.MyAppWidgetset")
-public class Core extends UI {
+public class Core extends UI  {
 	
 	private PageLayout pageLayout;
 	//public static Arduino2 ARDUINO;
 	//public static Arduino arduino = new Arduino();
 	
 	//este flag te va servir para el estado del bombillo
-	private static boolean switchOn = false;
-	private static List<BotonSwitch> botones = new ArrayList<BotonSwitch>(); 
+	//private static boolean switchOn = false;
+	//private static List<BotonSwitch> botones = new ArrayList<BotonSwitch>(); 
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -71,7 +72,7 @@ public class Core extends UI {
    }*/
 
    //metodo para chequear valor de swtichOn
-   public static boolean isSwitchOn(){
+ /*  public static boolean isSwitchOn(){
 	return switchOn;
    }
 
@@ -83,7 +84,7 @@ public class Core extends UI {
 //con este metodo remuevo botones a la lista botones
   public static void detachListening(BotonSwitch boton){
 	  botones.remove(boton);	
-  }
+  }*/
 
   /*public static Arduino getArduino() {
 	   
@@ -94,6 +95,8 @@ public class Core extends UI {
     @VaadinServletConfiguration(ui = Core.class, productionMode = false)
     public static class MyUIServlet extends VaadinServlet {
     }
+    
+	
     
     
 }
