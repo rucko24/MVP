@@ -1,7 +1,9 @@
-package com.Core.vaadin.tables;
+package com.Core.vaadin.triangulos;
 
 import com.Core.vaadin.workingWithForms.PinValidador;
 import com.vaadin.client.ui.Icon;
+import com.vaadin.data.Validator;
+import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.server.Page;
 import com.vaadin.server.ThemeResource;
@@ -16,35 +18,23 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
+import com.vaadin.ui.themes.ValoTheme;
 import com.vaadin.ui.Notification.Type;
 
 public class MiVentana extends Window {
 	
 	private HorizontalLayout row = new HorizontalLayout();
 	private Label label = new Label("<strong>Ingrese valor de cada lado</strong>",ContentMode.HTML);
-	private TextField txt1 = new TextField("lado 1");
 	
-
+	private TextField txt1 = new TextField("lado 1");
 	private TextField txt2 = new TextField("lado 2");
 	private TextField txt3 = new TextField("lado 3");
-	private Button comparar = new Button("comparar");
+	
+	private Button procesar = new Button("procesar");
 	private ThemeResource equilatero = new ThemeResource("img/equilatero.png");
 	private ThemeResource isosceles = new ThemeResource("img/isosceles.png");
 	private ThemeResource escaleno = new ThemeResource("img/escaleno2.png");
 	private Notification notificacion = new Notification("");
-	
-	public TextField getTxt1() {
-		return txt1;
-	}
-
-	public TextField getTxt3() {
-		return txt3;
-	}
-
-	public TextField getTxt2() {
-		return txt2;
-	}
-	
 	
 	public MiVentana() {
 		
@@ -69,39 +59,47 @@ public class MiVentana extends Window {
 		txt1.setImmediate(true);
 		txt1.setNullSettingAllowed(true);
 		txt1.setNullRepresentation("");
-		txt1.addValidator(new PinValidador());
+		txt1.addValidator(new Validador());
 		
 		txt2.setImmediate(true);
 		txt2.setNullSettingAllowed(true);
 		txt2.setNullRepresentation("");
-		txt2.addValidator(new PinValidador());
+		txt2.addValidator(new Validador());
 		
 		txt3.setImmediate(true);
 		txt3.setNullSettingAllowed(true);
 		txt3.setNullRepresentation("");
-		txt3.addValidator(new PinValidador());
+		txt3.addValidator(new Validador());
 		
-		//comparar.setClickShortcut(KeyCode.ENTER);
-		comparar.addClickListener(e -> {
+		procesar.setClickShortcut(KeyCode.ENTER);
+		procesar.addStyleName(ValoTheme.BUTTON_PRIMARY);
+		
+		procesar.addClickListener(e -> {
 			
-			if(isValid()) {
-				comparar();
+			setValidacionVisible();
+			
+			try {
+				txt1.validate();
+				
+			}catch(InvalidValueException ee) {
+				Notification.show(ee.getMessage(), Type.ERROR_MESSAGE);
+				txt1.setValidationVisible(true);
+				
 			}
-	
 		});
 		
 		
 		Button borrar = new Button("Borrar");
 		borrar.setClickShortcut(KeyCode.DELETE);
 		borrar.addClickListener(e -> {
-			txt1.setValue("");
-			txt2.setValue("");
-			txt3.setValue("");
+			txt1.clear();
+			txt2.clear();
+			txt3.clear();
 			txt1.focus();
 		});
 		
 		row.setSpacing(true);
-		row.addComponents(comparar, borrar);
+		row.addComponents(procesar, borrar);
 		
 		centrar.addComponents(label,txt1,txt2,txt3,row);
 		
@@ -111,109 +109,6 @@ public class MiVentana extends Window {
 		setContent(content);
 	}
 	
-	public boolean isValid() {
-		
-		boolean isValid = true;
-		
-		
-		txt1.setComponentError(null);
-		txt2.setComponentError(null);
-		txt3.setComponentError(null);
-		comparar.setComponentError(null);
-		
-		if(txt1.getValue().toString().isEmpty() && txt2.getValue().toString().isEmpty() && txt3.getValue().toString().isEmpty()) {
-			
-			txt1.setComponentError(new UserError("el campo esta vacio"));
-			txt2.setComponentError(new UserError("el campo esta vacio"));
-			txt3.setComponentError(new UserError("el campo esta vacio"));
-			
-			isValid = false;
-			
-		} else if(txt1.getValue().toString().isEmpty() && txt2.getValue().toString().isEmpty() && !txt3.getValue().toString().isEmpty()) {
-			txt1.setComponentError(new UserError("el campo esta vacio"));
-			txt2.setComponentError(new UserError("el campo esta vacio"));
-			
-			isValid = false;
-		
-		} 
-		else if(!txt1.getValue().toString().isEmpty() && !txt2.getValue().toString().isEmpty() && txt3.getValue().toString().isEmpty()) {
-			
-			txt3.setComponentError(new UserError("el campo esta vacio"));
-			txt3.focus();
-			isValid = false;
-		
-		}else if(!txt1.getValue().toString().isEmpty() && !txt3.getValue().toString().isEmpty() && txt2.getValue().toString().isEmpty()) {
-			
-			txt2.focus();
-			txt2.setComponentError(new UserError("el campo esta vacio"));
-			
-			isValid = false;
-		
-		}
-		else if(!txt2.getValue().toString().isEmpty() && !txt3.getValue().toString().isEmpty() && txt1.getValue().toString().isEmpty()) {
-			
-			txt1.focus();
-			txt1.setComponentError(new UserError("el campo esta vacio"));
-			
-			isValid = false;
-		
-		}
-		else if(!txt1.getValue().toString().isEmpty() && !txt2.getValue().toString().isEmpty() && !txt3.getValue().toString().matches("\\d*")) {
-			
-			txt3.focus();
-			isValid = false;
-		
-		}else if(!txt2.getValue().toString().isEmpty() && !txt3.getValue().toString().isEmpty() && !txt1.getValue().toString().matches("\\d*")) {
-			
-			txt1.focus();
-			isValid = false;
-		
-		}else if(!txt1.getValue().toString().isEmpty() && !txt3.getValue().toString().isEmpty() && !txt2.getValue().toString().matches("\\d*")) {
-			
-			txt2.focus();
-			isValid = false;
-		
-		} else if(txt1.getValue().toString().isEmpty() && txt3.getValue().toString().isEmpty()) {
-			txt1.setComponentError(new UserError("el campo esta vacio"));
-			txt3.setComponentError(new UserError("el campo esta vacio"));
-			isValid = false;
-			
-		}else if(txt2.getValue().toString().isEmpty() && txt3.getValue().toString().isEmpty()) {
-			txt2.setComponentError(new UserError("el campo esta vacio"));
-			txt3.setComponentError(new UserError("el campo esta vacio"));
-			
-			isValid = false;
-		
-		} 
-		
-		return isValid;
-	}
-	
-	public void comparar() {
-		
-		String numero1 = txt1.getValue();
-		String numero2 = txt2.getValue();
-		String numero3 = txt3.getValue();
-		
-		Integer num1 = Integer.valueOf(numero1);
-		Integer num2 = Integer.valueOf(numero2);
-		Integer num3 = Integer.valueOf(numero3);
-		
-		if (num1.equals(num2) && num1.equals(num3)) {
-			
-			notificacion("3 lados iguales "+"|"+num1+"|"+num2+"|"+num3+"|",equilatero);
-	
-			
-		} else if (num1.equals(num2) || num2.equals(num3) || num3.equals(num1)) {
-
-			notificacion("2 lados iguales "+"|"+num1+"|"+num2+"|"+num3+"|",isosceles);
-		
-			
-		} else {
-			
-			notificacion("3 lados diferentes "+"|"+num1+"|"+num2+"|"+num3+"|",escaleno);
-		}
-	}
 	
 	public Notification notificacion(String descripcion, ThemeResource icono) {
 		
@@ -224,5 +119,24 @@ public class MiVentana extends Window {
 		notificacion.show(Page.getCurrent());
 		
 		return notificacion;
+	}
+	
+	public void setValidacionVisible() {
+		txt1.setValidationVisible(false);
+		txt2.setValidationVisible(false);
+		txt3.setValidationVisible(false);
+	}
+	
+	public class Validador implements Validator {
+
+		@Override
+		public void validate(Object value) throws InvalidValueException {
+		
+			String numero = (String) value;
+			if(!(numero instanceof String) && txt1.getValue().equals("ruben")) {
+				new InvalidValueException("no eres ruben");
+			}
+		}
+		
 	}
 }

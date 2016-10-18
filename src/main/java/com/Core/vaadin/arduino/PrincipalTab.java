@@ -9,11 +9,14 @@ public class PrincipalTab extends TabSheet {
 	private static final int HEIGHT = 500;
 	
 	public PrincipalTab() {
+		
 	
+		
 		addTab(createBotonArduino());
 	}
 	
 	private Component createBotonArduino() {
+		
 		VerticalLayout layout = createLayout("ON/OFF");
 		BotonSwitch btnSwitch = new BotonSwitch();
 		layout.addComponent(btnSwitch);
@@ -22,7 +25,9 @@ public class PrincipalTab extends TabSheet {
 	}
 	
 	private VerticalLayout createLayout(String caption) {
+		
 		VerticalLayout layout = new VerticalLayout();
+		layout.setMargin(true);
 		layout.setCaption(caption);
 		layout.setHeight(HEIGHT , Unit.PIXELS);
 		

@@ -23,6 +23,6 @@ public class ProbandoListener extends VerticalLayout {
 		});
 		
 		// Registrando broadCast Listener
-		BroadCaster.register(UI);
+		//BroadCaster.register(UI);
 	}
 }

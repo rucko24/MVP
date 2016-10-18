@@ -1,4 +1,4 @@
-package com.Core.vaadin.tables;
+package com.Core.vaadin.triangulos;
 
 import com.vaadin.server.ThemeResource;
 import com.vaadin.shared.ui.label.ContentMode;
@@ -18,9 +18,6 @@ public class Triangulos extends VerticalLayout {
 	private HorizontalLayout row = new HorizontalLayout();
 	private Button btn = new Button("tipo de triangulo?");
 	private Window win = new Window();
-	
-	private TextField tx = new TextField();
-	private final Button btnSalvar = new Button("Salvar");
 	
 	private ThemeResource imgTriangulo = new ThemeResource("img/triangulos.gif");
 	private Label labelTriangulo = new Label();
@@ -44,25 +41,7 @@ public class Triangulos extends VerticalLayout {
 			UI.getCurrent().addWindow(ventana);
 		});
 		
-		tx.setImmediate(true);
-		tx.setTextChangeEventMode(TextChangeEventMode.EAGER);
-		
-		btnSalvar.setEnabled(false);
-		
-		tx.addTextChangeListener( e -> {
-			
-			btnSalvar.setCaption("guardar");
-			btnSalvar.setEnabled(true);
-		});
-		
-		btnSalvar.addClickListener(e -> {
-			btnSalvar.setCaption("guardado");
-			btnSalvar.setEnabled(false);
-		});
-		
-		addComponents(row,btn,tx,btnSalvar);
-		
-		
+		addComponents(row,btn);
 		
 	}
 	

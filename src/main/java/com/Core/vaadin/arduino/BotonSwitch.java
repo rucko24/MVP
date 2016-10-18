@@ -21,7 +21,7 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
-public class BotonSwitch extends TabSheet {
+public class BotonSwitch extends VerticalLayout {
 
 	/**
 	 * 
@@ -50,24 +50,30 @@ public class BotonSwitch extends TabSheet {
 	private static List<Switch> botoneSwitches = new ArrayList<Switch>();
 	private static final int INTERVALO = 100;
 	private Refresher refresh = new Refresher();
-	///////////////
+	/////////////////////
 	
 	
 	private Button botonIniciar = new Button("iniciar");
 	private Button botonStop = new Button("detener Conexion");
 
 	private VerticalLayout layoutOnOff = new VerticalLayout();
-
+	
+	private TabSheet tabs = new TabSheet();
+	
 	public BotonSwitch() {
 
 		setSizeFull();
+
 		refresh.setRefreshInterval(INTERVALO);
 		label.addStyleName("labelMenu");
 		label.setSizeUndefined();
 		Label udoLogo = new Label();
 		udoLogo.setIcon(udo);
 		udoLogo.setSizeUndefined();
-
+		
+		
+		bombilla.getUI();
+		
 		logoUdoDerecha.addStyleName("logoUdo");
 		logoUdoDerecha.addComponent(udoLogo);
 
@@ -135,12 +141,13 @@ public class BotonSwitch extends TabSheet {
 		layoutOnOff.setSpacing(true);
 		layoutOnOff.setComponentAlignment(header, Alignment.BOTTOM_CENTER);
 		
-		addTab(vLayout, "ON/OFF");
-		addTab(layoutOnOff, "Gráfico-LM35");
+		tabs.setSizeFull();
+		tabs.addTab(vLayout, "ON/OFF");
+		tabs.addTab(layoutOnOff, "Gráfico-LM35");
 		
 		addExtension(refresh);
 		//Core.atachListening(this);
-		
+		addComponent(tabs);
 	}
 
 	private Component getHeader() {

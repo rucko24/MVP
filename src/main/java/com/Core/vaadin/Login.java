@@ -38,7 +38,7 @@ public class Login extends VerticalLayout implements View {
 		textfield.focus();
 		textfield.setNullRepresentation("");
 		textfield.setNullSettingAllowed(false);
-		//txt.addValidator(new Validador());
+		textfield.addValidator(new Validador());
 		textfield.setValidationVisible(false);
 		textfield.setImmediate(true);
 		
@@ -46,13 +46,13 @@ public class Login extends VerticalLayout implements View {
 		pass.setValidationVisible(false);
 		pass.setImmediate(true);
 		
+		btn.setWidth("185px");
 		btn.setClickShortcut(KeyCode.ENTER);
 		btn.addStyleName(ValoTheme.BUTTON_PRIMARY);
 		btn.addClickListener( e -> {		
-			textfield.setValidationVisible(false);
-			pass.setValidationVisible(false);
+			
 			try {
-
+				
 				pass.validate();
 				new Hilo().start();
 				
@@ -60,10 +60,10 @@ public class Login extends VerticalLayout implements View {
 				
 				notification(ee.getMessage());
 				textfield.setValidationVisible(true);
-				textfield.setValue("");
-				pass.setValue("");
-				pass.setValidationVisible(true);
-				
+				textfield.clear();
+				pass.clear();
+				//pass.setValidationVisible(true);
+				textfield.focus();
 			}
 			
 		});
@@ -74,7 +74,6 @@ public class Login extends VerticalLayout implements View {
 		
 		addComponent(centrar);
 		setComponentAlignment(centrar, Alignment.MIDDLE_CENTER);
-		
 		
 	}
 	
@@ -122,6 +121,7 @@ public class Login extends VerticalLayout implements View {
 				while( c < 2) {
 					Thread.sleep(1000);
 					Core.getCurrent().access(new Runnable() {
+						
 						@Override
 						public void run() {
 							c++;
@@ -132,6 +132,7 @@ public class Login extends VerticalLayout implements View {
 				}
 				
 				Core.getCurrent().access(new Runnable() {
+					
 					@Override
 					public void run() {
 						Core.getCurrent().getNavigator().navigateTo(PageLayout.PAGELAYOUT_VIEW);

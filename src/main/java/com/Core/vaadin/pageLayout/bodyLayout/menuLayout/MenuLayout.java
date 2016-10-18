@@ -32,6 +32,7 @@ public class MenuLayout extends VerticalLayout {
 	public static final String PRUEBA_LABEL2 = "Label Push";
 	public static final String PRUEBA_LABEL3 = "Label Push";
 	public static final String PRUEBA_LABEL4 = "Label Push";
+	public static final String LISTADO = "Listado";
 	
 	public static final String ITEMS[] = {"PRUEBA_LABEL5","PRUEBA_LABEL6","PRUEBA_LABEL7"};
 	
@@ -42,12 +43,15 @@ public class MenuLayout extends VerticalLayout {
 	
 	public MenuLayout() {
 		
+		
 		label.setSizeUndefined();
 		label.addStyleName("labelMenu");
 		label.setIcon(iconoArdu);
 		vLayout.setMargin(true);
 		vLayout.addComponent(label);
 		vLayout.setComponentAlignment(label, Alignment.MIDDLE_CENTER);
+		
+		
 		
 		tree.setWidth("100%");
 		tree.addStyleName("arbol"); //estilo de arbol, background caption selected
@@ -66,7 +70,8 @@ public class MenuLayout extends VerticalLayout {
 		tree.addItem(PRUEBA_LABEL);
 		tree.addItem(ARDUINO);
 		tree.addItem(CONTENT2);
-	
+		tree.addItem(LISTADO);
+		
 		tree.setChildrenAllowed(HOME, false);
 		tree.setValue(HOME);
 		//setParent(CALCULADOR, MENU);

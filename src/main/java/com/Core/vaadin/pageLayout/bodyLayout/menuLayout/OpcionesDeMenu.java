@@ -15,7 +15,8 @@ import com.Core.vaadin.tabSheet.progressBar.BarraCarga;
 import com.Core.vaadin.tables.FieldFactory;
 import com.Core.vaadin.tables.TreeTabla;
 import com.Core.vaadin.tables.TreeTabla2;
-import com.Core.vaadin.tables.Triangulos;
+import com.Core.vaadin.tables.listado.Listado;
+import com.Core.vaadin.triangulos.Triangulos;
 import com.Core.vaadin.workingWithForms.Main;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
@@ -34,8 +35,8 @@ public class OpcionesDeMenu implements ItemClickListener {
 		contentLayout.removeAllComponents();
 		
 		if(MenuLayout.HOME.equals(value)) {
-			//contentLayout.removeAllComponents();
-			contentLayout.addComponent(ContentLayout.getLayout());
+			
+			contentLayout.addComponent(contentLayout.getLayout());
 			
 		}else if(MenuLayout.ARDUINO.equals(value)) {
 			BotonSwitch layout = new BotonSwitch();
@@ -96,6 +97,9 @@ public class OpcionesDeMenu implements ItemClickListener {
 		}else if(MenuLayout.PRUEBA_LABEL.equals(value)) {
 			PruebaLabel2 pruebaLabel = new PruebaLabel2();
 			contentLayout.addComponent(pruebaLabel);
+		}else if(MenuLayout.LISTADO.equals(value)) {
+			Listado listado = new Listado();
+			contentLayout.addComponent(listado);
 		}
 	}
 

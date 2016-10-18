@@ -32,6 +32,7 @@ public class Principal extends VerticalLayout {
 	private static final long serialVersionUID = 1L;
 	private TabSheet tab = new TabSheet();
 	private Deslisador slider;
+	
 	public Principal() {
 		
 		setHeight("580px");;

@@ -6,100 +6,117 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.MenuBar;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-
 public class EjemploTema extends VerticalLayout {
 	
+	private static final long serialVersionUID = 1L;
+
 	public EjemploTema() {
 		
-		setWidth("820px");
-		setHeight("610px");
-		setSpacing(true);
 		setMargin(true);
+		setSpacing(true);
 		
 		Component header = getHeader();
 		
-		Component main = getMain();
+		Component main = getMainArea();
 		
 		addComponents(header,main);
-		setExpandRatio(main,1);
+		setExpandRatio(main, 1);
 	}
-		
+	
 	private Component getHeader() {
+		
 		HorizontalLayout layout = new HorizontalLayout();
-		layout.setCaption("Header");
-		layout.setHeight("50px");
-		layout.setWidth("50px");
-		
-		Label label = new Label("<h1><strong><em>DashBoard</em></strong></h1>",ContentMode.HTML);
-		
+		layout.setWidth("100%");
+		Label label = new Label("<h1>DashBoard</h1>",ContentMode.HTML);
 		
 		layout.addComponent(label);
+		
 		return layout;
 	}
 	
-	private Component getMain() {
+	private Component getMainArea() {
+		
+		HorizontalLayout layout = new HorizontalLayout();
+		layout.setWidth("100%");
+		//layout.setHeight("100%");
+		layout.setSpacing(true);
 		
 		VerticalLayout vLayout = new VerticalLayout();
-		vLayout.setCaption("VerticalLayout");
 		vLayout.setSpacing(true);
-		vLayout.setWidth("130px");
+		vLayout.setWidth("120px");
 		
-		Button btn1 = new Button("Servicios");
-		btn1.setWidth("110%");
+		Button btn1 = new Button("DashBoard");
+		btn1.setWidth("100%");
 		
-		Button btn2 = new Button("Registros");
-		btn2.setWidth("110%");
+		Button btn2 = new Button("Services");
+		btn1.setWidth("100%");
 		
-		Button btn3 = new Button("DashBoard");
-		btn3.setWidth(110, Unit.PERCENTAGE);
+		Button btn3 = new Button("Reports");
+		btn1.setWidth("100%");
+			
 		vLayout.addComponents(btn1,btn2,btn3);
+	
+		layout.addComponent(vLayout);
 		
-		HorizontalLayout hLayout = new HorizontalLayout();
-		hLayout.setCaption("horizontalLAyout = verticalLayout + grid");
-		hLayout.setSizeFull();
-		hLayout.setSpacing(true);
+		Component area = getArea2();
+		layout.addComponent(area);
+		layout.setExpandRatio(area, 1);
 		
-		Component area = getContentArea();
+		return layout;
 		
-		hLayout.addComponents(vLayout,area);
-		hLayout.setExpandRatio(area, 1);
-		
-		return hLayout;
 	}
 	
-	private Component getContentArea() {
+	private Component getArea2() {
 		
-		GridLayout grid = new GridLayout(2,3);
-		grid.setSizeFull();
-		grid.setSpacing(true);
+		GridLayout layout = new GridLayout();
+		layout.setRows(3);
+		layout.setColumns(2);
+		layout.setSpacing(true);
+		layout.setRowExpandRatio(2, 1);
 		
-		grid.setRowExpandRatio(1, 1);
+		layout.addStyleName("borde");
 		
-		TextField txt = new TextField("Busqueda");
-		grid.addComponent(txt, 0, 0);
+		TextField txt = new TextField();
+		txt.setInputPrompt("Search");
+		txt.setSizeFull();
+		layout.addComponent(txt, 0, 0);
 		
 		Table table = new Table();
-		table.setWidth("100%");
-		table.setHeight("100%");
 		table.setSelectable(true);
-		table.addContainerProperty("Nombre", String.class, null);
-		table.addContainerProperty("Monto", Double.class, null);
+		table.addContainerProperty("Name", String.class, null);
+		table.addContainerProperty("Apellido", String.class, null);
+		table.addContainerProperty("Deuda", Double.class, null);
 		
-		Object persona[][] = {{"Maria",500.5},
-							  {"Pedro",998.5},
-							  {"Rodolfa",5789.5}};
+		String nombres[] = {"Ruben","Maria","Pedra","Jose","Raul"};
+		String apellidos[] = {"Espinoza","Peres","Garcia","Gonzales","Parra"};
+		double deuda[] = { 50.2 , 100.85 , 342.3 , 234.55 , 999.99};
 		
-		for( int f=0; f<persona.length; f++) {
-			table.addItem(persona[f] , new Integer(f));
+		for( int f=0; f<5; f++) {
+			
+			table.addItem( new Object[] {nombres[f] , apellidos[f] , deuda[f] } , new Integer(f));
 		}
 		
-		grid.addComponent(table,0,1);
+		table.setPageLength(table.size());
+		layout.addComponent(table, 0 , 1);
 		
-		return grid;
+		MenuBar menu = new MenuBar();
+		menu.addItem("Opcion 1", null);
+		menu.addItem("Opcion 2", null);
+		menu.addItem("Opcion 3", null);
+		layout.addComponent(menu, 1 , 1);
+		
+		Panel panel = new Panel();
+		//panel.setWidth("100%");
+		//panel.setHeight("100%");
+		layout.addComponent(panel, 1 ,2);
+		
+		return layout;
 	}
 	
 }
