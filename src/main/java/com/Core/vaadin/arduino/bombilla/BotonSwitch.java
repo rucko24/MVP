@@ -56,8 +56,6 @@ public class BotonSwitch extends VerticalLayout {
 		
 	public BotonSwitch() {
 
-		setSizeFull();
-
 		refresh.setRefreshInterval(INTERVALO);
 		label.addStyleName("labelMenu");
 		label.setSizeUndefined();
@@ -89,46 +87,14 @@ public class BotonSwitch extends VerticalLayout {
 		bombilla.setIcon(bombillaOFF);
 		
 		Component getArea1 = getArea1();
-
 		VerticalLayout vLayout = new VerticalLayout(getArea1);
-		vLayout.setHeight("600px");
-		
-		vLayout.setSpacing(true);
-		vLayout.setComponentAlignment(getArea1, Alignment.BOTTOM_CENTER);
-		vLayout.setExpandRatio(getArea1, 1);
+		vLayout.setHeight("500px");;
+		vLayout.setComponentAlignment(getArea1, Alignment.MIDDLE_CENTER);
 		
 		addExtension(refresh);
 		Core.atachListening(this);
+		addComponent(vLayout);
 		
-		addComponent(getArea1);
-		setHeight("600px");
-	}
-
-	private Component getHeader() {
-
-		// retorna el titulo del Ardu
-		HorizontalLayout layout = new HorizontalLayout();
-		layout.setMargin(true);
-		layout.setWidth("70%");
-		labelArduino.setIcon(logoArduino);
-		labelArduino.setSizeUndefined();
-
-		//Component iniciar = botonIniciar();
-		//Component parar = botonParar();
-
-		//layout.addComponents(iniciar, parar);
-
-		return layout;
-
-	}
-	
-	private Notification notification( String msg ) {
-		
-		Notification n = new Notification(msg, Notification.Type.WARNING_MESSAGE );
-		n.setPosition(Position.BOTTOM_RIGHT);
-		n.show(Page.getCurrent());
-		
-		return n;
 	}
 	
 	private Component getArea1() {
@@ -149,7 +115,14 @@ public class BotonSwitch extends VerticalLayout {
 
 		return panel;
 	}
-	
+	private Notification notification( String msg ) {
+		
+		Notification n = new Notification(msg, Notification.Type.WARNING_MESSAGE );
+		n.setPosition(Position.BOTTOM_RIGHT);
+		n.show(Page.getCurrent());
+		
+		return n;
+	}
 	// este metodo cambia el estilo del boton, pero se ejecutara en la clase
 	// Core
 	// para todos los botones atachados

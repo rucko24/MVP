@@ -1,13 +1,14 @@
 package com.Core.vaadin.arduino;
 
 import com.Core.vaadin.arduino.bombilla.BotonSwitch;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.VerticalLayout;
 
 public class PrincipalTabArduino extends TabSheet {
 	
-	private static final int HEIGHT = 500;
+	private static final int HEIGHT = 700;
 	
 	public PrincipalTabArduino() {
 		
@@ -19,6 +20,7 @@ public class PrincipalTabArduino extends TabSheet {
 		
 		VerticalLayout layout = createLayout("ON/OFF");
 		BotonSwitch btnSwitch = new BotonSwitch();
+		layout.setSizeFull();
 		layout.addComponent(btnSwitch);
 		
 		return layout;
