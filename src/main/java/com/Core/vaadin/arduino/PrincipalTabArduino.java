@@ -1,7 +1,7 @@
 package com.Core.vaadin.arduino;
 
 import com.Core.vaadin.arduino.bombilla.BotonSwitch;
-import com.vaadin.ui.Alignment;
+import com.Core.vaadin.arduino.grafico.GraficaLuminosidad;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.VerticalLayout;
@@ -14,6 +14,7 @@ public class PrincipalTabArduino extends TabSheet {
 		
 	
 		addTab(createBotonArduino());
+		addTab(crearGraficoLuminosidad());
 	}
 	
 	private Component createBotonArduino() {
@@ -26,6 +27,15 @@ public class PrincipalTabArduino extends TabSheet {
 		return layout;
 	}
 	
+	private Component crearGraficoLuminosidad() {
+		
+		VerticalLayout layout = createLayout("Grafico LUMINOSIDAD vs TIEMPO");
+		//GraficaLuminosidad g = new GraficaLuminosidad();
+		layout.setSizeFull();
+		//layout.addComponent(g);
+		
+		return layout;
+	}
 	private VerticalLayout createLayout(String caption) {
 		
 		VerticalLayout layout = new VerticalLayout();

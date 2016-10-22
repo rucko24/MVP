@@ -28,79 +28,70 @@ import com.vaadin.ui.themes.ValoTheme;
 @SuppressWarnings("serial")
 @Theme("mytheme")
 @Widgetset("com.Core.vaadin.MyAppWidgetset")
-public class Core extends UI  {
-	
-	private PageLayout pageLayout;
-	//public static Arduino2 ARDUINO;
-	//public static Arduino arduino = new Arduino();
-	
-	//este flag te va servir para el estado del bombillo
-	private static boolean switchOn = false;
-	private static List<BotonSwitch> botones = new ArrayList<BotonSwitch>(); 
-	
-    @Override
-    protected void init(VaadinRequest vaadinRequest) {
-    	Responsive.makeResponsive(this);
-    	addStyleName(ValoTheme.UI_WITH_MENU);
-    	pageLayout = new PageLayout();
-    	
-    	Navigator navigator = new Navigator(this, this);
-    	
-    	navigator.addView(Login.LOGIN_VIEW, new Login());
-    	navigator.addView(PageLayout.PAGELAYOUT_VIEW, pageLayout);
-    	
-    	navigator.navigateTo(Login.LOGIN_VIEW);
-    	
-    	//agrega el layout MAIN
-    	setContent(pageLayout);
-    	
-    }
-    
-   public PageLayout getPageLayout() {
-	   
-	   return pageLayout;
-   }
+public class Core extends UI {
 
-   public static Core getCurrent() {
-	   
-	   return (Core) UI.getCurrent();
-	  
-   }
-	//metodo para cambiar de estado la variable switchOn basta con un solo metodo
-   public static void changeSwitch(){
+	private PageLayout pageLayout;
+	// este flag te va servir para el estado del bombillo
+	private static boolean switchOn = false;
+	private static List<BotonSwitch> botones = new ArrayList<BotonSwitch>();
+
+	@Override
+	protected void init(VaadinRequest vaadinRequest) {
+		Responsive.makeResponsive(this);
+		addStyleName(ValoTheme.UI_WITH_MENU);
+		pageLayout = new PageLayout();
+
+		Navigator navigator = new Navigator(this, this);
+
+		navigator.addView(Login.LOGIN_VIEW, new Login());
+		navigator.addView(PageLayout.PAGELAYOUT_VIEW, pageLayout);
+
+		navigator.navigateTo(Login.LOGIN_VIEW);
+
+		// agrega el layout MAIN
+		setContent(pageLayout);
+
+	}
+
+	public PageLayout getPageLayout() {
+
+		return pageLayout;
+	}
+
+	public static Core getCurrent() {
+
+		return (Core) UI.getCurrent();
+
+	}
+
+	// metodo para cambiar de estado la variable switchOn basta con un solo
+	// metodo
+	public static void changeSwitch() {
 		switchOn = !switchOn;
-		for(BotonSwitch tmpBtn : botones){
+		for (BotonSwitch tmpBtn : botones) {
 			tmpBtn.changeButtonOnOff();
 		}
-	
-   }
 
-   //metodo para chequear valor de swtichOn
-  public static boolean isSwitchOn(){
-	return switchOn;
-   }
+	}
 
-//con este metodo agrego botones a la lista botones
-  public static void atachListening(BotonSwitch boton){
-	  botones.add(boton);		
-  }
+	// metodo para chequear valor de swtichOn
+	public static boolean isSwitchOn() {
+		return switchOn;
+	}
 
-//con este metodo remuevo botones a la lista botones
-  public static void detachListening(BotonSwitch boton){
-	  botones.remove(boton);	
-  }
+	// con este metodo agrego botones a la lista botones
+	public static void atachListening(BotonSwitch boton) {
+		botones.add(boton);
+	}
 
-  /*public static Arduino getArduino() {
-	   
-	   return arduino;
-  }*/
-    
-    @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
-    @VaadinServletConfiguration(ui = Core.class, productionMode = false)
-    public static class MyUIServlet extends VaadinServlet {
-    }
-    
-	
-    
-    
+	// con este metodo remuevo botones a la lista botones
+	public static void detachListening(BotonSwitch boton) {
+		botones.remove(boton);
+	}
+
+	@WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
+	@VaadinServletConfiguration(ui = Core.class, productionMode = false)
+	public static class MyUIServlet extends VaadinServlet {
+	}
+
 }

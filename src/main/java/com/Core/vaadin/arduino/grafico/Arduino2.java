@@ -41,13 +41,8 @@ public class Arduino2 extends VerticalLayout {
 
 					try {
 						f++;
-						Core.getCurrent().access( new Runnable() {
-							@Override
-							public void run() {
-								xySeries.add(f, Integer.valueOf(arduino.printMessage()));
-							}
-						});
 						
+							xySeries.add(f, Integer.parseInt(arduino.printMessage()));
 
 					} catch (NumberFormatException ex) {
 						Notification.show(ex.getMessage(), Notification.Type.ERROR_MESSAGE);
@@ -57,7 +52,6 @@ public class Arduino2 extends VerticalLayout {
 
 			}
 		};
-
 	}
 
 	public void init() {
@@ -82,6 +76,7 @@ public class Arduino2 extends VerticalLayout {
 
 	public JFreeChartWrapper wrapper() {
 		return new JFreeChartWrapper(jfreeChar) {
+			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void attach() {
@@ -97,7 +92,7 @@ public class Arduino2 extends VerticalLayout {
 			arduino.killArduinoConnection();
 		} catch (Exception e) {
 			
-			e.printStackTrace();
+			Notification.show("ERROR: "+e.getMessage(), Notification.Type.ERROR_MESSAGE);
 		}
 
 	}

@@ -26,6 +26,7 @@ public class OpcionesDeMenu implements ItemClickListener {
 	
 	private static final long serialVersionUID = 1L;
 	private Core getUI = Core.getCurrent();
+	
 	@Override
 	public void itemClick(ItemClickEvent event) {
 		
@@ -40,8 +41,10 @@ public class OpcionesDeMenu implements ItemClickListener {
 			contentLayout.addComponent(contentLayout.getLayout());
 			
 		}else if(MenuLayout.ARDUINO.equals(value)) {
-			PrincipalTabArduino tab = new PrincipalTabArduino();
+			
+			 PrincipalTabArduino tab = new PrincipalTabArduino();
 			contentLayout.addComponent(tab);
+			
 		}else if(MenuLayout.CONTENT2.equals(value)) {
 			
 			FieldFactory layout = new FieldFactory();
