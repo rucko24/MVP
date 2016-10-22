@@ -1,4 +1,4 @@
-package com.Core.vaadin.arduino;
+package com.Core.vaadin.arduino.graficaLuminosidad;
 
 
 import org.jfree.chart.ChartFactory;
@@ -7,7 +7,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.vaadin.addon.JFreeChartWrapper;
-
+import com.Core.vaadin.Core;
 import com.panamahitek.PanamaHitek_Arduino;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
@@ -30,7 +30,7 @@ public class Arduino2 extends VerticalLayout {
 		setWidth("500px");
 		setHeight("750px");
 		this.f = 0;
-		xySeries = new XYSeries("Temperatura");
+		xySeries = new XYSeries("Luminosidad");
 		xySeriesCollection = new XYSeriesCollection();
 
 		serialPortE = new SerialPortEventListener() {
@@ -41,7 +41,13 @@ public class Arduino2 extends VerticalLayout {
 
 					try {
 						f++;
-						xySeries.add(f, Integer.valueOf(arduino.printMessage()));
+						Core.getCurrent().access( new Runnable() {
+							@Override
+							public void run() {
+								xySeries.add(f, Integer.valueOf(arduino.printMessage()));
+							}
+						});
+						
 
 					} catch (NumberFormatException ex) {
 						Notification.show(ex.getMessage(), Notification.Type.ERROR_MESSAGE);
@@ -68,7 +74,7 @@ public class Arduino2 extends VerticalLayout {
 		xySeries.add(0, 0);
 		xySeriesCollection.addSeries(xySeries);
 
-		jfreeChar = ChartFactory.createXYLineChart("Temperatura vs Tiempo", "TIEMPO", "TEMPERATURA", xySeriesCollection,
+		jfreeChar = ChartFactory.createXYLineChart("Luminosidad vs Tiempo", "TIEMPO", "Luminosidad", xySeriesCollection,
 				PlotOrientation.VERTICAL, true, true, false);
 
 		addComponent(wrapper());
@@ -90,7 +96,7 @@ public class Arduino2 extends VerticalLayout {
 		try {
 			arduino.killArduinoConnection();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 

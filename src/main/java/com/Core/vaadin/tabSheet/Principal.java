@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.Core.vaadin.arduino.Arduino2;
+import com.Core.vaadin.arduino.graficaLuminosidad.Arduino2;
 import com.Core.vaadin.tabSheet.graficos.Chart;
 import com.Core.vaadin.tabSheet.graficos.JfreeGrafico;
 import com.Core.vaadin.tabSheet.progressBar.ProgressBarListener;

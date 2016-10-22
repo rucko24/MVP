@@ -10,16 +10,19 @@ public class Arduino {
 	
 	public Arduino() {
 		
-		serialPort = new SerialPort("/dev/ttyACM0");
+		if( serialPort == null) {
+			serialPort = new SerialPort("/dev/ttyACM0");
+		}
 		
 		try {
-			
+		
 			System.out.println("Puerto Abierto: "+serialPort.openPort());
 			System.out.println("Params setted: " + serialPort.setParams(9600, 8, 1, 0));
             
 		}catch(SerialPortException ex ) {
 			System.out.println(ex.getMessage());
 		}
+		
 	}
 	
 	public void enviarDato( String datos ) {

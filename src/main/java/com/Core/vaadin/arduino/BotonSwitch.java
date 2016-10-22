@@ -30,7 +30,7 @@ public class BotonSwitch extends VerticalLayout {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static Arduino arduino = Core.getArduino();
+	//private static Arduino arduino = Core.getArduino();
 
 	private Label label = new Label("<h1><strong>Testing-the-foc@</strong></h1>", ContentMode.HTML);
 	private final Button btnSwitch = new Button();
@@ -53,14 +53,7 @@ public class BotonSwitch extends VerticalLayout {
 	private static final int INTERVALO = 100;
 	private Refresher refresh = new Refresher();
 	/////////////////////
-
-	private Button botonIniciar = new Button("iniciar");
-	private Button botonStop = new Button("detener Conexion");
-
-	private VerticalLayout layoutOnOff = new VerticalLayout();
-	
-	private TabSheet tabs = new TabSheet();
-	
+		
 	public BotonSwitch() {
 
 		setSizeFull();
@@ -69,24 +62,7 @@ public class BotonSwitch extends VerticalLayout {
 		label.addStyleName("labelMenu");
 		label.setSizeUndefined();
 
-		bombilla.getUI();
-		
-		logoUdoDerecha.addStyleName("logoUdo");
-
-		// rowlabelUdo.setSizeFull();
-		rowlabelUdo.setWidth("50%");
-		rowlabelUdo.setHeight("40%");
-		rowlabelUdo.addComponents(label, logoUdoDerecha);
-
 		 btnSwitch.setIcon(FontAwesome.PLAY);
-
-	/*	if (Core.isSwitchOn()) {
-			bombilla.setIcon(bombillaON);
-			btnSwitch.setIcon(FontAwesome.STOP);
-		} else {
-			bombilla.setIcon(bombillaOFF);
-			btnSwitch.setIcon(FontAwesome.PLAY);
-		}*/
 
 		Core.changeSwitch();
 		
@@ -100,12 +76,12 @@ public class BotonSwitch extends VerticalLayout {
 		// bombillo mas botonSwitch
 		
 		btnSwitch.addClickListener( e -> {
-		
 			Core.changeSwitch();
+			
   			if(Core.isSwitchOn()) {
-  			arduino.enviarDato("1");
+  		//	arduino.enviarDato("1");
   			} else {
-  			arduino.enviarDato("2");
+  		//	arduino.enviarDato("2");
   			}
   			
 		});
@@ -124,17 +100,10 @@ public class BotonSwitch extends VerticalLayout {
 		vLayout.setExpandRatio(getArea1, 1);
 
 		Component header = getHeader();
-
-		layoutOnOff.addComponents(header);
-		layoutOnOff.setSpacing(true);
-		layoutOnOff.setComponentAlignment(header, Alignment.BOTTOM_CENTER);
-		
-		tabs.setSizeFull();
-		tabs.addTab(vLayout, "ON/OFF");
-		tabs.addTab(layoutOnOff, "Gráfico-LM35");
 		
 		addExtension(refresh);
 		Core.atachListening(this);
+		
 		addComponent(tabs);
 	}
 

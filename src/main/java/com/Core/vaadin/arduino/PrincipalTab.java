@@ -11,8 +11,7 @@ public class PrincipalTab extends TabSheet {
 	public PrincipalTab() {
 		
 	
-		
-		addTab(createBotonArduino());
+		addTab(createBotonArduino(), "ON/OFF");
 	}
 	
 	private Component createBotonArduino() {

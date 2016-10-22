@@ -6,8 +6,8 @@ import java.util.List;
 import javax.servlet.annotation.WebServlet;
 
 import com.Core.vaadin.arduino.Arduino;
-import com.Core.vaadin.arduino.Arduino2;
 import com.Core.vaadin.arduino.BotonSwitch;
+import com.Core.vaadin.arduino.graficaLuminosidad.Arduino2;
 import com.Core.vaadin.pageLayout.PageLayout;
 import com.Core.vaadin.pushServer.compartirDatosVariasUI.BroadCastListener;
 import com.Core.vaadin.tables.listado.Customer;
@@ -32,7 +32,7 @@ public class Core extends UI  {
 	
 	private PageLayout pageLayout;
 	//public static Arduino2 ARDUINO;
-	public static Arduino arduino = new Arduino();
+	//public static Arduino arduino = new Arduino();
 	
 	//este flag te va servir para el estado del bombillo
 	private static boolean switchOn = false;
@@ -90,10 +90,10 @@ public class Core extends UI  {
 	  botones.remove(boton);	
   }
 
-  public static Arduino getArduino() {
+  /*public static Arduino getArduino() {
 	   
 	   return arduino;
-  }
+  }*/
     
     @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
     @VaadinServletConfiguration(ui = Core.class, productionMode = false)
