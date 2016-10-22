@@ -1,4 +1,4 @@
-package com.Core.vaadin.arduino;
+package com.Core.vaadin.arduino.bombilla;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,23 +88,20 @@ public class BotonSwitch extends VerticalLayout {
 		
 		bombilla.setIcon(bombillaOFF);
 		
-		Component getHeader = getHeader();
 		Component getArea1 = getArea1();
 
-		VerticalLayout vLayout = new VerticalLayout(getHeader, getArea1);
+		VerticalLayout vLayout = new VerticalLayout(getArea1);
 		vLayout.setHeight("600px");
 		
 		vLayout.setSpacing(true);
-		vLayout.setComponentAlignment(getHeader, Alignment.BOTTOM_CENTER);
-		vLayout.setComponentAlignment(getArea1, Alignment.TOP_CENTER);
+		vLayout.setComponentAlignment(getArea1, Alignment.BOTTOM_CENTER);
 		vLayout.setExpandRatio(getArea1, 1);
-
-		Component header = getHeader();
 		
 		addExtension(refresh);
 		Core.atachListening(this);
 		
-		addComponent(tabs);
+		addComponent(getArea1);
+		setHeight("600px");
 	}
 
 	private Component getHeader() {

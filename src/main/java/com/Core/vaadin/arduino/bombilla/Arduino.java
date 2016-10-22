@@ -1,4 +1,4 @@
-package com.Core.vaadin.arduino;
+package com.Core.vaadin.arduino.bombilla;
 
 import com.vaadin.ui.Notification;
 import jssc.SerialPort;

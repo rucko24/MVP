@@ -1,4 +1,4 @@
-package com.Core.vaadin.arduino.graficaLuminosidad;
+package com.Core.vaadin.arduino.grafico;
 
 import com.vaadin.ui.VerticalLayout;
 

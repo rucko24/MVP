@@ -5,9 +5,9 @@ import java.util.List;
 
 import javax.servlet.annotation.WebServlet;
 
-import com.Core.vaadin.arduino.Arduino;
-import com.Core.vaadin.arduino.BotonSwitch;
-import com.Core.vaadin.arduino.graficaLuminosidad.Arduino2;
+import com.Core.vaadin.arduino.bombilla.Arduino;
+import com.Core.vaadin.arduino.bombilla.BotonSwitch;
+import com.Core.vaadin.arduino.grafico.Arduino2;
 import com.Core.vaadin.pageLayout.PageLayout;
 import com.Core.vaadin.pushServer.compartirDatosVariasUI.BroadCastListener;
 import com.Core.vaadin.tables.listado.Customer;

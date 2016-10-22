@@ -1,17 +1,18 @@
 package com.Core.vaadin.arduino;
 
+import com.Core.vaadin.arduino.bombilla.BotonSwitch;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.VerticalLayout;
 
-public class PrincipalTab extends TabSheet {
+public class PrincipalTabArduino extends TabSheet {
 	
 	private static final int HEIGHT = 500;
 	
-	public PrincipalTab() {
+	public PrincipalTabArduino() {
 		
 	
-		addTab(createBotonArduino(), "ON/OFF");
+		addTab(createBotonArduino());
 	}
 	
 	private Component createBotonArduino() {

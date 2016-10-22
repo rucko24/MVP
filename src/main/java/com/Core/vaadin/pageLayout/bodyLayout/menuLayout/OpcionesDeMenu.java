@@ -3,7 +3,7 @@ package com.Core.vaadin.pageLayout.bodyLayout.menuLayout;
 
 import com.Core.vaadin.Calculador;
 import com.Core.vaadin.Core;
-import com.Core.vaadin.arduino.BotonSwitch;
+import com.Core.vaadin.arduino.PrincipalTabArduino;
 import com.Core.vaadin.pageLayout.bodyLayout.contentLayout.ContentLayout;
 import com.Core.vaadin.pushServer.PrincipalTab;
 import com.Core.vaadin.pushServer.pruebas.PruebaLabel2;
@@ -40,8 +40,8 @@ public class OpcionesDeMenu implements ItemClickListener {
 			contentLayout.addComponent(contentLayout.getLayout());
 			
 		}else if(MenuLayout.ARDUINO.equals(value)) {
-			BotonSwitch layout = new BotonSwitch();
-			contentLayout.addComponent(layout);
+			PrincipalTabArduino tab = new PrincipalTabArduino();
+			contentLayout.addComponent(tab);
 		}else if(MenuLayout.CONTENT2.equals(value)) {
 			
 			FieldFactory layout = new FieldFactory();
