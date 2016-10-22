@@ -1,19 +1,40 @@
 package com.Core.vaadin.arduino;
 
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Scanner;
-
-import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Notification;
-
-import gnu.io.CommPortIdentifier;
-import gnu.io.SerialPort;
+import jssc.SerialPort;
+import jssc.SerialPortException;
 
 public class Arduino {
+
+	private SerialPort serialPort;
 	
-	private static final String AMARILLO_OFF = "0"; //APAGAR
+	public Arduino() {
+		
+		serialPort = new SerialPort("/dev/ttyACM0");
+		
+		try {
+			
+			System.out.println("Puerto Abierto: "+serialPort.openPort());
+			System.out.println("Params setted: " + serialPort.setParams(9600, 8, 1, 0));
+            
+		}catch(SerialPortException ex ) {
+			System.out.println(ex.getMessage());
+		}
+	}
+	
+	public void enviarDato( String datos ) {
+	       
+        try {
+        	
+            serialPort.writeBytes( datos.getBytes() );
+        }catch( Exception e ) {
+            System.out.println(e.getMessage());
+            
+        }
+    }
+		
+}
+	/*private static final String AMARILLO_OFF = "0"; //APAGAR
 	private static final String AMARILLO_ON = "1";  //ENCENDER
 	
 	private static final String ROJO_OFF = "2"; //APAGAR
@@ -80,7 +101,5 @@ public class Arduino {
             
         }
     }
-    
-   
-	
-}
+    */
+  

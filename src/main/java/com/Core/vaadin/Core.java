@@ -32,12 +32,11 @@ public class Core extends UI  {
 	
 	private PageLayout pageLayout;
 	//public static Arduino2 ARDUINO;
-	//public static Arduino arduino = new Arduino();
+	public static Arduino arduino = new Arduino();
 	
 	//este flag te va servir para el estado del bombillo
-	//private static boolean switchOn = false;
-	//private static List<BotonSwitch> botones = new ArrayList<BotonSwitch>(); 
-	
+	private static boolean switchOn = false;
+	private static List<BotonSwitch> botones = new ArrayList<BotonSwitch>(); 
 	
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -68,16 +67,16 @@ public class Core extends UI  {
 	  
    }
 	//metodo para cambiar de estado la variable switchOn basta con un solo metodo
-  /* public static void changeSwitch(){
+   public static void changeSwitch(){
 		switchOn = !switchOn;
 		for(BotonSwitch tmpBtn : botones){
 			tmpBtn.changeButtonOnOff();
 		}
 	
-   }*/
+   }
 
    //metodo para chequear valor de swtichOn
- /*  public static boolean isSwitchOn(){
+  public static boolean isSwitchOn(){
 	return switchOn;
    }
 
@@ -89,12 +88,12 @@ public class Core extends UI  {
 //con este metodo remuevo botones a la lista botones
   public static void detachListening(BotonSwitch boton){
 	  botones.remove(boton);	
-  }*/
+  }
 
-  /*public static Arduino getArduino() {
+  public static Arduino getArduino() {
 	   
 	   return arduino;
-  }*/
+  }
     
     @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
     @VaadinServletConfiguration(ui = Core.class, productionMode = false)

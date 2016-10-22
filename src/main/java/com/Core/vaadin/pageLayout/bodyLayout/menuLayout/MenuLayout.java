@@ -33,6 +33,7 @@ public class MenuLayout extends VerticalLayout {
 	public static final String PRUEBA_LABEL3 = "Label Push";
 	public static final String PRUEBA_LABEL4 = "Label Push";
 	public static final String LISTADO = "Listado";
+	public static final String TETRIS = "Tetris";
 	
 	public static final String ITEMS[] = {"PRUEBA_LABEL5","PRUEBA_LABEL6","PRUEBA_LABEL7"};
 	
@@ -71,6 +72,7 @@ public class MenuLayout extends VerticalLayout {
 		tree.addItem(ARDUINO);
 		tree.addItem(CONTENT2);
 		tree.addItem(LISTADO);
+		tree.addItem(TETRIS);
 		
 		tree.setChildrenAllowed(HOME, false);
 		tree.setValue(HOME);

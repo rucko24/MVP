@@ -1,13 +1,11 @@
 package com.Core.vaadin.triangulos;
 
-import com.Core.vaadin.workingWithForms.PinValidador;
-import com.vaadin.client.ui.Icon;
+
 import com.vaadin.data.Validator;
 import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.server.Page;
 import com.vaadin.server.ThemeResource;
-import com.vaadin.server.UserError;
 import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Alignment;
@@ -76,7 +74,7 @@ public class MiVentana extends Window {
 		
 		procesar.addClickListener(e -> {
 			
-			setValidacionVisible();
+			//setValidacionVisible();
 			
 			try {
 				txt1.validate();

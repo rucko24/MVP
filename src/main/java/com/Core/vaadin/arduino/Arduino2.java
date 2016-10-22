@@ -1,7 +1,5 @@
 package com.Core.vaadin.arduino;
 
-import java.awt.List;
-import java.util.ArrayList;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;

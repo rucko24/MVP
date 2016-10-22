@@ -1,12 +1,12 @@
 package com.Core.vaadin.pageLayout.bodyLayout.menuLayout;
 
+
 import com.Core.vaadin.Calculador;
 import com.Core.vaadin.Core;
 import com.Core.vaadin.arduino.BotonSwitch;
 import com.Core.vaadin.pageLayout.bodyLayout.contentLayout.ContentLayout;
 import com.Core.vaadin.pushServer.PrincipalTab;
 import com.Core.vaadin.pushServer.pruebas.PruebaLabel2;
-import com.Core.vaadin.pushServer.ventanaEditablePush.NoticeBoard;
 import com.Core.vaadin.tabSheet.ContextMenu;
 import com.Core.vaadin.tabSheet.Downloader;
 import com.Core.vaadin.tabSheet.EjemploTema;
@@ -16,8 +16,9 @@ import com.Core.vaadin.tables.FieldFactory;
 import com.Core.vaadin.tables.TreeTabla;
 import com.Core.vaadin.tables.TreeTabla2;
 import com.Core.vaadin.tables.listado.Listado;
+import com.Core.vaadin.tetris.Tetris;
 import com.Core.vaadin.triangulos.Triangulos;
-import com.Core.vaadin.workingWithForms.Main;
+import com.Core.vaadin.workingWithForms.Principal2;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 
@@ -87,7 +88,7 @@ public class OpcionesDeMenu implements ItemClickListener {
 			contentLayout.addComponent(calc);
 		
 		}else if(MenuLayout.WORKINGWITHFORM.equals(value)) {
-			Main validar = new Main();
+			Principal2 validar = new Principal2();
 			contentLayout.addComponent(validar);
 			
 		}else if(MenuLayout.PUSH_SERVER.equals(value)) {
@@ -100,6 +101,9 @@ public class OpcionesDeMenu implements ItemClickListener {
 		}else if(MenuLayout.LISTADO.equals(value)) {
 			Listado listado = new Listado();
 			contentLayout.addComponent(listado);
+		}else if(MenuLayout.TETRIS.equals(value)) {
+			Tetris tetris = new Tetris();
+			contentLayout.addComponent(tetris);
 		}
 	}
 
