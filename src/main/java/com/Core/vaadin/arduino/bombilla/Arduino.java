@@ -1,7 +1,5 @@
 package com.Core.vaadin.arduino.bombilla;
 
-import org.apache.tools.ant.types.CommandlineJava.SysProperties;
-
 import com.vaadin.client.metadata.Type;
 import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
@@ -11,38 +9,37 @@ import jssc.SerialPortException;
 
 public class Arduino {
 
-	private SerialPort serialPort;
-
+	public SerialPort serialPort;
+	public static boolean valido;
+	
 	public Arduino() {
 
 		serialPort = new SerialPort("/dev/ttyACM0");
-
+		
 		try {
-			boolean valido = serialPort.openPort();
-			if(valido) {
-				
-				System.out.println("Puerto Abierto: " + valido);
-				notification("Puerto Abierto " + valido);
-			}
 			
-
-			System.out.println("Params setted: " + serialPort.setParams(9600, 8, 1, 0));
-
+			valido = serialPort.openPort();
+			
+			if(valido) {
+				System.out.println("Puerto Abierto: Correcto");
+				System.out.println("Parametros establecidos: " + serialPort.setParams(9600, 8, 1, 0));
+				notification("Puerto Abierto: Correcto, Parametros establecidos: Correcto");
+			}
 		} catch (SerialPortException ex) {
 			notification("Error: " + ex.getMessage());
 			System.out.println(ex.getMessage());
 			System.out.println(ex.getExceptionType());
 		}
-
+		
+		
 	}
-
+	
 	public void enviarDato(String datos) {
 
 		try {
-
 			serialPort.writeBytes(datos.getBytes());
 		} catch (SerialPortException ex) {
-			notification("ERROR: " + ex.getMessage());
+			notification("Error al enviar dato: " + ex.getMessage());
 			System.out.println("ERRORES METODO ENVIAR DATO");
 			System.out.println("Metodo getMessage(): " + ex.getMessage());
 			System.out.println("Metodo getExceptionType(): " + ex.getExceptionType());
@@ -52,10 +49,16 @@ public class Arduino {
 	public void closePort() {
 
 		try {
-			notification("Puerto cerrado " + serialPort.closePort());
-
+			
+			if(serialPort != null && serialPort.openPort()) {
+				serialPort.purgePort(1);
+				serialPort.purgePort(2);
+				notification("Puerto cerrado " + serialPort.closePort());
+				System.out.println("Puerto cerrado: Correcto");
+			}
 		} catch (SerialPortException ex) {
-			notification(ex.getMessage());
+			notification("Error al cerrar puerto: "+ex.getMessage());
+			System.out.println("Error al cerrar puerto: "+ex.getMessage());
 		}
 	}
 
@@ -66,6 +69,9 @@ public class Arduino {
 		n.show(Page.getCurrent());
 		n.show("", Notification.Type.ASSISTIVE_NOTIFICATION);
 
+	}
+	public SerialPort getSerialPortEnArduino() {
+		return serialPort;
 	}
 }
 /*
