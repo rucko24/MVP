@@ -2,10 +2,10 @@ package com.Core.vaadin.arduino.grafico;
 
 import com.Core.vaadin.Core;
 import com.vaadin.server.FontAwesome;
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.*;
+import org.vaadin.highcharts.HighChart;
+
+import java.util.Random;
 
 public class GraficaLuminosidad extends VerticalLayout {
 	
@@ -25,7 +25,6 @@ public class GraficaLuminosidad extends VerticalLayout {
 		ArduinoGraficoJfreeChart arduino2 = new ArduinoGraficoJfreeChart();
 		arduino2.init();
 		VerticalLayout layout = new VerticalLayout(arduino2);
-		
 		return layout;
 	}
 	

@@ -32,9 +32,9 @@ public class PrincipalTabArduino extends TabSheet {
 	private Component crearGraficoLuminosidad() {
 		
 		VerticalLayout layout = createLayout("Grafico LUMINOSIDAD vs TIEMPO");
-		//GraficaLuminosidad g = new GraficaLuminosidad();
+		GraficaLuminosidad g = new GraficaLuminosidad();
 		layout.setSizeFull();
-		//layout.addComponent(g);
+		layout.addComponent(g);
 		
 		
 		return layout;

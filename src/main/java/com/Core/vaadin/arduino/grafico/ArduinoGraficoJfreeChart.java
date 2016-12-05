@@ -17,6 +17,7 @@ import com.vaadin.ui.themes.ValoTheme;
 
 import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
+import org.vaadin.highcharts.HighChart;
 
 public class ArduinoGraficoJfreeChart extends VerticalLayout {
 
@@ -25,7 +26,7 @@ public class ArduinoGraficoJfreeChart extends VerticalLayout {
 	private XYSeriesCollection xySeriesCollection;
 	private SerialPortEventListener serialPortE;
 	private Core ui = Core.getCurrent();
-
+	private final HighChart highChart = new HighChart();
 	private int f;
 	private PanamaHitek_Arduino arduino = new PanamaHitek_Arduino();
 	private final Label labelArduino = new Label();
@@ -47,23 +48,19 @@ public class ArduinoGraficoJfreeChart extends VerticalLayout {
 					if (arduino.isMessageAvailable() == true) {
 						f++;
 
-						ui.access(() -> {
-							
-							labelArduino.setValue(arduino.printMessage());
-							
-							//addComponent(new Label("",ContentMode.HTML+arduino.printMessage()));
-						});			
+						ui.access(() ->
+							highChart.addValue(Integer.valueOf(arduino.printMessage()))
+						);
 
 					}
 				} catch (NumberFormatException ex) {
 					Notification.show("Error serial event :s " + ex.getMessage(), Notification.Type.ERROR_MESSAGE);
-
 				}
 
 			}
 		};
 		
-		addComponent(labelArduino);
+		addComponent(highChart);
 	}
 
 	static void println(String s) {
