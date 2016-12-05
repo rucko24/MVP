@@ -31,7 +31,6 @@ public class Core extends UI {
 	
 		pageLayout = new PageLayout();
 		
-		//arduino = new ArduinoGraficoJfreeChart();
 		
 		Navigator navigator = new Navigator(this, this);
 
@@ -46,8 +45,6 @@ public class Core extends UI {
 		setContent(pageLayout);
 		
 	}
-	
-	
 	
 	public PageLayout getPageLayout() {
 

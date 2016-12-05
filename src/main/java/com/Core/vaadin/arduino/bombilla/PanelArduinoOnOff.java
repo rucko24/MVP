@@ -173,7 +173,9 @@ public class PanelArduinoOnOff extends VerticalLayout {
 		botonSwitch.setImmediate(true);
 	
 	}
-	
+	/*
+	 * Area panal con bombillo
+	 */
 	private Component getArea1() {
 		// bombillo mas switch
 		VerticalLayout layout = new VerticalLayout();

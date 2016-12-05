@@ -15,8 +15,6 @@ public class GraficaLuminosidad extends VerticalLayout {
 	
 	public GraficaLuminosidad() {
 		
-		setSizeFull();
-		
 		Component grafica = iniciarGrafica();
 		addComponent(grafica);
 		setComponentAlignment(grafica, Alignment.BOTTOM_CENTER);
