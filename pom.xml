@@ -7,7 +7,7 @@
 	<artifactId>Core-vaadin</artifactId>
 	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>vaadin-app-nueva</name>
+	<name>Core-vaadin</name>
 
 	<prerequisites>
 		<maven>3</maven>
