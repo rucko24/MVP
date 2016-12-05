@@ -32,13 +32,16 @@ public class GraficaLuminosidad extends VerticalLayout {
 	public Component getHeader() {
 		
 		HorizontalLayout rowBotones = (HorizontalLayout) getLayout();
-
+		rowBotones.setSpacing(true);
+		
 		Button buttonPlay = new Button(FontAwesome.PLAY);
 		buttonPlay.addStyleName(ValoTheme.BUTTON_PRIMARY);
-
+		buttonPlay.setSizeUndefined();
+		
 		Button buttonStop = new Button(FontAwesome.STOP);
 		buttonStop.addStyleName(ValoTheme.BUTTON_DANGER);
-
+		buttonStop.setSizeUndefined();
+		
 		rowBotones.addComponents(buttonPlay,buttonStop);
 		return rowBotones;
 	}
