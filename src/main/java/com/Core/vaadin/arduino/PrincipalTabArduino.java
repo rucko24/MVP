@@ -1,7 +1,7 @@
 package com.Core.vaadin.arduino;
 
 import com.Core.vaadin.arduino.bombilla.PanelArduinoOnOff;
-import com.Core.vaadin.arduino.grafico.ArduinoGraficoJfreeChart;
+import com.Core.vaadin.arduino.grafico.ArduinoListenerSerial;
 import com.Core.vaadin.arduino.grafico.GraficaLuminosidad;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Component;
@@ -21,7 +21,7 @@ public class PrincipalTabArduino extends TabSheet {
 	
 	private Component createBotonArduino() {
 		
-		VerticalLayout layout = createLayout("ON/OFF");
+		VerticalLayout layout = createLayout("ON/OFF -> Foco");
 		PanelArduinoOnOff btnSwitch = new PanelArduinoOnOff();
 		layout.setSizeFull();
 		layout.addComponent(btnSwitch);
@@ -31,10 +31,10 @@ public class PrincipalTabArduino extends TabSheet {
 	
 	private Component crearGraficoLuminosidad() {
 		
-		VerticalLayout layout = createLayout("Grafico LUMINOSIDAD vs TIEMPO");
-		//GraficaLuminosidad g = new GraficaLuminosidad();
+		VerticalLayout layout = createLayout("Luminosidad Sensor LDR");
+		GraficaLuminosidad g = new GraficaLuminosidad();
 		layout.setSizeFull();
-		//layout.addComponent(g);
+		layout.addComponent(g);
 		
 		
 		return layout;

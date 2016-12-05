@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.Core.vaadin.Core;
-import com.Core.vaadin.arduino.grafico.ArduinoGraficoJfreeChart;
+import com.Core.vaadin.arduino.grafico.ArduinoListenerSerial;
 import com.github.wolfie.refresher.Refresher;
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
@@ -16,32 +19,34 @@ public class PruebaLabel extends VerticalLayout {
 
 	private Core ui = Core.getCurrent();
 
-	private Label label = new Label("Ahora: ");
+	private Label labelHora = new Label("Ahora: ");
 	private static List<Label> labels = new ArrayList<Label>();
 	private Refresher refreh = new Refresher();
-	private static final int INTERVALO = 1000;
-	private ArduinoGraficoJfreeChart arduino = new ArduinoGraficoJfreeChart();
-	private final Label labelArduino = new Label("Data sensor: ");
+	private static final int INTERVALO = 500;
+	
 	
 	public PruebaLabel() {
+		
 		setMargin(true);
 		setSpacing(true);
 		refreh.setRefreshInterval(INTERVALO);
 		
-		arduino.init();
 		
-		labelArduino.addStyleName(ValoTheme.LABEL_COLORED);
 		
-		addComponents(label,arduino,labelArduino);
+		addComponents(labelHora);
 		addExtension(refreh);
+		
+		
 		new Hilo().start();
 		
 	}
 
+	/*
+	 * ha este metodo se le hace push con access()
+	 */
 	public void dimeLaHora() {
-		 label.setValue("Ahora: " + Instant.now());
-		 label.setValue("Data sensor: ");
-		
+		 labelHora.setValue("Ahora: " + Instant.now());
+		 
 	}
 
 	public class Hilo extends Thread {
