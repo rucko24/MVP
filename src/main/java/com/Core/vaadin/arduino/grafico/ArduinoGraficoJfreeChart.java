@@ -26,11 +26,10 @@ public class ArduinoGraficoJfreeChart extends VerticalLayout {
 	private XYSeriesCollection xySeriesCollection;
 	private SerialPortEventListener serialPortE;
 	private Core ui = Core.getCurrent();
-	private final HighChart highChart = new HighChart();
 	private int f;
 	private PanamaHitek_Arduino arduino = new PanamaHitek_Arduino();
 	private final Label labelArduino = new Label();
-	
+
 	public ArduinoGraficoJfreeChart() {
 
 		setWidth("950px");
@@ -38,9 +37,9 @@ public class ArduinoGraficoJfreeChart extends VerticalLayout {
 		this.f = 0;
 		xySeries = new XYSeries("Luminosidad");
 		xySeriesCollection = new XYSeriesCollection();
-		
+
 		labelArduino.addStyleName(ValoTheme.LABEL_COLORED);
-		
+
 		serialPortE = new SerialPortEventListener() {
 			public void serialEvent(SerialPortEvent arg0) {
 
@@ -49,7 +48,7 @@ public class ArduinoGraficoJfreeChart extends VerticalLayout {
 						f++;
 
 						ui.access(() ->
-							highChart.addValue(Integer.valueOf(arduino.printMessage()))
+                                labelArduino.setValue(arduino.printMessage())
 						);
 
 					}
@@ -59,8 +58,8 @@ public class ArduinoGraficoJfreeChart extends VerticalLayout {
 
 			}
 		};
-		
-		addComponent(highChart);
+
+		addComponent(labelArduino);
 	}
 
 	static void println(String s) {
