@@ -42,8 +42,9 @@ public class OpcionesDeMenu implements ItemClickListener {
 			
 		}else if(MenuLayout.ARDUINO.equals(value)) {
 			
-			 PrincipalTabArduino tab = new PrincipalTabArduino();
+			PrincipalTabArduino tab = new PrincipalTabArduino();
 			contentLayout.addComponent(tab);
+			
 			
 		}else if(MenuLayout.CONTENT2.equals(value)) {
 			

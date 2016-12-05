@@ -1,7 +1,8 @@
 package com.Core.vaadin.arduino;
 
-import com.Core.vaadin.arduino.bombilla.BotonSwitch;
+import com.Core.vaadin.arduino.bombilla.PanelArduinoOnOff;
 import com.Core.vaadin.arduino.grafico.GraficaLuminosidad;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.VerticalLayout;
@@ -20,7 +21,7 @@ public class PrincipalTabArduino extends TabSheet {
 	private Component createBotonArduino() {
 		
 		VerticalLayout layout = createLayout("ON/OFF");
-		BotonSwitch btnSwitch = new BotonSwitch();
+		PanelArduinoOnOff btnSwitch = new PanelArduinoOnOff();
 		layout.setSizeFull();
 		layout.addComponent(btnSwitch);
 		
@@ -30,9 +31,10 @@ public class PrincipalTabArduino extends TabSheet {
 	private Component crearGraficoLuminosidad() {
 		
 		VerticalLayout layout = createLayout("Grafico LUMINOSIDAD vs TIEMPO");
-		//GraficaLuminosidad g = new GraficaLuminosidad();
+		GraficaLuminosidad g = new GraficaLuminosidad();
 		layout.setSizeFull();
 		//layout.addComponent(g);
+		
 		
 		return layout;
 	}

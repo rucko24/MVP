@@ -1,7 +1,7 @@
 package com.Core.vaadin.pushServer.pruebas;
 
 import com.Core.vaadin.Core;
-import com.google.gwt.json.client.JSONException;
+//import com.google.gwt.json.client.JSONException;
 import com.vaadin.server.ClientConnector.DetachEvent;
 import com.vaadin.server.Page;
 import com.vaadin.ui.JavaScript;
@@ -46,7 +46,7 @@ public class TestForo extends VerticalLayout {
 			}
 		});
 
-		JavaScript.getCurrent().addFunction("aboutToClose", new JavaScriptFunction() {
+		/*JavaScript.getCurrent().addFunction("aboutToClose", new JavaScriptFunction() {
 
 			@Override
 			public void call(JsonArray arguments) throws JSONException {
@@ -55,7 +55,7 @@ public class TestForo extends VerticalLayout {
 				handleClose();
 			}
 
-		});
+		});*/
 
 		Page.getCurrent().getJavaScript().execute("window.onbeforeunload = function (e) { "
 				+ "var e = e || window.event; " + "aboutToClose(); " + "return; };" + "");

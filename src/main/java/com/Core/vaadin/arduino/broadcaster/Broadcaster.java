@@ -9,7 +9,6 @@ import com.Core.vaadin.Core;
 
 public class Broadcaster implements Serializable {
 	
-	private Core ui = Core.getCurrent();
 	static ExecutorService executorService = Executors.newSingleThreadExecutor();
 	
 	public interface BroadcasterListener {

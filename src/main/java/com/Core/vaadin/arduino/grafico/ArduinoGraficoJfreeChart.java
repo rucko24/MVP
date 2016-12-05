@@ -1,6 +1,5 @@
 package com.Core.vaadin.arduino.grafico;
 
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
@@ -10,48 +9,60 @@ import org.vaadin.addon.JFreeChartWrapper;
 import com.Core.vaadin.Core;
 import com.panamahitek.PanamaHitek_Arduino;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
 
-public class Arduino2 extends VerticalLayout {
+public class ArduinoGraficoJfreeChart extends VerticalLayout {
 
 	private JFreeChart jfreeChar;
 	private XYSeries xySeries;
 	private XYSeriesCollection xySeriesCollection;
 	private SerialPortEventListener serialPortE;
+	private Core ui = Core.getCurrent();
 
 	private int f;
 	private static PanamaHitek_Arduino arduino = new PanamaHitek_Arduino();
 
-	public Arduino2() {
-		
-		setWidth("500px");
+	public ArduinoGraficoJfreeChart() {
+
+		setWidth("950px");
 		setHeight("750px");
 		this.f = 0;
 		xySeries = new XYSeries("Luminosidad");
 		xySeriesCollection = new XYSeriesCollection();
 
-		serialPortE = new SerialPortEventListener() {
+		
 
-			public void serialEvent(SerialPortEvent arg0) {
-
-				if (arduino.isMessageAvailable() == true) {
+			serialPortE = new SerialPortEventListener() {
+				public void serialEvent(SerialPortEvent arg0) {
 
 					try {
-						f++;
-						
-							xySeries.add(f, Integer.parseInt(arduino.printMessage()));
+						if (arduino.isMessageAvailable() == true) {
+							f++;
+							
+							UI.getCurrent().access(() -> {
+								xySeries.add(f, Integer.valueOf(arduino.printMessage()));
 
+							});
+							
+						}
 					} catch (NumberFormatException ex) {
-						Notification.show(ex.getMessage(), Notification.Type.ERROR_MESSAGE);
+						Notification.show("Error serial event :s " + ex.getMessage(), Notification.Type.ERROR_MESSAGE);
+
 					}
 
 				}
+			};
 
-			}
-		};
+		init();
+
+	}
+
+	static void println(String s) {
+		System.out.println(s);
 	}
 
 	public void init() {
@@ -62,26 +73,32 @@ public class Arduino2 extends VerticalLayout {
 		} catch (Exception e) {
 			// Logger.getLogger(Arduino.class.getName()).log(Level.SEVERE, null,
 			// e );
-			Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
+			Notification.show("Error: " + e.getMessage(), Notification.Type.ERROR_MESSAGE);
+
 		}
 
-		xySeries.add(0, 0);
-		xySeriesCollection.addSeries(xySeries);
+		
+			xySeries.add(0, 0);
+			xySeriesCollection.addSeries(xySeries);
+		
 
 		jfreeChar = ChartFactory.createXYLineChart("Luminosidad vs Tiempo", "TIEMPO", "Luminosidad", xySeriesCollection,
 				PlotOrientation.VERTICAL, true, true, false);
 
-		addComponent(wrapper());
+		this.addComponent(wrapper());
 	}
 
 	public JFreeChartWrapper wrapper() {
+
 		return new JFreeChartWrapper(jfreeChar) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void attach() {
-				super.attach();
-				setResource("src", getSource());
+
+					super.attach();
+					setResource("src", getSource());
+				
 			}
 		};
 	}
@@ -91,8 +108,8 @@ public class Arduino2 extends VerticalLayout {
 		try {
 			arduino.killArduinoConnection();
 		} catch (Exception e) {
-			
-			Notification.show("ERROR: "+e.getMessage(), Notification.Type.ERROR_MESSAGE);
+
+			Notification.show("ERROR: " + e.getMessage(), Notification.Type.ERROR_MESSAGE);
 		}
 
 	}

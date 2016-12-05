@@ -1,18 +1,17 @@
 package com.Core.vaadin.arduino.bombilla;
 
-import com.vaadin.client.metadata.Type;
 import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
 import com.vaadin.ui.Notification;
 import jssc.SerialPort;
 import jssc.SerialPortException;
 
-public class Arduino {
+public class ArduinoJSSC {
 
 	public SerialPort serialPort;
 	public static boolean valido;
 	
-	public Arduino() {
+	public ArduinoJSSC() {
 
 		serialPort = new SerialPort("/dev/ttyACM0");
 		

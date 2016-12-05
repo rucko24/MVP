@@ -1,7 +1,7 @@
 package com.Core.vaadin.tabSheet;
 
 import com.Core.vaadin.Core;
-import com.Core.vaadin.arduino.bombilla.Arduino;
+import com.Core.vaadin.arduino.bombilla.ArduinoJSSC;
 import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.slider.SliderOrientation;
 import com.vaadin.ui.ColorPicker;
