@@ -1,35 +1,40 @@
 package com.Core.vaadin.arduino.grafico;
 
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.vaadin.highcharts.HighChart;
 import com.panamahitek.PanamaHitek_Arduino;
+import com.vaadin.ui.Notification;
+import com.vaadin.ui.Notification.Type;
+import com.vaadin.ui.UI;
+
 import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
 
 public class ArduinoListenerSerial {
-	
+
 	private SerialPortEventListener serialPortE;
 
 	private int f;
 	private PanamaHitek_Arduino arduino;
 	
-	/*
-	 * Inicializa puerto serial a 9600
-	 */
-	public void iniciarConexionSerial( PanamaHitek_Arduino arduino ) {
-		
-		this.arduino = arduino;
-		
-		try {
-			arduino.arduinoRX("/dev/ttyS0", 9600, serialPortE);
+	// Inicializa puerto serial a 96002
+	public void iniciarConexionSerial(PanamaHitek_Arduino panaArduino) {
 
-		} catch (Exception e) {
-			Logger.getLogger(ArduinoListenerSerial.class.getName()).log(Level.SEVERE, null,e );
+		this.arduino = panaArduino;
+
+		try {
 			
+			panaArduino.arduinoRX("/dev/ttyS0", 9600, serialPortE);
+			Notification.show("Conexion iniciada");
+		} catch (Exception e) {
+			//Logger.getLogger(ArduinoListenerSerial.class.getName()).log(Level.SEVERE, null, e);
+			Notification.show(e.getMessage(),Type.ERROR_MESSAGE);
 		}
-		
+
 	}
+
 	/*
 	 * Finaliza puerto serial
 	 */
@@ -37,9 +42,10 @@ public class ArduinoListenerSerial {
 
 		try {
 			arduino.killArduinoConnection();
+			Notification.show("Conexion Finalizada");
 		} catch (Exception e) {
-
-			Logger.getLogger(ArduinoListenerSerial.class.getName()).log(Level.SEVERE, null,e );
+			Notification.show(e.getMessage(),Type.ERROR_MESSAGE);
+			//Logger.getLogger(ArduinoListenerSerial.class.getName()).log(Level.SEVERE, null, e);
 		}
 
 	}
@@ -47,8 +53,8 @@ public class ArduinoListenerSerial {
 	/*
 	 * lectura desde arduino a través del SerialPortEventListener de gnu.io
 	 */
-	public void iniciarTomaDeDatosSerialPortEventListener() {
-		
+	public void iniciarTomaDeDatosPuertoSerie( HighChart highChart) {
+
 		this.f = 0;
 		
 		serialPortE = new SerialPortEventListener() {
@@ -56,19 +62,21 @@ public class ArduinoListenerSerial {
 
 				try {
 					if (arduino.isMessageAvailable() == true) {
-						
+
 						f++;
-						GraficaLuminosidad.setArduinoPrintMessage( f ,arduino.printMessage());			
+						UI.getCurrent().access(() -> {
+							
+							highChart.addValue(Integer.parseInt(arduino.printMessage()));
+							
+						});
 
 					}
 				} catch (Exception ex) {
-					Logger.getLogger(ArduinoListenerSerial.class.getName()).log(Level.SEVERE, null, ex );
-
+					//Logger.getLogger(ArduinoListenerSerial.class.getName()).log(Level.SEVERE, null, ex);
+					Notification.show(ex.getMessage(),Type.ERROR_MESSAGE);
 				}
 
 			}
 		};
 	}
-	
-	
 }

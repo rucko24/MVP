@@ -17,6 +17,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
@@ -74,9 +75,9 @@ public class PanelArduinoOnOff extends VerticalLayout {
 				iniciarConexion();
 				
 			} catch (UnsatisfiedLinkError ex) {
-				Notification.show("Reiniciar server, " + ex.getMessage(), Notification.Type.ERROR_MESSAGE);
+				Notification.show("Reiniciar server, " + ex.getMessage(), Type.ERROR_MESSAGE);
 			} catch (NoClassDefFoundError ex) {
-				Notification.show("Reiniciar server, " + ex.getMessage(), Notification.Type.ERROR_MESSAGE);
+				Notification.show("Reiniciar server, " + ex.getMessage(), Type.ERROR_MESSAGE);
 			}
 
 		});
@@ -92,7 +93,6 @@ public class PanelArduinoOnOff extends VerticalLayout {
 			try {
 			//	arduino.enviarDato("2");
 				boolean s = (boolean) botonSwitch.getValue();
-				
 				
 				if(s) {
 					Broadcaster.broadcast(s);
@@ -141,7 +141,7 @@ public class PanelArduinoOnOff extends VerticalLayout {
 			});
 		});
 		
-		addExtension(refresh);
+		//addExtension(refresh);
 		addComponent(vLayout);
 		
 	}

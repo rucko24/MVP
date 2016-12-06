@@ -22,7 +22,7 @@ public class PruebaLabel extends VerticalLayout {
 	private Label labelHora = new Label("Ahora: ");
 	private static List<Label> labels = new ArrayList<Label>();
 	private Refresher refreh = new Refresher();
-	private static final int INTERVALO = 500;
+	private static final int INTERVALO = 10000;
 	
 	
 	public PruebaLabel() {

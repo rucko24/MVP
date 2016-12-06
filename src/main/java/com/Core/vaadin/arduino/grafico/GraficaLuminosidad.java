@@ -1,60 +1,79 @@
 package com.Core.vaadin.arduino.grafico;
 
 import com.Core.vaadin.Core;
+import com.Core.vaadin.arduino.broadcaster.Broadcaster;
+import com.panamahitek.PanamaHitek_Arduino;
 import com.vaadin.server.FontAwesome;
-import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
+import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.themes.ValoTheme;
 import org.vaadin.highcharts.HighChart;
 
 public class GraficaLuminosidad extends VerticalLayout {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private Core UI = Core.getCurrent();
+	private ArduinoListenerSerial arduinoListener = new ArduinoListenerSerial();
+	private PanamaHitek_Arduino arduinoPanamaHitek = new PanamaHitek_Arduino();
+	private HighChart highChart = new HighChart();
+	private static Label label = new Label();
 
-	
 	public GraficaLuminosidad() {
 
+		setSpacing(true);
 
 		Component header = getHeader();
-		Component mainArea = getMainInitArea();
 
-        final HighChart highChart = new HighChart();
-        highChart.addValue(355);
-
-		addComponents(header,mainArea,highChart);
+		addComponents(header, highChart);
 		setComponentAlignment(header, Alignment.MIDDLE_CENTER);
-		setComponentAlignment(mainArea, Alignment.MIDDLE_CENTER);
+		setComponentAlignment(highChart, Alignment.MIDDLE_CENTER);
 
 	}
-	
+
 	public Component getHeader() {
-		
+
 		HorizontalLayout rowBotones = (HorizontalLayout) getLayout();
 		rowBotones.setSpacing(true);
-		
 		Button buttonPlay = new Button(FontAwesome.PLAY);
-		buttonPlay.addStyleName(ValoTheme.BUTTON_PRIMARY);
-		buttonPlay.setSizeUndefined();
-		
 		Button buttonStop = new Button(FontAwesome.STOP);
+
+		/*
+		 * ====================== PLAY
+		 */
+		buttonPlay.addStyleName(ValoTheme.BUTTON_PRIMARY);
+		buttonPlay.setWidth("100px");
+		buttonPlay.addClickListener(e -> {
+			buttonStop.setEnabled(true);
+			buttonPlay.setEnabled(false);
+			try {
+
+				iniciarConexionArduino(arduinoListener);
+
+			} catch (Exception ex) {
+				Notification.show(ex.getMessage(), Type.ERROR_MESSAGE);
+			}
+		});
+
+		/*
+		 * ======================= STOP
+		 */
+		buttonStop.setEnabled(false);
 		buttonStop.addStyleName(ValoTheme.BUTTON_DANGER);
-		buttonStop.setSizeUndefined();
-		
-		rowBotones.addComponents(buttonPlay,buttonStop);
+		buttonStop.setWidth("100px");
+		buttonStop.addClickListener(e -> {
+			finalizarConexionArduino(arduinoListener);
+			buttonStop.setEnabled(false);
+			buttonPlay.setEnabled(true);
+		});
+
+		label.addStyleName(ValoTheme.LABEL_H2);
+		label.addStyleName(ValoTheme.LABEL_COLORED);
+		label.setSizeUndefined();
+		rowBotones.addComponents(buttonPlay, buttonStop);
+		rowBotones.setComponentAlignment(buttonPlay, Alignment.MIDDLE_RIGHT);
+
 		return rowBotones;
-	}
-
-	public Component getMainInitArea() {
-
-		HorizontalLayout mainLabels = (HorizontalLayout) getLayout();
-
-		Label labelDataLuminosidad = new Label();
-		Label labelNombreSensor = new Label("<h2>Datos Sensor LDR<h2>", ContentMode.HTML.HTML);
-
-		mainLabels.addComponents(labelNombreSensor,labelDataLuminosidad);
-		return mainLabels;
 	}
 
 	public Component getLayout() {
@@ -65,19 +84,42 @@ public class GraficaLuminosidad extends VerticalLayout {
 
 		return layout;
 	}
-	
+
 	/*
-	 *  @Push aqui
+	 * INICIA CONEXION CON ARDUINO
 	 */
-	public static void setArduinoPrintMessage( int tiempo , String data ) {
+	public void iniciarConexionArduino(ArduinoListenerSerial arduino) {
 		
+		boolean valido = true;
+		if(valido) { 
+			arduino.iniciarConexionSerial(arduinoPanamaHitek);
+			valido = false;
+			
+		}
+		/*
+		 * @Push aqui
+		 */
+
+		arduino.iniciarTomaDeDatosPuertoSerie(highChart);
+		
+
 	}
 
-	public void iniciarConexionArduino( ArduinoListenerSerial arduino ) {
+	/*
+	 * Finaliza la toma de datos,,,pero no CIERRA el puero serie
+	 */
+	public void finalizarConexionArduino(ArduinoListenerSerial arduino) {
+
+		arduino.finalizarConexionSerial();
 
 	}
 
-	public void finalizarConexionArduino( ArduinoListenerSerial arduino ) {
-
+	@Override
+	public void detach() {
+		UI.access(() -> {
+			Broadcaster.unregister(e -> {
+			});
+		});
+		super.detach();
 	}
 }
