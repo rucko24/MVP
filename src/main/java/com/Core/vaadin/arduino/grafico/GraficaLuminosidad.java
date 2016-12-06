@@ -16,7 +16,7 @@ public class GraficaLuminosidad extends VerticalLayout {
 	private Core UI = Core.getCurrent();
 	private ArduinoListenerSerial arduinoListener = new ArduinoListenerSerial();
 	private PanamaHitek_Arduino arduinoPanamaHitek = new PanamaHitek_Arduino();
-	private HighChart highChart = new HighChart();
+	private final HighChart highChart = new HighChart();
 	private static Label label = new Label();
 
 	public GraficaLuminosidad() {
