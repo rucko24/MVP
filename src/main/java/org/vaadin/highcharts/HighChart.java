@@ -29,7 +29,7 @@ public class HighChart extends AbstractHighChart {
            "\tseries: [\n" +
            "\t\t{\n" +
            "\t\t\tname: 'Sensor LDR(foto resistencia)',\n" +
-           "\t\t\tdata: "+ arrayValues+"\n" +
+           "\t\t\tdata: "+ arrayValues +"\n" +
            "\t\t}\n" +
            "\t],\n" +
            "\tchart: {\n" +

@@ -27,31 +27,45 @@ public class ArduinoJSSC {
 	private static ArduinoJSSC arduino = null;
 	private int valorGrafica;
 	private Label labelLx;
-	
+	private int valor;
+
 	/**
 	 * Singlenton
 	 */
 	private ArduinoJSSC() {
 	}
-	
+
 	public static synchronized ArduinoJSSC getInstance() {
-		if(arduino == null) {
+		if (arduino == null) {
 			arduino = new ArduinoJSSC();
 		}
 		return arduino;
 	}
+
 	public boolean getRXChart() {
 		return estado;
 	}
-	public void setValorGrafica( HighChart highChart ) { this.highChart = highChart; }
-	public void setValorLabel(Label labelLx) {this.labelLx = labelLx; }
-	public int getValorGrafica() {
-		return valorGrafica;
+
+	public void setValorGrafica(HighChart highChart) {
+		this.highChart = highChart;
 	}
+
+	public void setValorLabel(Label labelLx) {
+		this.labelLx = labelLx;
+	}
+
+	public void setValor(int valor) {
+		this.valor = valor;
+	}
+
+	public int getValor() {
+		return valor;
+	}
+
 	/***
-	 * =============== OPEN PORT
+	 * OPEN PORT
 	 */
-	public boolean conectarArduino(String port)  {
+	public synchronized boolean conectarArduino(String port) {
 
 		estado = false;
 		SerialPort serialPort = new SerialPort(port);
@@ -71,12 +85,11 @@ public class ArduinoJSSC {
 						/**
 						 * graficar highCharts con webSockets
 						 */
+
 						UI.getCurrent().access(() -> {
 							highChart.addValue(valor);
-							labelLx.setValue(st+" lx");
-							System.out.println(String.valueOf(st));
+							labelLx.setValue(st + " lx");
 						});
-						
 
 					} catch (SerialPortException ex) {
 						notification("Error al graficar", Type.ERROR_MESSAGE);
@@ -95,9 +108,9 @@ public class ArduinoJSSC {
 	}
 
 	/***
-	 * =============== CLOSE PORT
+	 * CLOSE PORT
 	 */
-	public boolean desconectarArduino()  {
+	public boolean desconectarArduino() {
 		boolean estado = false;
 		// notification("Desconectar arduino",Type.ASSISTIVE_NOTIFICATION);
 		if (arduinoSerialPort != null) {
@@ -105,7 +118,7 @@ public class ArduinoJSSC {
 				arduinoSerialPort.removeEventListener();
 				if (arduinoSerialPort.isOpened()) {
 					arduinoSerialPort.closePort();
-					//notification("Conexcion parada",Type.ERROR_MESSAGE);
+					// notification("Conexcion parada",Type.ERROR_MESSAGE);
 					estado = !estado;
 				}
 				arduinoSerialPort = null;
@@ -117,7 +130,7 @@ public class ArduinoJSSC {
 	}
 
 	/***
-	 * ==================== PORT LIST,,,NIGG@
+	 * PORT LIST,,,NIGG@
 	 */
 	public List<String> getPortsList() {
 		listaDePuertos = new ArrayList<String>();
@@ -126,7 +139,7 @@ public class ArduinoJSSC {
 			for (String tmpPuertos : serialPortsNames) {
 				listaDePuertos.add(tmpPuertos);
 			}
-			notification("Puertos escaneados, Correcto",Type.ASSISTIVE_NOTIFICATION);
+			notification("Puertos escaneados, Correcto", Type.ASSISTIVE_NOTIFICATION);
 		} catch (UnsatisfiedLinkError e) {
 			notification("puerto serie ocupado: " + arduinoSerialPort.getPortName(), Type.ERROR_MESSAGE);
 		} catch (NoClassDefFoundError ee) {

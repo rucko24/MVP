@@ -40,7 +40,7 @@ public class GraficaLuminosidad extends VerticalLayout {
 	private Button buttonStop = new Button("Parar", FontAwesome.STOP);
 	private Button escanearPuertos = new Button("Puertos", FontAwesome.SEARCH);
 	private boolean botonPlay;
-	
+
 	public GraficaLuminosidad() {
 
 		setSpacing(true);
@@ -68,7 +68,7 @@ public class GraficaLuminosidad extends VerticalLayout {
 		escanearPuertos.addClickListener(e -> {
 
 			escanearPuertos();
-			
+
 		});
 
 		/**
@@ -83,20 +83,14 @@ public class GraficaLuminosidad extends VerticalLayout {
 				buttonPlay.setCaption("Reiniciar");
 				buttonStop.setEnabled(true);
 				buttonPlay.setEnabled(false);
-				
+
 				/**
-				 * valor de highChart y de labelLx(unidad de medida candelas, 
+				 * valor de highChart y de labelLx(unidad de medida candelas,
 				 * lummens bla bla)
 				 */
 				arduinoInstance.setValorGrafica(highChart);
 				arduinoInstance.setValorLabel(labelLx);
-				
-			} else {
-				buttonPlay.setCaption("Iniciar");
-				buttonPlay.setIcon(FontAwesome.PLAY);
-				arduinoInstance.desconectarArduino();
 			}
-
 		});
 		/**
 		 * Stop
@@ -110,6 +104,7 @@ public class GraficaLuminosidad extends VerticalLayout {
 
 					notificar("Captura pausada", Type.ERROR_MESSAGE);
 					buttonStop.setEnabled(false);
+
 				} catch (Exception e1) {
 
 					notificar("Error al detener captura " + e1.getMessage(), Type.ERROR_MESSAGE);
@@ -121,25 +116,24 @@ public class GraficaLuminosidad extends VerticalLayout {
 		comboPuertosDisponibles.setWidth("155px");
 		comboPuertosDisponibles.setImmediate(true);
 		comboPuertosDisponibles.setNullSelectionAllowed(false);
-
 		comboPuertosDisponibles.addValueChangeListener(e -> {
-			
+
 			String puerto = (String) e.getProperty().getValue();
 			/*
-			 * FIXME mosc@ con estado boton Play habilitar 
-			 * ,solo cuando no se este graficando 
+			 * FIXME mosc@ con estado boton Play habilitar ,solo cuando no se
+			 * este graficando
 			 */
-			botonPlay = !botonPlay;
-			
-			if("/dev/ttyACM0".equals(puerto) && !buttonPlay.isEnabled()) {
+			// botonPlay = !botonPlay;
+
+			if ("/dev/ttyACM0".equals(puerto) && !buttonPlay.isEnabled()) {
 				buttonPlay.setEnabled(true);
 			}
 		});
-		
+
 		labelLx.addStyleName(ValoTheme.LABEL_H2);
 		labelLx.addStyleName(ValoTheme.LABEL_COLORED);
-		labelLx.setWidth("155px");;
-	
+		labelLx.setWidth("155px");
+
 		VerticalLayout menu = new VerticalLayout(comboPuertosDisponibles, escanearPuertos, buttonPlay, buttonStop,
 				labelLx);
 		menu.setWidth("200px");
@@ -157,7 +151,7 @@ public class GraficaLuminosidad extends VerticalLayout {
 		try {
 			if ("/dev/ttyACM0".equals(comboPuertosDisponibles.getValue())) {
 				arduinoInstance.conectarArduino((String) comboPuertosDisponibles.getValue());
-				
+
 				estado = !estado;
 			}
 		} catch (Exception e) {
@@ -175,9 +169,9 @@ public class GraficaLuminosidad extends VerticalLayout {
 			for (String tmp : arduinoInstance.getPortsList()) {
 				comboPuertosDisponibles.addItem(tmp);
 				System.out.println(tmp);
-				System.out.println("boton play dentron de escanearPuerto "+botonPlay);
+				System.out.println("boton play dentron de escanearPuerto " + botonPlay);
 				estado = !estado;
-				
+
 			}
 
 		} catch (Exception ex) {
@@ -214,23 +208,6 @@ public class GraficaLuminosidad extends VerticalLayout {
 		n.show(Page.getCurrent());
 
 		return n;
-	}
-
-	public class Hilo extends Thread {
-		@Override
-		public void run() {
-			try {
-				while (true) {
-					Thread.sleep(5000);
-					UI.access(() -> {
-
-					});
-				}
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-
-		}
 	}
 
 	@Override

@@ -15,7 +15,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
 
-@PreserveOnRefresh
+
 @Push
 @SuppressWarnings("serial")
 @Theme("mytheme")
