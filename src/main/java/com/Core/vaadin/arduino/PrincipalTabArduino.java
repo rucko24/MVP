@@ -32,6 +32,7 @@ public class PrincipalTabArduino extends TabSheet {
 	private Component crearGraficoLuminosidad() {
 
 		VerticalLayout layout = createLayout("Luminosidad Sensor LDR");
+		layout.setMargin(true);
 		GraficaLuminosidad g = new GraficaLuminosidad();
 		layout.setSizeFull();
 		layout.addComponent(g);

@@ -17,35 +17,43 @@ public class ArduinoListenerSerial {
 	private SerialPortEventListener serialPortE;
 
 	private int f;
-	private PanamaHitek_Arduino arduino;
-	
+	private PanamaHitek_Arduino panamaHytek;
+	private boolean estado;
+
 	// Inicializa puerto serial a 96002
-	public void iniciarConexionSerial(PanamaHitek_Arduino panaArduino) {
+	public boolean iniciarConexionSerial() {
 
-		this.arduino = panaArduino;
-
-		try {
-			
-			panaArduino.arduinoRX("/dev/ttyS0", 9600, serialPortE);
-			Notification.show("Conexion iniciada");
-		} catch (Exception e) {
-			//Logger.getLogger(ArduinoListenerSerial.class.getName()).log(Level.SEVERE, null, e);
-			Notification.show(e.getMessage(),Type.ERROR_MESSAGE);
+		estado = !estado;
+		if (estado) {
+			panamaHytek = new PanamaHitek_Arduino();
+			try {
+				panamaHytek.arduinoRX("/dev/ttyS0", 9600, serialPortE);
+				Notification.show("Conexion iniciada");
+				estado = true;
+			} catch (Exception e) {
+				// Logger.getLogger(ArduinoListenerSerial.class.getName()).log(Level.SEVERE,
+				// null, e);
+				Notification.show(e.getMessage(), Type.ERROR_MESSAGE);
+			}
 		}
+		return estado;
 
 	}
-
+	public boolean getEstadoPuertoSerie() {
+		return estado;
+	}
 	/*
 	 * Finaliza puerto serial
 	 */
 	public void finalizarConexionSerial() {
-
+		
 		try {
-			arduino.killArduinoConnection();
-			Notification.show("Conexion Finalizada");
+			panamaHytek.killArduinoConnection();
+			
 		} catch (Exception e) {
-			Notification.show(e.getMessage(),Type.ERROR_MESSAGE);
-			//Logger.getLogger(ArduinoListenerSerial.class.getName()).log(Level.SEVERE, null, e);
+			Notification.show(e.getMessage(), Type.ERROR_MESSAGE);
+			// Logger.getLogger(ArduinoListenerSerial.class.getName()).log(Level.SEVERE,
+			// null, e);
 		}
 
 	}
@@ -53,27 +61,28 @@ public class ArduinoListenerSerial {
 	/*
 	 * lectura desde arduino a través del SerialPortEventListener de gnu.io
 	 */
-	public void iniciarTomaDeDatosPuertoSerie( HighChart highChart) {
+	public void iniciarTomaDeDatosPuertoSerie(HighChart highChart) {
 
 		this.f = 0;
-		
+
 		serialPortE = new SerialPortEventListener() {
 			public void serialEvent(SerialPortEvent arg0) {
 
 				try {
-					if (arduino.isMessageAvailable() == true) {
+					if (panamaHytek.isMessageAvailable() == true) {
 
 						f++;
 						UI.getCurrent().access(() -> {
-							
-							highChart.addValue(Integer.parseInt(arduino.printMessage()));
-							
+
+							highChart.addValue(Integer.parseInt(panamaHytek.printMessage()));
+							System.out.println(panamaHytek.printMessage());
 						});
 
 					}
 				} catch (Exception ex) {
-					//Logger.getLogger(ArduinoListenerSerial.class.getName()).log(Level.SEVERE, null, ex);
-					Notification.show(ex.getMessage(),Type.ERROR_MESSAGE);
+					// Logger.getLogger(ArduinoListenerSerial.class.getName()).log(Level.SEVERE,
+					// null, ex);
+					Notification.show(ex.getMessage(), Type.ERROR_MESSAGE);
 				}
 
 			}

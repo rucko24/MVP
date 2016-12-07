@@ -9,15 +9,13 @@ import java.util.concurrent.LinkedBlockingQueue;
 @JavaScript({"jquery-3.1.1.min.js", "highcharts.js", "highcharts-connector.js"})
 public class HighChart extends AbstractHighChart {
     private static final long serialVersionUID = -7326315426217377753L;
-    private Queue<Integer> queue = new LinkedBlockingQueue<>(Arrays.asList(0,0,0,0,0,0,0,0,0));
+    private Queue<Integer> queue = new LinkedBlockingQueue<>(Arrays.asList(0,0,0,0,0,0,0,0,0,0,0,0,0));
 
     public void addValue(Integer value) {
     	
         queue.add(value);
         queue.remove();
         super.setHcjs(getScript());
-        setWidth("850px");
-        setHeight("500px");
         
     }
     

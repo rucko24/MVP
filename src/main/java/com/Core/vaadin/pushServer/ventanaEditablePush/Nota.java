@@ -13,6 +13,7 @@ public class Nota implements Serializable {
 	private String caption;
 	private String texto = "";
 	private int bloqueadoPorElUsuario = -1;
+	private boolean estado = false; 
 	
 	public Nota(int id) {
 		this.id = id;
@@ -35,6 +36,13 @@ public class Nota implements Serializable {
 	public String getCaption() { return this.caption;}
 	public void setTexto(String texto) { this.texto = texto; }
 	public String getTexto() { return this.texto; }
+	
+	public void setEstado( boolean estado ) {
+		this.estado = estado;
+	}
+	public boolean getEstado() {
+		return estado;
+	}
 	public void setBloquedoPorElUsuario( int bloqueadoPorElUsuario ) { this.bloqueadoPorElUsuario = bloqueadoPorElUsuario; }
 	public int getBloqueadoPorElUsuario() { return this.bloqueadoPorElUsuario; }
 	

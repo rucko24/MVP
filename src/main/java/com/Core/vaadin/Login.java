@@ -23,7 +23,7 @@ import com.vaadin.ui.themes.ValoTheme;
 public class Login extends VerticalLayout implements View {
 
 	public static final String LOGIN_VIEW = "";
-	private Button btn  = new Button("entrar");
+	private Button btn ;
 	private Core ui = Core.getCurrent();
 	private ProgressBar bar = new ProgressBar();
 	private TextField textfield = new TextField("Nombre de Usuario");
@@ -34,7 +34,7 @@ public class Login extends VerticalLayout implements View {
 		setSizeFull();
 		
 		bar.setImmediate(true);
-		
+		btn = new Button("entrar");
 		textfield.focus();
 		textfield.setNullRepresentation("");
 		textfield.setNullSettingAllowed(false);

@@ -93,7 +93,7 @@ public class MenuLayout extends VerticalLayout {
 		
 		tree.setNullSelectionAllowed(false);		
 		
-		OpcionesDeMenu opciones = new OpcionesDeMenu();
+		final OpcionesDeMenu opciones = new OpcionesDeMenu();
 		tree.addItemClickListener(opciones);
 		
 		this.addComponents(vLayout,tree);

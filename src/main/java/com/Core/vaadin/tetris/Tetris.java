@@ -7,6 +7,8 @@ import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Title;
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.server.FontAwesome;
+import com.vaadin.server.Page;
+import com.vaadin.shared.Position;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
@@ -44,11 +46,14 @@ public class Tetris extends VerticalLayout {
 
     
     public Tetris() {
+    	
         layout = new VerticalLayout();
         layout.setSpacing(true);
         layout.setMargin(true);
        // layout.addComponent(new About());
-
+        
+        Notification.show("Variable runninng: "+running,Type.ERROR_MESSAGE);
+        
         // Button for moving left
         final Button leftBtn = new Button(FontAwesome.ARROW_LEFT);
         leftBtn.addClickListener(e -> {
@@ -133,6 +138,7 @@ public class Tetris extends VerticalLayout {
      */
     protected synchronized void startGameThread() {
         Thread t = new Thread() {
+        	
             public void run() {
 
                 // Continue until stopped or game is over
@@ -226,5 +232,12 @@ public class Tetris extends VerticalLayout {
             }
         }
     }
-
+    
+    public Notification notificacion( String msg , Type error) {
+    	Notification n = new Notification(msg,error);
+    	n.setPosition(Position.BOTTOM_RIGHT);
+    	n.show(Page.getCurrent());
+    	
+    	return n;
+    }
 }

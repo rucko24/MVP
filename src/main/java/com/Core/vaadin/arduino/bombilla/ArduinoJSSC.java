@@ -1,78 +1,134 @@
 package com.Core.vaadin.arduino.bombilla;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.vaadin.highcharts.HighChart;
+
 import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.Notification.Type;
+import com.vaadin.ui.UI;
+
+import static jssc.SerialPort.MASK_RXCHAR;
 import jssc.SerialPort;
-import jssc.SerialPortEventListener;
+import jssc.SerialPortEvent;
+
 import jssc.SerialPortException;
+import jssc.SerialPortList;
 
 public class ArduinoJSSC {
 
-	public SerialPort serialPort;
-	public static boolean valido;
+	private SerialPort arduinoSerialPort = null;
+	private List<String> listaDePuertos;
+	private boolean estado;
+	private HighChart highChart;
+	private ArduinoJSSC arduino;
 	
-	public ArduinoJSSC() {
-
-		serialPort = new SerialPort("/dev/ttyACM0");
-		
-		try {
-			
-			valido = serialPort.openPort();
-			
-			if(valido) {
-				System.out.println("Puerto Abierto: Correcto");
-				System.out.println("Parametros establecidos: " + serialPort.setParams(9600, 8, 1, 0));
-				notification("Puerto Abierto: Correcto, Parametros establecidos: Correcto");
-			}
-		} catch (SerialPortException ex) {
-			notification("Error: " + ex.getMessage());
-			System.out.println(ex.getMessage());
-			System.out.println(ex.getExceptionType());
-		}
-		
-		
+	public ArduinoJSSC getArduino() {
+		return arduino;
 	}
 	
-	public void enviarDato(String datos) {
-
-		try {
-			serialPort.writeBytes(datos.getBytes());
-		} catch (SerialPortException ex) {
-			notification("Error al enviar dato: " + ex.getMessage());
-			System.out.println("ERRORES METODO ENVIAR DATO");
-			System.out.println("Metodo getMessage(): " + ex.getMessage());
-			System.out.println("Metodo getExceptionType(): " + ex.getExceptionType());
-		}
+	public ArduinoJSSC(HighChart highChart) {
+		this.highChart = highChart;
+	
 	}
-
-	public void closePort() {
-
+	/***
+	 * =============== OPEN PORT
+	 */
+	public boolean conectarArduino(String port) {
+		
+		estado = false;
+		SerialPort serialPort = new SerialPort(port);
 		try {
-			
-			if(serialPort != null && serialPort.openPort()) {
-				serialPort.purgePort(1);
-				serialPort.purgePort(2);
-				notification("Puerto cerrado " + serialPort.closePort());
-				System.out.println("Puerto cerrado: Correcto");
+			serialPort.openPort();
+			serialPort.setParams(SerialPort.BAUDRATE_9600,
+										SerialPort.DATABITS_8, 
+										SerialPort.STOPBITS_1, 
+										SerialPort.PARITY_NONE); 
+			serialPort.setEventsMask(MASK_RXCHAR);
+			notification("tomando datos", Type.ERROR_MESSAGE);
+			serialPort.addEventListener((SerialPortEvent e) -> {
+				if(e.isRXCHAR()) {
+					try {
+						byte[] b = serialPort.readBytes();
+						int valor = b[0] & 0xff;
+						String st = String.valueOf(valor);
+						/**
+						 * pintamos highCharts con webSockets
+						 */
+						
+						UI.getCurrent().access(() -> {
+							highChart.addValue((valor*5)/255);
+							System.out.println(valor);
+						});
+						
+					}catch(SerialPortException ex) {
+						notification(ex.getMessage(),Type.ERROR_MESSAGE);
+					}
+				}
+				
+			});
+			arduinoSerialPort = serialPort;
+			estado = true;
+		}catch(Exception e) {
+			notification("Puerto ocupado ",Type.ERROR_MESSAGE);
+			 System.out.println("SerialPortException: " + e.toString());
+		}
+		
+		
+		return estado;
+	}
+	/***
+	 * =============== CLOSE PORT
+	 */
+	public void desconectarArduino() {
+		
+		//notification("Desconectar arduino",Type.ASSISTIVE_NOTIFICATION);
+		if (arduinoSerialPort != null) {
+			try {
+				arduinoSerialPort.removeEventListener();
+				if(arduinoSerialPort.isOpened()) {
+					arduinoSerialPort.closePort();
+				}
+				arduinoSerialPort = null;
+			}catch(SerialPortException e) {
+				notification("No se desconecto el arduino "+e.getMessage(),Type.ERROR_MESSAGE);
 			}
-		} catch (SerialPortException ex) {
-			notification("Error al cerrar puerto: "+ex.getMessage());
-			System.out.println("Error al cerrar puerto: "+ex.getMessage());
 		}
 	}
+	
+	/***
+	 * ==================== PORT LIST,,,NIGG@
+	 */
+	public List<String> getPortsList() {
+		listaDePuertos = new ArrayList<String>();
+		try {
+			String serialPortsNames[] = SerialPortList.getPortNames();
+			for (String tmpPuertos : serialPortsNames) {
+				listaDePuertos.add(tmpPuertos);
+			}
+		} catch (UnsatisfiedLinkError e) {
+			notification("puerto serie ocupado: " + arduinoSerialPort.getPortName(), Type.ERROR_MESSAGE);
+		} catch(NoClassDefFoundError ee) {
+			notification("Puerto no disponible, revisar permisos", Type.ERROR_MESSAGE);
+		}
 
-	public void notification(String msg) {
+		return listaDePuertos;
+	}
+	
+	public void notification(String msg, Type error) {
 
-		Notification n = new Notification(msg);
+		Notification n = new Notification(msg, error);
 		n.setPosition(Position.BOTTOM_RIGHT);
 		n.show(Page.getCurrent());
-		n.show("", Notification.Type.ASSISTIVE_NOTIFICATION);
 
 	}
-	public SerialPort getSerialPortEnArduino() {
-		return serialPort;
-	}
+
 }
 /*
  * private static final String AMARILLO_OFF = "0"; //APAGAR private static final
