@@ -23,28 +23,25 @@ public class HighChart extends AbstractHighChart {
         final String arrayValues = Arrays.toString(queue.toArray());
         System.err.println(arrayValues);
 	       return "var options = {\n" +
-	                "\ttitle: {\n" +
-	                "\ttext: 'Luminosidad vs Tiempo'\n" +
-	                "\t},\n" +
-	                "\ttooltip: {\n" +
-	                "\t valueSuffix:' lx'\n" +
-	                "\t},\n"+
-	                "\tseries: [\n "+
-	                "\t{\n" +
-	                "\tname: 'Sensor LDR(foto resistencia)',\n" +
-	                "\tdata: "+ arrayValues+"\n"+
-	                "\t} \n" +
-	                "\t], \n" +
-	                "\tchart: {\n" +
-	                "\t\tevents: {\n" +
-	                "\t\t\tclick: function (event) {\n" +
-	                "\t\t\t\tconnector.onClick(event.xAxis[0].value, event.yAxis[0].value);\n" +
-	                "\t\t\t}\n" +
-	                "\t\t}\n" +
-	                "\t}\n" +
-	                ",yAxys: [{\n"+
-	                "         title: {\n" +
-	                "             text: 'luminosidad lx'}}]"+
-	                "};";
+	       "\ttitle: {\n" +
+           "\t\ttext: 'Luminosidad vs Tiempo'\n" +
+           "\t},\n" +
+           "\tseries: [\n" +
+           "\t\t{\n" +
+           "\t\t\tname: 'Sensor LDR(foto resistencia)',\n" +
+           "\t\t\tdata: "+ arrayValues+"\n" +
+           "\t\t}\n" +
+           "\t],\n" +
+           "\tchart: {\n" +
+           "\t\tevents: {\n" +
+           "\t\t\tclick: function (event) {\n" +
+           "\t\t\t\tconnector.onClick(event.xAxis[0].value, event.yAxis[0].value);\n" +
+           "\t\t\t}\n" +
+           "\t\t}\n" +
+           "\t}\n" +
+           ",yAxis: [{\n" +
+          "            title: {\n" +
+          "                text: 'luminosidad lx'}}]" +
+          "};";
     }
 }

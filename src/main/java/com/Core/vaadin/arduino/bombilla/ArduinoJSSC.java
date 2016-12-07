@@ -2,18 +2,15 @@ package com.Core.vaadin.arduino.bombilla;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import org.vaadin.highcharts.HighChart;
 
+import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.UI;
-
 import static jssc.SerialPort.MASK_RXCHAR;
 import jssc.SerialPort;
 import jssc.SerialPortEvent;
@@ -27,81 +24,98 @@ public class ArduinoJSSC {
 	private List<String> listaDePuertos;
 	private boolean estado;
 	private HighChart highChart;
-	private ArduinoJSSC arduino;
+	private static ArduinoJSSC arduino = null;
+	private int valorGrafica;
+	private Label labelLx;
 	
-	public ArduinoJSSC getArduino() {
-		return arduino;
+	/**
+	 * Singlenton
+	 */
+	private ArduinoJSSC() {
 	}
 	
-	public ArduinoJSSC(HighChart highChart) {
-		this.highChart = highChart;
-	
+	public static synchronized ArduinoJSSC getInstance() {
+		if(arduino == null) {
+			arduino = new ArduinoJSSC();
+		}
+		return arduino;
+	}
+	public boolean getRXChart() {
+		return estado;
+	}
+	public void setValorGrafica( HighChart highChart ) { this.highChart = highChart; }
+	public void setValorLabel(Label labelLx) {this.labelLx = labelLx; }
+	public int getValorGrafica() {
+		return valorGrafica;
 	}
 	/***
 	 * =============== OPEN PORT
 	 */
-	public boolean conectarArduino(String port) {
-		
+	public boolean conectarArduino(String port)  {
+
 		estado = false;
 		SerialPort serialPort = new SerialPort(port);
 		try {
 			serialPort.openPort();
-			serialPort.setParams(SerialPort.BAUDRATE_9600,
-										SerialPort.DATABITS_8, 
-										SerialPort.STOPBITS_1, 
-										SerialPort.PARITY_NONE); 
+			serialPort.setParams(SerialPort.BAUDRATE_9600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1,
+					SerialPort.PARITY_NONE);
 			serialPort.setEventsMask(MASK_RXCHAR);
-			notification("tomando datos", Type.ERROR_MESSAGE);
+			notification("tomando datos", Type.ASSISTIVE_NOTIFICATION);
 			serialPort.addEventListener((SerialPortEvent e) -> {
-				if(e.isRXCHAR()) {
+				if (e.isRXCHAR()) {
 					try {
+						
 						byte[] b = serialPort.readBytes();
 						int valor = b[0] & 0xff;
 						String st = String.valueOf(valor);
 						/**
-						 * pintamos highCharts con webSockets
+						 * graficar highCharts con webSockets
 						 */
-						
 						UI.getCurrent().access(() -> {
-							highChart.addValue((valor*5)/255);
-							System.out.println(valor);
+							highChart.addValue(valor);
+							labelLx.setValue(st+" lx");
+							System.out.println(String.valueOf(st));
 						});
 						
-					}catch(SerialPortException ex) {
-						notification(ex.getMessage(),Type.ERROR_MESSAGE);
+
+					} catch (SerialPortException ex) {
+						notification("Error al graficar", Type.ERROR_MESSAGE);
 					}
 				}
-				
+
 			});
 			arduinoSerialPort = serialPort;
 			estado = true;
-		}catch(Exception e) {
-			notification("Puerto ocupado ",Type.ERROR_MESSAGE);
-			 System.out.println("SerialPortException: " + e.toString());
+		} catch (Exception e) {
+			notification("Puerto ocupado ", Type.ERROR_MESSAGE);
+			System.out.println("SerialPortException: " + e.toString());
 		}
-		
-		
+
 		return estado;
 	}
+
 	/***
 	 * =============== CLOSE PORT
 	 */
-	public void desconectarArduino() {
-		
-		//notification("Desconectar arduino",Type.ASSISTIVE_NOTIFICATION);
+	public boolean desconectarArduino()  {
+		boolean estado = false;
+		// notification("Desconectar arduino",Type.ASSISTIVE_NOTIFICATION);
 		if (arduinoSerialPort != null) {
 			try {
 				arduinoSerialPort.removeEventListener();
-				if(arduinoSerialPort.isOpened()) {
+				if (arduinoSerialPort.isOpened()) {
 					arduinoSerialPort.closePort();
+					//notification("Conexcion parada",Type.ERROR_MESSAGE);
+					estado = !estado;
 				}
 				arduinoSerialPort = null;
-			}catch(SerialPortException e) {
-				notification("No se desconecto el arduino "+e.getMessage(),Type.ERROR_MESSAGE);
+			} catch (SerialPortException e) {
+				notification("No se desconecto el arduino " + e.getMessage(), Type.ERROR_MESSAGE);
 			}
 		}
+		return estado;
 	}
-	
+
 	/***
 	 * ==================== PORT LIST,,,NIGG@
 	 */
@@ -112,21 +126,22 @@ public class ArduinoJSSC {
 			for (String tmpPuertos : serialPortsNames) {
 				listaDePuertos.add(tmpPuertos);
 			}
+			notification("Puertos escaneados, Correcto",Type.ASSISTIVE_NOTIFICATION);
 		} catch (UnsatisfiedLinkError e) {
 			notification("puerto serie ocupado: " + arduinoSerialPort.getPortName(), Type.ERROR_MESSAGE);
-		} catch(NoClassDefFoundError ee) {
-			notification("Puerto no disponible, revisar permisos", Type.ERROR_MESSAGE);
+		} catch (NoClassDefFoundError ee) {
+			notification("Puerto no disponible, revisar servicios", Type.ERROR_MESSAGE);
 		}
 
 		return listaDePuertos;
 	}
-	
+
 	public void notification(String msg, Type error) {
 
 		Notification n = new Notification(msg, error);
 		n.setPosition(Position.BOTTOM_RIGHT);
 		n.show(Page.getCurrent());
-
+		n.setIcon(FontAwesome.WARNING);
 	}
 
 }

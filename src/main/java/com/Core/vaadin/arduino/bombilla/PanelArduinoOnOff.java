@@ -49,8 +49,6 @@ public class PanelArduinoOnOff extends VerticalLayout {
 	private static List<Label> bombillas = new ArrayList<Label>();
 	private final Switch botonSwitch = new Switch();
 	private static List<Switch> botoneSwitches = new ArrayList<Switch>();
-	private static final int INTERVALO = 100;
-	private Refresher refresh = new Refresher();
 	
 	private Core ui = Core.getCurrent();
 	//private ArduinoJSSC arduino = ui.getArduino();
@@ -141,12 +139,11 @@ public class PanelArduinoOnOff extends VerticalLayout {
 			});
 		});
 		
-		//addExtension(refresh);
 		addComponent(vLayout);
 		
 	}
 	
-	/*
+	/**
 	 *  BOTON SWITCH ON- off 
 	 */
 	public void iniciarConexion() {
@@ -173,8 +170,8 @@ public class PanelArduinoOnOff extends VerticalLayout {
 		botonSwitch.setImmediate(true);
 	
 	}
-	/*
-	 * Area panal con bombillo
+	/**
+	 * Area panel con bombillo
 	 */
 	private Component getArea1() {
 		// bombillo mas switch
