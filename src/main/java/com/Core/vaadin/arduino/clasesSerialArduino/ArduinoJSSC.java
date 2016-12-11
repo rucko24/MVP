@@ -13,8 +13,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import org.vaadin.highcharts.HighChart;
-
+import com.Core.vaadin.arduino.grafica.HighChartsPanel;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
@@ -33,7 +32,7 @@ public class ArduinoJSSC implements Serializable {
 	private List<String> listaDePuertos;
 	private boolean estado;
 	private boolean estadoRXCHAR;
-	private HighChart highChart;
+	private HighChartsPanel highChart;
 	private static ArduinoJSSC arduino;
 	private int valorGrafica;
 	private Label labelLx;
@@ -60,7 +59,7 @@ public class ArduinoJSSC implements Serializable {
 		return estado;
 	}
 
-	public void setValorGrafica(HighChart highChart) {
+	public void setValorGrafica(HighChartsPanel highChart) {
 		this.highChart = highChart;
 	}
 
@@ -119,7 +118,7 @@ public class ArduinoJSSC implements Serializable {
 						 * graficar highCharts con webSockets
 						 */
 						UI.getCurrent().access(() -> {
-							//highChart.addValue(Integer.valueOf(dataRecibida));
+							highChart.setValue(Integer.valueOf(dataRecibida));
 							labelLx.setValue(dataRecibida+" lx");
 							
 						});

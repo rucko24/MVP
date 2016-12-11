@@ -29,7 +29,7 @@ public class GraficaLuminosidad extends VerticalLayout {
 	private static final long serialVersionUID = 1L;
 
 	private Core UI = Core.getCurrent();
-	private final HighChart highChart = new HighChart();
+	private HighChartsPanel highChart = new HighChartsPanel();
 	private final Label labelLx = new Label();
 	private final Label labelLx2 = new Label();
 	private boolean estado;
@@ -52,7 +52,6 @@ public class GraficaLuminosidad extends VerticalLayout {
 	public Component mainArea() {
 
 		HorizontalLayout rowBotones = (HorizontalLayout) getLayout();
-		Component panelHighChart = getPanelHighChart();
 		rowBotones.setSpacing(true);
 		rowBotones.setMargin(true);
 		buttonPlay.setEnabled(false);
@@ -129,8 +128,8 @@ public class GraficaLuminosidad extends VerticalLayout {
 		menu.setSpacing(true);
 		menu.setComponentAlignment(labelLx, Alignment.MIDDLE_RIGHT);
 		menu.setComponentAlignment(labelLx2, Alignment.MIDDLE_RIGHT);
-		rowBotones.addComponents(menu, panelHighChart);
-		rowBotones.setExpandRatio(panelHighChart, 1);
+		rowBotones.addComponents(menu, highChart);
+		rowBotones.setExpandRatio(highChart, 1);
 
 		return rowBotones;
 	}
@@ -194,19 +193,6 @@ public class GraficaLuminosidad extends VerticalLayout {
 			estado = !estado;
 		}
 		return estado;
-	}
-	
-	private Component getPanelHighChart() {
-		
-		highChart.addValue(0);
-		highChart.setImmediate(true);
-		highChart.setSizeFull();
-		Panel panel = new Panel();
-		panel.setWidth("650px");
-		panel.setHeight("400px");
-		panel.setContent(highChart);
-		
-		return panel;
 	}
 
 	/***

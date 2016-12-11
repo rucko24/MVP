@@ -10,7 +10,8 @@ import com.vaadin.annotations.JavaScript;
 public class HighChart extends AbstractHighChart {
     private static final long serialVersionUID = -7326315426217377753L;
     private Queue<Integer> queue = new LinkedBlockingQueue<>(Arrays.asList(0,0,0,0,0,0,0,0,0,0,0,0,0));
-
+    
+    
     public void addValue(Integer value) {
     	
         queue.add(value);
