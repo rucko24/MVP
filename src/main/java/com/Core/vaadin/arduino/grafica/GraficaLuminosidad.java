@@ -18,6 +18,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.NativeSelect;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
@@ -51,8 +52,7 @@ public class GraficaLuminosidad extends VerticalLayout {
 	public Component mainArea() {
 
 		HorizontalLayout rowBotones = (HorizontalLayout) getLayout();
-		highChart.addValue(0);
-		highChart.setImmediate(true);
+		Component panelHighChart = getPanelHighChart();
 		rowBotones.setSpacing(true);
 		rowBotones.setMargin(true);
 		buttonPlay.setEnabled(false);
@@ -129,8 +129,8 @@ public class GraficaLuminosidad extends VerticalLayout {
 		menu.setSpacing(true);
 		menu.setComponentAlignment(labelLx, Alignment.MIDDLE_RIGHT);
 		menu.setComponentAlignment(labelLx2, Alignment.MIDDLE_RIGHT);
-		rowBotones.addComponents(menu, highChart);
-		rowBotones.setExpandRatio(highChart, 1);
+		rowBotones.addComponents(menu, panelHighChart);
+		rowBotones.setExpandRatio(panelHighChart, 1);
 
 		return rowBotones;
 	}
@@ -194,6 +194,19 @@ public class GraficaLuminosidad extends VerticalLayout {
 			estado = !estado;
 		}
 		return estado;
+	}
+	
+	private Component getPanelHighChart() {
+		
+		highChart.addValue(0);
+		highChart.setImmediate(true);
+		highChart.setSizeFull();
+		Panel panel = new Panel();
+		panel.setWidth("650px");
+		panel.setHeight("400px");
+		panel.setContent(highChart);
+		
+		return panel;
 	}
 
 	/***

@@ -50,7 +50,7 @@ public class Chart extends VerticalLayout {
 		jfree.setSizeFull();
 		
 		Panel panel = new Panel();
-		panel.setWidth("580px");
+		panel.setWidth("650px");
 		panel.setHeight("400px");
 		
 		panel.setContent(jfree);
