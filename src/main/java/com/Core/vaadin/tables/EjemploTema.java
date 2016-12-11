@@ -134,18 +134,11 @@ public class EjemploTema extends VerticalLayout {
 		menu.addItem("Opcion 3", null);
 		grid.addComponent(menu, 1 , 0);
 		
-		Panel panel = new Panel();
-		panel.setSizeFull();
-		VerticalLayout layout = new VerticalLayout();
-		layout.setSizeFull();
+		Panel panel = new Panel(new Label("</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>",ContentMode.HTML));
+		panel.setHeight("100%");
+	
 		
-		Label label = new Label("Informacion importanto aqui</br>5000</br>2000</br>50000"
-				+ "</br>12000</br>234000</br>10000</br>1000-00-0</br></br></br></br></br></br></br></br></br></br></br></br>",ContentMode.HTML);
-		label.setSizeFull();
-		layout.addComponent(label);
-		
-		
-		panel.setContent(layout);
+	
 		grid.addComponent(panel, 1,1);
 		
 		return grid;

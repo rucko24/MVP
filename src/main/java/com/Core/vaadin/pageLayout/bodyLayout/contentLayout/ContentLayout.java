@@ -32,8 +32,8 @@ public class ContentLayout extends VerticalLayout {
 		verticalLayout.setSizeFull();
 		verticalLayout.setMargin(true);
 		verticalLayout.addComponents(label, moderFoca2);
-		verticalLayout.setComponentAlignment(label, Alignment.BOTTOM_CENTER);
-		verticalLayout.setComponentAlignment(moderFoca2, Alignment.BOTTOM_CENTER);
+		verticalLayout.setComponentAlignment(label, Alignment.TOP_CENTER);
+		verticalLayout.setComponentAlignment(moderFoca2, Alignment.TOP_CENTER);
 
 		
 		return verticalLayout;

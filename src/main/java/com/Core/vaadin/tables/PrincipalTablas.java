@@ -10,7 +10,6 @@ public class PrincipalTablas extends TabSheet {
 	private static final long serialVersionUID = 1L;
 	
 	public PrincipalTablas() {
-		
 		setSizeFull();
 		
 		addTab(getTiposDeTemas());
@@ -60,7 +59,7 @@ public class PrincipalTablas extends TabSheet {
 	public Component getTiposDeTemas() {
 		VerticalLayout layout = (VerticalLayout) getLayout("Dash-Board");
 		EjemploTema  tema = new EjemploTema();
-		
+		layout.setSizeFull();
 		layout.addComponent(tema);
 		
 		return layout;
