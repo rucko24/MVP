@@ -1,4 +1,4 @@
-package com.Core.vaadin.triangulos;
+package com.Core.vaadin.workingWithForms.triangulos;
 
 
 import com.vaadin.data.Validator;
@@ -13,11 +13,11 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.ValoTheme;
-import com.vaadin.ui.Notification.Type;
 
 public class MiVentana extends Window {
 	
@@ -57,17 +57,17 @@ public class MiVentana extends Window {
 		txt1.setImmediate(true);
 		txt1.setNullSettingAllowed(true);
 		txt1.setNullRepresentation("");
-		txt1.addValidator(new Validador());
+	
 		
 		txt2.setImmediate(true);
 		txt2.setNullSettingAllowed(true);
 		txt2.setNullRepresentation("");
-		txt2.addValidator(new Validador());
+		
 		
 		txt3.setImmediate(true);
 		txt3.setNullSettingAllowed(true);
 		txt3.setNullRepresentation("");
-		txt3.addValidator(new Validador());
+		
 		
 		procesar.setClickShortcut(KeyCode.ENTER);
 		procesar.addStyleName(ValoTheme.BUTTON_PRIMARY);
@@ -125,16 +125,4 @@ public class MiVentana extends Window {
 		txt3.setValidationVisible(false);
 	}
 	
-	public class Validador implements Validator {
-
-		@Override
-		public void validate(Object value) throws InvalidValueException {
-		
-			String numero = (String) value;
-			if(!(numero instanceof String) && txt1.getValue().equals("ruben")) {
-				new InvalidValueException("no eres ruben");
-			}
-		}
-		
-	}
 }

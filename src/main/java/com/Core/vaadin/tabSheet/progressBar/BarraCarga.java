@@ -12,8 +12,8 @@ public class BarraCarga extends VerticalLayout {
 	
 	public BarraCarga() {
 		
-		setMargin(true);
 		setSpacing(true);
+		setMargin(true);
 		
 		btn.addClickListener( e -> {
 			new Algoritmo().start();

@@ -3,7 +3,6 @@ package com.Core.vaadin.pushServer;
 import com.Core.vaadin.pushServer.icePush.IcePushServerAddOn;
 import com.Core.vaadin.pushServer.icePush.MenuMessageBar;
 import com.Core.vaadin.pushServer.pruebas.PruebaLabel;
-import com.Core.vaadin.pushServer.pruebas.TestForo;
 import com.Core.vaadin.pushServer.ventanaEditablePush.NoticeBoard;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.TabSheet;

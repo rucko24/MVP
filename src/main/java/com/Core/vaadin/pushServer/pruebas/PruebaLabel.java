@@ -5,15 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.Core.vaadin.Core;
-import com.Core.vaadin.arduino.grafico.ArduinoListenerSerial;
 import com.github.wolfie.refresher.Refresher;
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.CssLayout;
-import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.themes.ValoTheme;
 
 public class PruebaLabel extends VerticalLayout {
 

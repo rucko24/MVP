@@ -1,22 +1,24 @@
 package com.Core.vaadin.arduino;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.Core.vaadin.arduino.bombilla.PanelArduinoOnOff;
-import com.Core.vaadin.arduino.grafico.GraficaLuminosidad;
-import com.vaadin.ui.Alignment;
+import com.Core.vaadin.arduino.grafica.GraficaLuminosidad;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.TabSheet;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 public class PrincipalTabArduino extends TabSheet {
 
-	
 	private static final long serialVersionUID = 1L;
 	private static final int HEIGHT = 700;
-	
 	
 	public PrincipalTabArduino() {
 		addTab(createBotonArduino());
 		addTab(crearGraficoLuminosidad());
+		
 	}
 
 	private Component createBotonArduino() {
@@ -49,4 +51,7 @@ public class PrincipalTabArduino extends TabSheet {
 
 		return layout;
 	}
+	
+	// metodo para cambiar de estado la variable switchOn basta con un solo
+	
 }

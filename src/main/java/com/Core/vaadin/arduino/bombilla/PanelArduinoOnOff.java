@@ -2,10 +2,12 @@ package com.Core.vaadin.arduino.bombilla;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.vaadin.teemu.switchui.Switch;
+
 import com.Core.vaadin.Core;
-import com.Core.vaadin.arduino.broadcaster.Broadcaster;
-import com.github.wolfie.refresher.Refresher;
+import com.Core.vaadin.arduino.broadcaster.Broadcaster.BroadcasterListener;
+import com.Core.vaadin.arduino.broadcaster.*;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
 import com.vaadin.server.ThemeResource;
@@ -19,6 +21,8 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.Panel;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.UIDetachedException;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
@@ -26,194 +30,132 @@ import jssc.SerialPortException;
 
 public class PanelArduinoOnOff extends VerticalLayout {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-	private Label label = new Label("<h1><strong>Testing-the-foc@</strong></h1>", ContentMode.HTML);
-	private final Button btnSwitch = new Button();
-	private final Button btnDetenerConexion = new Button("Detener Conexión");
-	private final Button btnIniciarConexion = new Button("Iniciar Conexión");
-
-	private HorizontalLayout row = new HorizontalLayout();
-
+	private Button botonBombilla = new Button("Off");
+	private Button btnDetenerConexion = new Button("Detener Conexión");
+	private Button btnIniciarConexion = new Button("Iniciar Conexión");
 	private ThemeResource bombillaON = new ThemeResource("img/on.png");
 	private ThemeResource bombillaOFF = new ThemeResource("img/off.png");
 	private ThemeResource udo = new ThemeResource("img/udo.png");
 	private ThemeResource logoArduino = new ThemeResource("img/ardu2.png");
-	private Label labelArduino = new Label();
-
-	//////////////////////
-	private final Label bombilla = new Label();
-	private static List<Label> bombillas = new ArrayList<Label>();
-	private final Switch botonSwitch = new Switch();
-	private static List<Switch> botoneSwitches = new ArrayList<Switch>();
-	
+	private Label bombilla = new Label();
 	private Core ui = Core.getCurrent();
-	//private ArduinoJSSC arduino = ui.getArduino();
-	/////////////////////
-	private int c = 0;
 
 	public PanelArduinoOnOff() {
 		
+		Component main = getMainArea();
 		
-		botonSwitch.setEnabled(false);
-		bombilla.setIcon(bombillaOFF);
+		addComponent(main);
+		PushBombilla.register(this);
+	}
+	
+	/**
+	 * Parte Main, contiene el panel con todo
+	 */
+	private Component getMainArea() {
 		
-		/*
-		 * 	INICIALIZAR CONEXION
-		 */
-		btnIniciarConexion.addStyleName(ValoTheme.BUTTON_PRIMARY);
-		btnIniciarConexion.setIcon(FontAwesome.PLAY);
-		btnIniciarConexion.addClickListener(e -> {
-		
-			try {
-				
-				iniciarConexion();
-				
-			} catch (UnsatisfiedLinkError ex) {
-				Notification.show("Reiniciar server, " + ex.getMessage(), Type.ERROR_MESSAGE);
-			} catch (NoClassDefFoundError ex) {
-				Notification.show("Reiniciar server, " + ex.getMessage(), Type.ERROR_MESSAGE);
-			}
-
-		});
-		
-		/*
-		 * 	DETENER CONEXION
-		 */		
-		btnDetenerConexion.setEnabled(false);
-		btnDetenerConexion.setIcon(FontAwesome.STOP);
-		btnDetenerConexion.addStyleName("danger");
-		btnDetenerConexion.addClickListener(e -> {
-			
-			try {
-			//	arduino.enviarDato("2");
-				boolean s = (boolean) botonSwitch.getValue();
-				
-				if(s) {
-					Broadcaster.broadcast(s);
-					
-				} else {
-					Broadcaster.broadcast(s);
-					notification("boton detener: "+s);
-				}
-				
-				btnDetenerConexion.setEnabled(false);
-			} catch (Exception ex) {
-				
-				Notification.show("Error al cerrar puerto: " + ex.getMessage());
-			}
-		});
-
-		Component getArea1 = getArea1();
-
 		HorizontalLayout top = new HorizontalLayout(btnIniciarConexion, btnDetenerConexion);
 		top.setSpacing(true);
-
-		VerticalLayout vLayout = new VerticalLayout(top, getArea1);
+		
+		Component content = getContentArea();
+		
+		VerticalLayout vLayout = new VerticalLayout(top, content);
 		vLayout.setHeight("500px");
 		vLayout.setSpacing(true);
 		vLayout.setMargin(true);
 		vLayout.setComponentAlignment(top, Alignment.MIDDLE_CENTER);
-		vLayout.setComponentAlignment(getArea1, Alignment.MIDDLE_CENTER);
-		vLayout.setExpandRatio(getArea1, 1);
+		vLayout.setComponentAlignment(content, Alignment.MIDDLE_CENTER);
+		vLayout.setExpandRatio(content, 1);
 		
-		/*
-		 *  PUSH A TODAS LAS UI
+		return vLayout;
+	}
+	
+	/**
+	 * Panel dentro un verticalLayout
+	 */
+	private Component getContentArea() {
+		/**
+		 * Bombillo mas boton
 		 */
-		Broadcaster.register( estado -> {
-			ui.access(() -> {
-				
-				botonSwitch.setValue(estado);
-				Notification.show("Estado: "+estado);
-				if(estado) { 
-					bombilla.setIcon(bombillaON);
-					btnDetenerConexion.setEnabled(true);
-				} else {
-					bombilla.setIcon(bombillaOFF);
-					btnDetenerConexion.setEnabled(false);
-				}
-				
-			});
-		});
-		
-		addComponent(vLayout);
-		
-	}
-	
-	/**
-	 *  BOTON SWITCH ON- off 
-	 */
-	public void iniciarConexion() {
-	// boton que enciende el led
-		
-		btnDetenerConexion.setEnabled(true);
-		
-		botonSwitch.setEnabled(true);
-		
-		botonSwitch.addValueChangeListener( e -> {
-			boolean estado = (boolean) e.getProperty().getValue();
-			if(estado) {
-				
-			//	arduino.enviarDato("1");
-				Broadcaster.broadcast(estado);
-				bombilla.setIcon(bombillaON);
-				
-			} else {
-				//arduino.enviarDato("2");
-				Broadcaster.broadcast(estado);
-				bombilla.setIcon(bombillaOFF);
-			}
-		});
-		botonSwitch.setImmediate(true);
-	
-	}
-	/**
-	 * Area panel con bombillo
-	 */
-	private Component getArea1() {
-		// bombillo mas switch
 		VerticalLayout layout = new VerticalLayout();
 		layout.setSpacing(true);
 		layout.setHeight("78%");
+		
 		bombilla.setSizeUndefined();
-		layout.addComponents(bombilla, botonSwitch);
+		layout.addComponents(bombilla, botonBombilla);
 		layout.setComponentAlignment(bombilla, Alignment.BOTTOM_CENTER);
-		layout.setComponentAlignment(botonSwitch, Alignment.BOTTOM_CENTER);
+		layout.setComponentAlignment(botonBombilla, Alignment.BOTTOM_CENTER);
 
 		Panel panel = new Panel();
-		
+
 		panel.setWidth("40%");
 		panel.setHeight("100%");
 		panel.setContent(layout);
-
+		bombillos();
+		
 		return panel;
 	}
 	
-	public static void agregarBoton( Switch boton) {
-		botoneSwitches.add(boton);
+	/*
+	 * bombillos y boton
+	 */
+	public void bombillos() {
+		
+		bombilla.setIcon(bombillaOFF);
+		/*
+		 * getEstadoArduino, retorna el estado del cambio en botones y 
+		 * bombilla
+		 */
+		if (PushBombilla.isChange()) {
+			botonBombilla.setCaption("On");
+			bombilla.setIcon(bombillaON);
+			Notification.show("On");
+		} else {
+			botonBombilla.setCaption("off");
+			bombilla.setIcon(bombillaOFF);
+			Notification.show("off");
+		}
+
+		botonBombilla.addClickListener(e -> {
+			try {
+				ui.access(() -> {
+					PushBombilla.broadcast();
+					if (PushBombilla.isChange()) {
+	
+					} else {
+	
+					}
+				});
+			} catch(UIDetachedException ex) {
+				Notification.show("error cliente no acoplado aun"+ex.getMessage());
+			}
+		});
 	}
 	
-	public static void quitarBoton( Switch boton) {
-		botoneSwitches.remove(boton);
-	}
-	
-	private Notification notification(String msg) {
+	/*
+	 * metodo que lo ejecuta la clases ArduinoPush
+	 * con una lista 
+	 */
+	public void cambiarBotones() {
 
-		Notification n = new Notification(msg, Notification.Type.WARNING_MESSAGE);
-		n.setPosition(Position.BOTTOM_RIGHT);
-		n.show(Page.getCurrent());
+		if (PushBombilla.isChange()) {
+			botonBombilla.setCaption("On");
+			bombilla.setIcon(bombillaON);
+			Notification.show("ON");
 
-		return n;
+		} else {
+			botonBombilla.setCaption("off");
+			bombilla.setIcon(bombillaOFF);
+			Notification.show("Off");
+
+		}
 	}
 
 	@Override
 	public void detach() {
-		Broadcaster.unregister( e -> {
-		});
+		PushBombilla.unregister(this);
 		super.detach();
 	}
-
+	
 }

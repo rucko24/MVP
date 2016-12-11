@@ -1,6 +1,5 @@
 package com.Core.vaadin.pageLayout.bodyLayout;
 
-import com.Core.vaadin.arduino.bombilla.ArduinoJSSC;
 import com.Core.vaadin.pageLayout.bodyLayout.contentLayout.ContentLayout;
 import com.Core.vaadin.pageLayout.bodyLayout.menuLayout.MenuLayout;
 import com.vaadin.ui.HorizontalSplitPanel;

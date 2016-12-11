@@ -1,17 +1,11 @@
 package com.Core.vaadin.pushServer.pruebas;
 
 import com.Core.vaadin.Core;
-//import com.google.gwt.json.client.JSONException;
-import com.vaadin.server.ClientConnector.DetachEvent;
 import com.vaadin.server.Page;
-import com.vaadin.ui.JavaScript;
-import com.vaadin.ui.JavaScriptFunction;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.ProgressBar;
 import com.vaadin.ui.VerticalLayout;
-
-import elemental.json.JsonArray;
 
 public class TestForo extends VerticalLayout {
 

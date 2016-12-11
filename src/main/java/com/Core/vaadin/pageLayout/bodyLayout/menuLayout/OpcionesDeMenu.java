@@ -1,24 +1,19 @@
 package com.Core.vaadin.pageLayout.bodyLayout.menuLayout;
 
 
-import com.Core.vaadin.Calculador;
 import com.Core.vaadin.Core;
 import com.Core.vaadin.arduino.PrincipalTabArduino;
 import com.Core.vaadin.pageLayout.bodyLayout.contentLayout.ContentLayout;
 import com.Core.vaadin.pushServer.PrincipalTab;
 import com.Core.vaadin.pushServer.pruebas.PruebaLabel2;
-import com.Core.vaadin.tabSheet.ContextMenu;
-import com.Core.vaadin.tabSheet.Downloader;
-import com.Core.vaadin.tabSheet.EjemploTema;
 import com.Core.vaadin.tabSheet.Principal;
+import com.Core.vaadin.tabSheet.obtenerRecursos.DownloaderPdf;
 import com.Core.vaadin.tabSheet.progressBar.BarraCarga;
-import com.Core.vaadin.tables.FieldFactory;
-import com.Core.vaadin.tables.TreeTabla;
-import com.Core.vaadin.tables.TreeTabla2;
-import com.Core.vaadin.tables.listado.Listado;
+import com.Core.vaadin.tables.PrincipalTablas;
 import com.Core.vaadin.tetris.Tetris;
-import com.Core.vaadin.triangulos.Triangulos;
-import com.Core.vaadin.workingWithForms.Principal2;
+import com.Core.vaadin.workingWithForms.Calculador;
+import com.Core.vaadin.workingWithForms.PrincipalFormularios;
+import com.Core.vaadin.workingWithForms.triangulos.Triangulos;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 
@@ -40,57 +35,17 @@ public class OpcionesDeMenu implements ItemClickListener {
 			
 			contentLayout.addComponent(contentLayout.getLayout());
 			
-		}else if(MenuLayout.ARDUINO.equals(value)) {
+		}else if(MenuLayout.SERIALPORT.equals(value)) {
 			PrincipalTabArduino tab = new PrincipalTabArduino();
 			contentLayout.addComponent(tab);
 			
-		}else if(MenuLayout.CONTENT2.equals(value)) {
+		}else if(MenuLayout.TABSHEET.equals(value)) {
 			
-			FieldFactory layout = new FieldFactory();
-			contentLayout.addComponent(layout);
+			Principal tabs = new Principal();
+			contentLayout.addComponent(tabs);
 			
-		}else if(MenuLayout.TREETABLA.equals(value)) {
-			
-			TreeTabla tree = new TreeTabla();
-			contentLayout.addComponent(tree);
-		
-		}else if(MenuLayout.TREETABLA2.equals(value)) {
-			
-			TreeTabla2 tree = new TreeTabla2();
-			contentLayout.addComponent(tree);
-			
-		}else if(MenuLayout.BARRA.equals(value)) {
-			
-			BarraCarga barra = new BarraCarga();
-			contentLayout.addComponent(barra);
-			
-		}else if(MenuLayout.ICONO2.equals(value)) {
-			
-			Principal icono = new Principal();
-			contentLayout.addComponent(icono);
-			
-		}else if(MenuLayout.DOWNLOADER.equals(value)) {
-			
-			Downloader downloader = new Downloader();
-			contentLayout.addComponent(downloader);
-			
-		}else if(MenuLayout.CLICKENTABLE.equals(value)) {
-			
-			ContextMenu clickTable = new ContextMenu();
-			contentLayout.addComponent(clickTable);
-			
-		}else if(MenuLayout.TIPOSDETEMAS.equals(value)) {
-				EjemploTema  temas = new EjemploTema();
-				contentLayout.addComponent(temas);
-		}else if(MenuLayout.TRIANGULO.equals(value)) {
-			Triangulos tri = new Triangulos();
-			contentLayout.addComponent(tri);
-		}else if(MenuLayout.CALCULADOR.equals(value)) {
-			Calculador calc = new Calculador();
-			contentLayout.addComponent(calc);
-		
-		}else if(MenuLayout.WORKINGWITHFORM.equals(value)) {
-			Principal2 validar = new Principal2();
+		}else if(MenuLayout.FORMULARIOS.equals(value)) {
+			PrincipalFormularios validar = new PrincipalFormularios();
 			contentLayout.addComponent(validar);
 			
 		}else if(MenuLayout.PUSH_SERVER.equals(value)) {
@@ -100,9 +55,11 @@ public class OpcionesDeMenu implements ItemClickListener {
 		}else if(MenuLayout.PRUEBA_LABEL.equals(value)) {
 			PruebaLabel2 pruebaLabel = new PruebaLabel2();
 			contentLayout.addComponent(pruebaLabel);
-		}else if(MenuLayout.LISTADO.equals(value)) {
-			Listado listado = new Listado();
-			contentLayout.addComponent(listado);
+			
+		}else if(MenuLayout.TABLAS.equals(value)) {
+			PrincipalTablas tablas = new PrincipalTablas();
+			contentLayout.addComponent(tablas);
+			
 		}else if(MenuLayout.TETRIS.equals(value)) {
 			Tetris tetris = new Tetris();
 			contentLayout.addComponent(tetris);

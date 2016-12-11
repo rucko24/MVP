@@ -1,8 +1,8 @@
 package com.Core.vaadin.tables;
 
-import com.vaadin.ui.CheckBox;
 import com.vaadin.data.Container;
 import com.vaadin.data.Property;
+import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.HorizontalLayout;

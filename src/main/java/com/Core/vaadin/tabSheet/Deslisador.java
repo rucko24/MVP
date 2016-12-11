@@ -1,15 +1,10 @@
 package com.Core.vaadin.tabSheet;
 
-import com.Core.vaadin.Core;
-import com.Core.vaadin.arduino.bombilla.ArduinoJSSC;
-import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.slider.SliderOrientation;
 import com.vaadin.ui.ColorPicker;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Slider;
 import com.vaadin.ui.VerticalLayout;
-
-import gnu.io.CommPortIdentifier;
 
 public class Deslisador extends VerticalLayout {
 

@@ -30,11 +30,7 @@
 			<url>http://maven.vaadin.com/vaadin-addons</url>
 		</repository>
 		
-		<!-- repositorio de panamHytek -->
-		<repository>
-			<id>jitpack.io</id>
-			<url>https://jitpack.io</url>
-		</repository>
+		<!-- repositorio de panamHytek 2.8.2-->
 		
 	</repositories>
 
@@ -83,12 +79,6 @@
 		</dependency>
 		
 		<!-- Dependencia para gnu.io puerto serial librerias -->
-
-		<dependency>
-			<groupId>com.github.PanamaHitek</groupId>
-			<artifactId>PanamaHitek_Arduino</artifactId>
-			<version>2.7.3</version>
-		</dependency>
 		
 		<!-- dependencia para la fecha -->
 		<dependency>

@@ -21,7 +21,7 @@ import com.vaadin.ui.VerticalLayout;
 public class ProgressBarListener extends VerticalLayout implements Receiver, ProgressListener, StartedListener, FinishedListener{
 	
 	/**
-	 * 
+	 * FIXME 
 	 */
 	private static final long serialVersionUID = 1L;
 	

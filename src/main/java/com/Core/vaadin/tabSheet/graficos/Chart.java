@@ -1,8 +1,5 @@
 package com.Core.vaadin.tabSheet.graficos;
 
-import java.awt.Color;
-import java.awt.Paint;
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.LogarithmicAxis;
@@ -13,6 +10,9 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.vaadin.addon.JFreeChartWrapper;
 
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 
 public class Chart extends VerticalLayout {
@@ -39,12 +39,22 @@ public class Chart extends VerticalLayout {
 	public static String tY;
 	
 	public Chart(int tipo, String titulo) {
-		
-		setSizeFull();
 		this.titulo = titulo;
-		tipoGrafica(tipo);
+		this.tipoGrafica(tipo);
 		
-		this.addComponent(jWrapper());
+		init();
+	}
+	
+	public void init() {
+		Component jfree = jWrapper();
+		jfree.setSizeFull();
+		
+		Panel panel = new Panel();
+		panel.setWidth("580px");
+		panel.setHeight("400px");
+		
+		panel.setContent(jfree);
+		addComponent(panel);
 	}
 	
 	public void tipoGrafica(int tipo) {

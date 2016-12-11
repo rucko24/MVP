@@ -10,20 +10,18 @@ import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroupFieldFactory;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.converter.Converter;
-import com.vaadin.ui.AbstractTextField;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.FormLayout;
-import com.vaadin.ui.RichTextArea;
 import com.vaadin.ui.VerticalLayout;
 
-public class Principal extends VerticalLayout {
+public class JodaTime extends FormLayout {
 	
 	private ProbandoJodaTime post = new ProbandoJodaTime();
 	private String label = "I really need that stuff";
 	private DateTime create = DateTime.now();
 	
-	public Principal( ) {
+	public JodaTime( ) {
 		setSizeUndefined();
 		setMargin(true);
 		
@@ -43,10 +41,10 @@ public class Principal extends VerticalLayout {
 		 * crear el formLayout y add, componentes usando
 		 * builAndBind() de la clase fieldGroup 
 		 */
-		FormLayout formLayout = new FormLayout();
-		formLayout.addComponents(fieldGroup.buildAndBind("text") , fieldGroup.buildAndBind("create"));
+	
+		addComponents(fieldGroup.buildAndBind("text") , fieldGroup.buildAndBind("create"));
 		
-		addComponent(formLayout);
+	
 	}
 	
 	public class JodaFieldFactory extends DefaultFieldGroupFieldFactory {

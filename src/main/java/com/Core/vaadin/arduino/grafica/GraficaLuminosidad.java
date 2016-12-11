@@ -1,8 +1,11 @@
-package com.Core.vaadin.arduino.grafico;
+package com.Core.vaadin.arduino.grafica;
+
+import org.vaadin.highcharts.HighChart;
+import org.vaadin.teemu.switchui.Switch;
 
 import com.Core.vaadin.Core;
-import com.Core.vaadin.arduino.bombilla.ArduinoJSSC;
 import com.Core.vaadin.arduino.broadcaster.Broadcaster;
+import com.Core.vaadin.arduino.clasesSerialArduino.ArduinoJSSC;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
@@ -12,6 +15,7 @@ import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.NativeSelect;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.VerticalLayout;
@@ -19,57 +23,46 @@ import com.vaadin.ui.themes.ValoTheme;
 
 import jssc.SerialPortException;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-
-import org.vaadin.highcharts.HighChart;
-
 public class GraficaLuminosidad extends VerticalLayout {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final int PAUSA = 3000;
 	private Core UI = Core.getCurrent();
 	private final HighChart highChart = new HighChart();
 	private final Label labelLx = new Label();
-	private ComboBox comboPuertosDisponibles = new ComboBox("Puertos disponibles");
+	private final Label labelLx2 = new Label();
 	private boolean estado;
 	private ArduinoJSSC arduinoInstance = ArduinoJSSC.getInstance();
 	private Button buttonPlay = new Button("Iniciar", FontAwesome.PLAY);
 	private Button buttonStop = new Button("Parar", FontAwesome.STOP);
 	private Button escanearPuertos = new Button("Puertos", FontAwesome.SEARCH);
-	private boolean botonPlay;
+	private NativeSelect comboPuertosDisponibles = new NativeSelect();
 
 	public GraficaLuminosidad() {
-
 		setSpacing(true);
 
 		Component mainArea = mainArea();
-		highChart.addValue(0);
+
 		addComponents(mainArea);
 		setComponentAlignment(mainArea, Alignment.MIDDLE_CENTER);
-
+		PushGrafica.register(this);
 	}
 
 	public Component mainArea() {
 
 		HorizontalLayout rowBotones = (HorizontalLayout) getLayout();
+		highChart.addValue(0);
+		highChart.setImmediate(true);
 		rowBotones.setSpacing(true);
 		rowBotones.setMargin(true);
-
 		buttonPlay.setEnabled(false);
 		buttonStop.setEnabled(false);
 
 		/**
-		 * Escanear puertos
+		 * Escanear puertos retorna true si hay puertos disponbles
 		 */
 		escanearPuertos.setWidth("155px");
-		escanearPuertos.addClickListener(e -> {
-
-			escanearPuertos();
-
-		});
+		escanearPuertos.addClickListener(e -> escanearPuertos());
 
 		/**
 		 * Play
@@ -77,20 +70,19 @@ public class GraficaLuminosidad extends VerticalLayout {
 		buttonPlay.addStyleName(ValoTheme.BUTTON_PRIMARY);
 		buttonPlay.setWidth("155px");
 		buttonPlay.addClickListener(e -> {
-
+			buttonPlay.setEnabled(false);
+			buttonPlay.setCaption("Reiniciar");
 			if (iniciar()) {
 
-				buttonPlay.setCaption("Reiniciar");
 				buttonStop.setEnabled(true);
-				buttonPlay.setEnabled(false);
+				arduinoInstance.setValorGrafica(this.highChart);
+				arduinoInstance.setValorLabel(this.labelLx);
+				labelLx2.setValue(arduinoInstance.getValor() + " lx");
 
-				/**
-				 * valor de highChart y de labelLx(unidad de medida candelas,
-				 * lummens bla bla)
-				 */
-				arduinoInstance.setValorGrafica(highChart);
-				arduinoInstance.setValorLabel(labelLx);
+			} else {
+				buttonPlay.setEnabled(true);
 			}
+
 		});
 		/**
 		 * Stop
@@ -102,12 +94,12 @@ public class GraficaLuminosidad extends VerticalLayout {
 			if (detener()) {
 				try {
 
-					notificar("Captura pausada", Type.ERROR_MESSAGE);
+					notificar("Captura pausada ", "puede escojer un puerto para reiniciar", Type.ERROR_MESSAGE);
 					buttonStop.setEnabled(false);
 
 				} catch (Exception e1) {
 
-					notificar("Error al detener captura " + e1.getMessage(), Type.ERROR_MESSAGE);
+					notificar("Error al detener captura ", " " + e1.getMessage(), Type.ERROR_MESSAGE);
 				}
 			}
 
@@ -117,70 +109,85 @@ public class GraficaLuminosidad extends VerticalLayout {
 		comboPuertosDisponibles.setImmediate(true);
 		comboPuertosDisponibles.setNullSelectionAllowed(false);
 		comboPuertosDisponibles.addValueChangeListener(e -> {
-
-			String puerto = (String) e.getProperty().getValue();
-			/*
-			 * FIXME mosc@ con estado boton Play habilitar ,solo cuando no se
-			 * este graficando
-			 */
-			// botonPlay = !botonPlay;
-
-			if ("/dev/ttyACM0".equals(puerto) && !buttonPlay.isEnabled()) {
+			UI.access(() -> {
+				notificar("Conexion establecida", "", Type.ASSISTIVE_NOTIFICATION);
 				buttonPlay.setEnabled(true);
-			}
+			});
 		});
 
 		labelLx.addStyleName(ValoTheme.LABEL_H2);
 		labelLx.addStyleName(ValoTheme.LABEL_COLORED);
 		labelLx.setWidth("155px");
 
+		labelLx2.addStyleName(ValoTheme.LABEL_H2);
+		labelLx2.addStyleName(ValoTheme.LABEL_BOLD);
+		labelLx2.setWidth("155px");
+
 		VerticalLayout menu = new VerticalLayout(comboPuertosDisponibles, escanearPuertos, buttonPlay, buttonStop,
-				labelLx);
+				labelLx, labelLx2);
 		menu.setWidth("200px");
 		menu.setSpacing(true);
 		menu.setComponentAlignment(labelLx, Alignment.MIDDLE_RIGHT);
+		menu.setComponentAlignment(labelLx2, Alignment.MIDDLE_RIGHT);
 		rowBotones.addComponents(menu, highChart);
 		rowBotones.setExpandRatio(highChart, 1);
 
 		return rowBotones;
 	}
 
-	public boolean iniciar() {
+	/*
+	 * 
+	 */
+	public void estadoGrafica() {
 
-		estado = false;
-		try {
-			if ("/dev/ttyACM0".equals(comboPuertosDisponibles.getValue())) {
-				arduinoInstance.conectarArduino((String) comboPuertosDisponibles.getValue());
+		if (PushGrafica.isChange()) {
+			
+		} else {
+		
 
-				estado = !estado;
-			}
-		} catch (Exception e) {
-			notificar("error al conectar con arduino " + e.getMessage(), Type.ERROR_MESSAGE);
 		}
-		return estado;
-
 	}
 
-	public boolean escanearPuertos() {
+	/**
+	 * Metodo que lo ejecuta el boton play, conectarArduino iniciando lectura de
+	 * puerto serial
+	 */
+	public synchronized boolean iniciar() {
+
+		try {
+			arduinoInstance.conectarArduino((String) comboPuertosDisponibles.getValue());
+			estado = !estado;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return estado;
+	}
+
+	/**
+	 * escanear puertos
+	 */
+	public synchronized boolean escanearPuertos() {
 
 		boolean estado = false;
+
+		System.out.println("escaneando puertos");
 		try {
-			System.out.println("escaneando puertos");
 			for (String tmp : arduinoInstance.getPortsList()) {
 				comboPuertosDisponibles.addItem(tmp);
 				System.out.println(tmp);
-				System.out.println("boton play dentron de escanearPuerto " + botonPlay);
 				estado = !estado;
-
 			}
+		} catch (Exception e) {
+			notificar("Puerto serie ocupado", " " + e.getMessage(), Type.ASSISTIVE_NOTIFICATION);
 
-		} catch (Exception ex) {
-			notificar("Puerto no disponible", Type.ERROR_MESSAGE);
 		}
 		return estado;
 	}
 
-	public boolean detener() {
+	/**
+	 * stop
+	 */
+	public synchronized boolean detener() {
 		boolean estado = false;
 
 		if (arduinoInstance.desconectarArduino()) {
@@ -201,8 +208,8 @@ public class GraficaLuminosidad extends VerticalLayout {
 		return layout;
 	}
 
-	public Notification notificar(String msg, Type error) {
-		Notification n = new Notification(msg, error);
+	public Notification notificar(String descripcion, String msg, Type error) {
+		Notification n = new Notification(descripcion, msg, error);
 		n.setPosition(Position.BOTTOM_RIGHT);
 		n.setIcon(FontAwesome.WARNING);
 		n.show(Page.getCurrent());
@@ -212,10 +219,7 @@ public class GraficaLuminosidad extends VerticalLayout {
 
 	@Override
 	public void detach() {
-		UI.access(() -> {
-			Broadcaster.unregister(e -> {
-			});
-		});
+		PushGrafica.unregister(this);
 		super.detach();
 	}
 }

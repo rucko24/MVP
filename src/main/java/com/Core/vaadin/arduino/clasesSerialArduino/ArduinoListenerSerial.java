@@ -1,23 +1,20 @@
-package com.Core.vaadin.arduino.grafico;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
+package com.Core.vaadin.arduino.clasesSerialArduino;
 
 import org.vaadin.highcharts.HighChart;
-import com.panamahitek.PanamaHitek_Arduino;
+
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.UI;
 
-import gnu.io.SerialPortEvent;
-import gnu.io.SerialPortEventListener;
+import jssc.SerialPortEvent;
+import jssc.SerialPortEventListener;
 
 public class ArduinoListenerSerial {
 
 	private SerialPortEventListener serialPortE;
 
 	private int f;
-	private PanamaHitek_Arduino panamaHytek;
+	private String panamaHytek;
 	private boolean estado;
 
 	// Inicializa puerto serial a 96002
@@ -25,9 +22,9 @@ public class ArduinoListenerSerial {
 
 		estado = !estado;
 		if (estado) {
-			panamaHytek = new PanamaHitek_Arduino();
+			
 			try {
-				panamaHytek.arduinoRX("/dev/ttyS0", 9600, serialPortE);
+			//	panamaHytek.arduinoRX("/dev/ttyS0", 9600, serialPortE);
 				Notification.show("Conexion iniciada");
 				estado = true;
 			} catch (Exception e) {
@@ -48,7 +45,7 @@ public class ArduinoListenerSerial {
 	public void finalizarConexionSerial() {
 		
 		try {
-			panamaHytek.killArduinoConnection();
+		//	panamaHytek.killArduinoConnection();
 			
 		} catch (Exception e) {
 			Notification.show(e.getMessage(), Type.ERROR_MESSAGE);
@@ -69,16 +66,16 @@ public class ArduinoListenerSerial {
 			public void serialEvent(SerialPortEvent arg0) {
 
 				try {
-					if (panamaHytek.isMessageAvailable() == true) {
+				//	if (panamaHytek.isMessageAvailable() == true) {
 
 						f++;
 						UI.getCurrent().access(() -> {
 
-							highChart.addValue(Integer.parseInt(panamaHytek.printMessage()));
-							System.out.println(panamaHytek.printMessage());
+						//	highChart.addValue(Integer.parseInt(panamaHytek.printMessage()));
+						//	System.out.println(panamaHytek.printMessage());
 						});
 
-					}
+					
 				} catch (Exception ex) {
 					// Logger.getLogger(ArduinoListenerSerial.class.getName()).log(Level.SEVERE,
 					// null, ex);

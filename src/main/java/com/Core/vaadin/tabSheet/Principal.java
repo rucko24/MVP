@@ -1,140 +1,147 @@
 package com.Core.vaadin.tabSheet;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 
-import com.Core.vaadin.arduino.grafico.ArduinoListenerSerial;
-import com.Core.vaadin.tabSheet.graficos.Chart;
 import com.Core.vaadin.tabSheet.graficos.JfreeGrafico;
-import com.Core.vaadin.tabSheet.progressBar.ProgressBarListener;
+import com.Core.vaadin.tabSheet.graficos.TodasLasCharts;
+import com.Core.vaadin.tabSheet.obtenerRecursos.ArchivoTxtDesdeElServer;
+import com.Core.vaadin.tabSheet.obtenerRecursos.DownloaderPdf;
+import com.Core.vaadin.tabSheet.obtenerRecursos.PaginaWebExterna;
+import com.Core.vaadin.tabSheet.obtenerRecursos.UploadImage;
+import com.Core.vaadin.tabSheet.obtenerRecursos.VideoExterno;
+import com.Core.vaadin.tabSheet.progressBar.BarraCarga;
 import com.vaadin.server.ClassResource;
 import com.vaadin.server.ExternalResource;
-import com.vaadin.server.FileResource;
-import com.vaadin.server.StreamResource;
-import com.vaadin.server.StreamResource.StreamSource;
+
 import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.BrowserFrame;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.Flash;
 import com.vaadin.ui.Image;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.ProgressBar;
 import com.vaadin.ui.TabSheet;
-import com.vaadin.ui.Upload;
 import com.vaadin.ui.VerticalLayout;
 
-public class Principal extends VerticalLayout {
-	
-	/**
-	 * 
-	 */
+public class Principal extends TabSheet {
+
 	private static final long serialVersionUID = 1L;
-	private TabSheet tab = new TabSheet();
-	private Deslisador slider;
 	
 	public Principal() {
+
 		
-		setHeight("580px");;
-		tab.setSizeFull();
+		addTab(getImagenTemaRuno());
+		addTab(getImagenGlobo());
+		addTab(getSlider());
+		addTab(getJFreeChartFixMe());
+		addTab(getJFreeChart_Varias());
+		addTab(getWebPage());
+		addTab(getVideo());
+		addTab(getCargarImagen());
+		addTab(getBarraDeCarga());
+		addTab(getPdfDesdeServidor());
+		addTab(getArchivoTexto());
 		
+	}
+	
+	private Component getArchivoTexto() {
+		VerticalLayout layout = (VerticalLayout) getLayout("Download Texto-fixme");
+		ArchivoTxtDesdeElServer archivo = new ArchivoTxtDesdeElServer();
+		layout.addComponent(archivo);
+		
+		return layout;
+	}
+	
+	private Component getBarraDeCarga() {
+		VerticalLayout layout = (VerticalLayout) getLayout("Barra de carga-fixme");
+		BarraCarga barra = new BarraCarga();
+		layout.addComponent(barra);
+		
+		return layout;
+	}
+	
+	private Component getPdfDesdeServidor() {
+		VerticalLayout layout = (VerticalLayout) getLayout("Img from file system-fixme");
+		DownloaderPdf downLoadPdf = new DownloaderPdf();
+		layout.addComponent(downLoadPdf);
+		
+		return layout;
+	}
+	private Component getCargarImagen() {
+		VerticalLayout layout = (VerticalLayout) getLayout("Upload Image-fixme");
+		UploadImage img = new UploadImage();
+		layout.addComponent(img);
+		
+		return layout;
+	}
+	
+	private Component getJFreeChart_Varias() {
+		
+		VerticalLayout layout = (VerticalLayout) getLayout("JFreeChart-Varias");
+		TodasLasCharts todasLasCharts = new TodasLasCharts();
+		layout.addComponent(todasLasCharts);
+		
+		return layout;
+	}
+	
+	private Component getJFreeChartFixMe() {
+		VerticalLayout layout = (VerticalLayout) getLayout("JFreeChart-FixMe");
+		JfreeGrafico jfreeChart = new JfreeGrafico();
+		layout.addComponent(jfreeChart);
+		
+		return layout;
+	}
+	
+	private Component getSlider() {
+		VerticalLayout layout = (VerticalLayout) getLayout("Deslisador");
+		Deslisador slider = new Deslisador();
+		layout.addComponent(slider);
+		
+		return layout;
+	}
+	
+	private Component getVideo() {
+		
+		VerticalLayout layout = (VerticalLayout) getLayout("Video-FixMe");
+		VideoExterno video = new VideoExterno();
+		layout.addComponent(video);
+	
+		
+		return layout;
+	}
+	
+	private Component getWebPage() {
+		VerticalLayout layout = (VerticalLayout) getLayout("Web page");
+		PaginaWebExterna frameFromUrl = new PaginaWebExterna();
+		layout.addComponent(frameFromUrl);
+		
+		
+		return layout;
+	}
+	
+	private Component getImagenGlobo() {
+		VerticalLayout layout = (VerticalLayout) getLayout("Imagen GLOBO-fixme");
+		Image imgFromClassPath = new Image(null, new ClassResource("globe.png"));
+		layout.addComponent(imgFromClassPath);
+		
+		return layout;
+	}
+	
+	private Component getImagenTemaRuno() {
+		VerticalLayout layout = (VerticalLayout)getLayout("Imagen Tema Runo");
 		Image imgFromTheme = new Image(null, new ThemeResource("../runo/icons/16/error.png"));
 		//imgFromTheme.setSizeFull();
+		layout.addComponent(imgFromTheme);
 		
-		Image imgFromClassPath = new Image(null, new ClassResource("globe.png"));
-		imgFromClassPath.setSizeFull();
+		return layout;
 		
-		BrowserFrame frameFromUrl = new BrowserFrame(null, new ExternalResource("http://alejandrodu.com"));
-		frameFromUrl.setSizeFull();
-		VerticalLayout lPagina = new VerticalLayout(frameFromUrl);
-		lPagina.setSizeFull();
-		lPagina.setMargin(true);
+	}
+	
+	private Component getLayout(String caption) {
+		VerticalLayout layout = new VerticalLayout();
+		layout.setCaption(caption);
+		layout.setSizeFull();
+		layout.setSpacing(true);
+		layout.setMargin(true);
 		
-		BrowserFrame frameFromFileSystem = new BrowserFrame(null, new FileResource(new File("/home/rubn/Readme")));
-		
-		StreamSource mySource = new StreamSource() {
-			
-			@Override
-			public InputStream getStream() {
-				// TODO Auto-generated method stub
-				return new InputStream() {
-					
-					private int size = 20;
-					
-					public int read() throws IOException {
-						
-						if(size --> 0) {
-							return 'V'; // we are returning 20 V' s
-						}
-						return -1;
-					}
-				};
-			}
-			
-		};
-		
-		BrowserFrame frameFromStream = new BrowserFrame(null, new StreamResource(mySource,"hello.txt"));
-		
-		Flash flashFromUrl = new Flash(null, new ExternalResource("http://www.youtube.com/v/ALgCDkZvzeY&hl=en_US&fs=1"));
-		flashFromUrl.setWidth("580px");
-		flashFromUrl.setHeight("400px");
-		VerticalLayout video = new VerticalLayout();
-		
-		video.setSizeFull();
-		video.addComponent(flashFromUrl);
-		video.setComponentAlignment(flashFromUrl, Alignment.MIDDLE_CENTER);
-		
-		try {
-			 slider = new Deslisador();
-			
-		}catch(UnsatisfiedLinkError ex) {
-			Notification.show("Reiniciar el servidor, puerto ocupado", Notification.Type.ERROR_MESSAGE);
-		}
-		
-		JfreeGrafico o = new JfreeGrafico();
-		
-		Chart dispercion = new Chart(Chart.DISPERSION, "Chart Dispercion");
-		Chart area = new Chart(Chart.AREA, "Chart Area");
-		Chart paso = new Chart(Chart.PASO, "Chart Paso");
-		Chart pasoArea = new Chart(Chart.PASOAREA, "Chart Paso Area");
-		Chart linea = new Chart(Chart.LINEA, "Chart Linea");
-		Chart polar = new Chart(Chart.POLAR, "Chart Polar");
-		Chart serieTiempo = new Chart(Chart.SERIETIEMPO, "Chart Serie Tiempo");
-		Chart logaritmica = new Chart(Chart.LOGARITMICA, "Chart logaritmica");
-		VerticalLayout centrar = new VerticalLayout(dispercion,area,paso, pasoArea, linea, polar, serieTiempo, logaritmica);
-		centrar.setSizeUndefined();
-		centrar.setSpacing(true);
-		
-		VerticalLayout layoutChart = new VerticalLayout(centrar);
-		layoutChart.setComponentAlignment(centrar, Alignment.BOTTOM_CENTER);
-		
-		/*
-		 * BARRA DE CARGAR CON IMAGEN, MODIFICAR, NO AGREGA EL INDICADOR DE SUBIDA, PROGRESSBAR
-		 */
-		ProgressBar indicator = new ProgressBar(0.0f);
-		ProgressBarListener  progressBarListener = new ProgressBarListener(indicator);
-		Upload upload = new Upload("Cargar Imagen", progressBarListener);
-		upload.setButtonCaption("cargar");
-		upload.addProgressListener(progressBarListener);
-		upload.addFinishedListener(progressBarListener);
-		upload.addStartedListener(progressBarListener);
-		
-		VerticalLayout layoutIndicador = new VerticalLayout();
-		layoutIndicador.setMargin(true);
-		layoutIndicador.addComponent(upload);
-		
-		
-		tab.addTab(imgFromTheme,"Img tema runo");
-		tab.addTab(imgFromClassPath,"Img Globo");
-		tab.addTab(lPagina,"WEB");
-		tab.addTab(frameFromFileSystem,"Img from file system");
-		tab.addTab(frameFromStream, "puras V");
-		tab.addTab(video, "VIDEO");
-		tab.addTab(slider,"Deslisador");
-		tab.addTab(o, "JFreeChart");
-		tab.addTab(layoutChart, "JFreeChart 2");
-		tab.addTab(layoutIndicador, "Cargar Imagen");
-		
-		addComponent(tab);
+		return layout;
 	}
 }

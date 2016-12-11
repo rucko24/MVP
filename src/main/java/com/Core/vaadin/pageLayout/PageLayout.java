@@ -10,12 +10,14 @@ import com.vaadin.ui.VerticalLayout;
 public class PageLayout extends VerticalLayout implements View {
 
 	
+	private static final long serialVersionUID = 1L;
 	private HeaderLayout headerLayout = new HeaderLayout();
 	private BodyLayout bodyLayout = new BodyLayout();
 	public static final String PAGELAYOUT_VIEW = "MAIN";
 	
 	public PageLayout() {
 		setSizeFull();
+		
 		
 		addComponents(headerLayout,bodyLayout);
 		setExpandRatio(bodyLayout, 1);

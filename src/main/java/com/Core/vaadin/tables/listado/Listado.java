@@ -3,14 +3,12 @@ package com.Core.vaadin.tables.listado;
 import java.util.List;
 
 import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.server.CustomizedSystemMessages;
 import com.vaadin.server.FontAwesome;
-import com.vaadin.server.Responsive;
-import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
@@ -22,7 +20,7 @@ public class Listado extends VerticalLayout {
 	private TextField textField = new TextField();
 	private Button btnClear = new Button(FontAwesome.TIMES);
 	private CssLayout cssLayout = new CssLayout();
-	private CustomerForm customerForm = new CustomerForm(this);
+	private CustomerForm customerForm;
 	
 	public Listado() {
 		//Responsive.makeResponsive(this);
@@ -30,7 +28,7 @@ public class Listado extends VerticalLayout {
 		
 		setMargin(true);
 		setSpacing(true);
-		
+		customerForm = new CustomerForm(this);
 		textField.setInputPrompt("busqueda...");
 		textField.addTextChangeListener( e -> {
 			grid.setContainerDataSource(new BeanItemContainer<>(Customer.class,
@@ -47,12 +45,13 @@ public class Listado extends VerticalLayout {
 		grid.setSizeFull();
 		updateList();
 		
-		//con un click en la grilla escondemos el formulario
+		//formulario invisible por default
 		customerForm.setVisible(false);
 		
 		grid.addSelectionListener( e -> {
 			if(e.getSelected().isEmpty()) {
-				customerForm.setVisible(true);
+				//con un click en la grilla escondemos el formulario
+				customerForm.setVisible(false);
 			}else {
 				Customer customer = (Customer)e.getSelected().iterator().next();
 				customerForm.setCustomer(customer);

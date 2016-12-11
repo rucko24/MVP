@@ -1,4 +1,4 @@
-package com.Core.vaadin;
+package com.Core.vaadin.workingWithForms;
 
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.ui.Alignment;
@@ -21,7 +21,9 @@ public class Calculador extends VerticalLayout {
 	
 	public Calculador() {
 		
-		horizontalLayout.setMargin(true);
+		setSpacing(true);
+		setMargin(true);
+		
 		horizontalLayout.setSpacing(true);
 		
 		texto1.setId("numero 1");

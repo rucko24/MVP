@@ -1,13 +1,8 @@
 package com.Core.vaadin.tables.listado;
 
-import java.sql.Date;
-
-import com.Core.vaadin.Core;
 import com.vaadin.data.fieldgroup.BeanFieldGroup;
 import com.vaadin.event.ShortcutAction.KeyCode;
-import com.vaadin.shared.ui.datefield.Resolution;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.DateField;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.NativeSelect;
@@ -17,6 +12,7 @@ import com.vaadin.ui.themes.ValoTheme;
 
 public class CustomerForm extends FormLayout {
 	
+	private static final long serialVersionUID = 1L;
 	private TextField firstName = new TextField("First Name");
 	private TextField lastName = new TextField("Last Name");
 	private TextField email = new TextField("Email");
@@ -38,7 +34,7 @@ public class CustomerForm extends FormLayout {
 		btnSave.addStyleName(ValoTheme.BUTTON_PRIMARY);
 		btnSave.setClickShortcut(KeyCode.ENTER);
 		
-		btnSave.addClickListener( e -> save());
+		btnSave.addClickListener( e ->save());
 		btnDelete.addClickListener( e -> delete());
 		btnDelete.addStyleName(ValoTheme.BUTTON_DANGER);
 		

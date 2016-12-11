@@ -12,7 +12,6 @@ import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.DateTickUnit;
 import org.jfree.chart.axis.DateTickUnitType;
-import org.jfree.chart.axis.LogarithmicAxis;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
@@ -26,7 +25,6 @@ import org.jfree.data.statistics.Regression;
 import org.jfree.data.xy.DefaultTableXYDataset;
 import org.jfree.data.xy.DefaultXYDataset;
 import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
 import org.vaadin.addon.JFreeChartWrapper;
 
 import com.vaadin.ui.Alignment;
@@ -35,10 +33,11 @@ import com.vaadin.ui.VerticalLayout;
 
 public class JfreeGrafico extends VerticalLayout {
 	
-
+	/***
+	 * FIXME repinta la class principalCore
+	 */
 	public JfreeGrafico() {
 		
-		setSizeFull();
 		
 		Component j = createBasicDemo();
 		

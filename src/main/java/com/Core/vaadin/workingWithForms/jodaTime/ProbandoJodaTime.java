@@ -1,9 +1,10 @@
 package com.Core.vaadin.workingWithForms.jodaTime;
 
 import org.joda.time.DateTime;
+
 import com.vaadin.ui.VerticalLayout;
 
-public class ProbandoJodaTime extends VerticalLayout {
+public class ProbandoJodaTime  {
 	
 	private String text;
 	private DateTime create;

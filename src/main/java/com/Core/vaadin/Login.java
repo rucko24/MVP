@@ -23,16 +23,16 @@ import com.vaadin.ui.themes.ValoTheme;
 public class Login extends VerticalLayout implements View {
 
 	public static final String LOGIN_VIEW = "";
-	private Button btn ;
+	private Button btn;
 	private Core ui = Core.getCurrent();
 	private ProgressBar bar = new ProgressBar();
 	private TextField textfield = new TextField("Nombre de Usuario");
 	private PasswordField pass = new PasswordField("Contraseña");
 	private HorizontalLayout row = new HorizontalLayout();
-	
-	public Login() {			
+
+	public Login() {
 		setSizeFull();
-		
+
 		bar.setImmediate(true);
 		btn = new Button("entrar");
 		textfield.focus();
@@ -41,42 +41,42 @@ public class Login extends VerticalLayout implements View {
 		textfield.addValidator(new Validador());
 		textfield.setValidationVisible(false);
 		textfield.setImmediate(true);
-		
+
 		pass.addValidator(new Validador());
 		pass.setValidationVisible(false);
 		pass.setImmediate(true);
-		
+
 		btn.setWidth("185px");
 		btn.setClickShortcut(KeyCode.ENTER);
 		btn.addStyleName(ValoTheme.BUTTON_PRIMARY);
-		btn.addClickListener( e -> {		
-			
+		btn.addClickListener(e -> {
+
 			try {
-				
+
 				pass.validate();
 				new Hilo().start();
-				
-			}catch(InvalidValueException ee) {
-				
+
+			} catch (InvalidValueException ee) {
+
 				notification(ee.getMessage());
 				textfield.setValidationVisible(true);
 				textfield.clear();
 				pass.clear();
-				//pass.setValidationVisible(true);
+				// pass.setValidationVisible(true);
 				textfield.focus();
 			}
-			
+
 		});
-		
-		FormLayout centrar = new FormLayout(textfield,pass,btn);
+
+		FormLayout centrar = new FormLayout(textfield, pass, btn);
 		centrar.setSpacing(true);
 		centrar.setSizeUndefined();
-		
+
 		addComponent(centrar);
 		setComponentAlignment(centrar, Alignment.MIDDLE_CENTER);
-		
+
 	}
-	
+
 	public Component getBar() {
 		VerticalLayout layout = new VerticalLayout();
 		layout.setSizeFull();
@@ -85,15 +85,15 @@ public class Login extends VerticalLayout implements View {
 		layout.setComponentAlignment(bar, Alignment.MIDDLE_CENTER);
 		return layout;
 	}
-	
+
 	public Notification notification(String mensajeError) {
-		Notification n = new Notification(mensajeError,Notification.Type.ERROR_MESSAGE);
+		Notification n = new Notification(mensajeError, Notification.Type.ERROR_MESSAGE);
 		n.setPosition(Position.BOTTOM_RIGHT);
 		n.show(Page.getCurrent());
 		n.setDelayMsec(100);
 		return n;
 	}
-	
+
 	public class Validador implements Validator {
 		/**
 		 * 
@@ -103,50 +103,46 @@ public class Login extends VerticalLayout implements View {
 		@Override
 		public void validate(Object value) throws InvalidValueException {
 			String txt = (String) value;
-			
-			if(!(txt.equals("1234") && (textfield.getValue().equals("ruben")))){
+
+			if (!(txt.equals("1234") && (textfield.getValue().equals("ruben")))) {
 				throw new InvalidValueException("datos incorrectos");
 			}
 		}
-		
+
 	}
-	
+
 	public class Hilo extends Thread {
-		
-		int c=0;
+
+		int c = 0;
+
 		@Override
 		public void run() {
 			try {
-				
-				while( c < 2) {
+
+				while (c < 2) {
 					Thread.sleep(1000);
-					Core.getCurrent().access(new Runnable() {
-						
-						@Override
-						public void run() {
-							c++;
-							removeAllComponents();
-							addComponent(getBar());
-						}
+					ui.access(() -> {
+
+						c++;
+						removeAllComponents();
+						addComponent(getBar());
+
 					});
 				}
-				
-				Core.getCurrent().access(new Runnable() {
-					
-					@Override
-					public void run() {
-						Core.getCurrent().getNavigator().navigateTo(PageLayout.PAGELAYOUT_VIEW);
-					}
-					
+
+				ui.access(() -> {
+
+					ui.getNavigator().navigateTo(PageLayout.PAGELAYOUT_VIEW);
+
 				});
-				
-			}catch(InterruptedException ex) {
+
+			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 			}
 		}
-		
+
 	}
-	
+
 	@Override
 	public void enter(ViewChangeEvent event) {
 		ui.getPage().setTitle("Login");

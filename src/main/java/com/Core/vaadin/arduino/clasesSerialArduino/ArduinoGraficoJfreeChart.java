@@ -1,4 +1,4 @@
-package com.Core.vaadin.arduino.grafico;
+package com.Core.vaadin.arduino.clasesSerialArduino;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -6,18 +6,17 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.vaadin.addon.JFreeChartWrapper;
+
 import com.Core.vaadin.Core;
-import com.panamahitek.PanamaHitek_Arduino;
-import com.vaadin.shared.ui.label.ContentMode;
+
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
-import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
-import gnu.io.SerialPortEvent;
-import gnu.io.SerialPortEventListener;
-import org.vaadin.highcharts.HighChart;
+import jssc.SerialPortEvent;
+import jssc.SerialPortEventListener;
+import jssc.SerialPortException;
 
 public class ArduinoGraficoJfreeChart extends VerticalLayout {
 
@@ -27,7 +26,7 @@ public class ArduinoGraficoJfreeChart extends VerticalLayout {
 	private SerialPortEventListener serialPortE;
 	private Core ui = Core.getCurrent();
 	private int f;
-	private PanamaHitek_Arduino arduino = new PanamaHitek_Arduino();
+//	private PanamaHitek_Arduino arduino = new PanamaHitek_Arduino();
 	private final Label labelArduino = new Label();
 
 	public ArduinoGraficoJfreeChart() {
@@ -44,17 +43,14 @@ public class ArduinoGraficoJfreeChart extends VerticalLayout {
 			public void serialEvent(SerialPortEvent arg0) {
 
 				try {
-					if (arduino.isMessageAvailable() == true) {
-						f++;
+				//	if (arduino.isMessageAvailable() == true) {
+					//	f++;
 
-						ui.access(() ->
-                                labelArduino.setValue(arduino.printMessage())
-						);
-
-					}
+					
+					
 				} catch (NumberFormatException ex) {
 					Notification.show("Error serial event :s " + ex.getMessage(), Notification.Type.ERROR_MESSAGE);
-				}
+				} 
 
 			}
 		};
@@ -69,7 +65,7 @@ public class ArduinoGraficoJfreeChart extends VerticalLayout {
 	public void init() {
 
 		try {
-			arduino.arduinoRX("/dev/ttyS0", 9600, serialPortE);
+		//	arduino.arduinoRX("/dev/ttyS0", 9600, serialPortE);
 
 		} catch (Exception e) {
 			// Logger.getLogger(Arduino.class.getName()).log(Level.SEVERE, null,
@@ -104,7 +100,7 @@ public class ArduinoGraficoJfreeChart extends VerticalLayout {
 	public void stopConexion() {
 
 		try {
-			arduino.killArduinoConnection();
+		//	arduino.killArduinoConnection();
 		} catch (Exception e) {
 
 			Notification.show("ERROR: " + e.getMessage(), Notification.Type.ERROR_MESSAGE);

@@ -1,4 +1,4 @@
-package com.Core.vaadin.tabSheet;
+package com.Core.vaadin.tabSheet.obtenerRecursos;
 
 import com.vaadin.server.ClassResource;
 import com.vaadin.server.FileDownloader;
@@ -6,15 +6,17 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
-public class Downloader extends VerticalLayout {
+public class DownloaderPdf extends VerticalLayout {
 	
+	/**
+	 * FIXME NO DESCARGA PDF
+	 */
 	private ClassResource resource = new ClassResource("miPdf.pdf");
 	private Button btn = new Button("Descargar");
 	
-	public Downloader() {
+	public DownloaderPdf() {
 		
-			setSizeFull();
-			setMargin(true);
+			setSizeUndefined();
 			
 			btn.addStyleName(ValoTheme.BUTTON_LINK);
 			
@@ -23,4 +25,5 @@ public class Downloader extends VerticalLayout {
 			
 			addComponent(btn);
 	}
+	
 }
