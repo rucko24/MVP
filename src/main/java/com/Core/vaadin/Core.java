@@ -15,6 +15,7 @@ import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
 
 @Push
 @SuppressWarnings("serial")
@@ -25,7 +26,7 @@ public class Core extends UI {
 	
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {
-
+		
 		pageLayout = new PageLayout();
 		
 		

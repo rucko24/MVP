@@ -1,6 +1,5 @@
 package com.Core.vaadin.tables;
 
-import com.Core.vaadin.tabSheet.EjemploTema;
 import com.Core.vaadin.tables.listado.Listado;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.TabSheet;
@@ -11,6 +10,8 @@ public class PrincipalTablas extends TabSheet {
 	private static final long serialVersionUID = 1L;
 	
 	public PrincipalTablas() {
+		
+		setSizeFull();
 		
 		addTab(getTiposDeTemas());
 		addTab(getFieldFactory());
@@ -59,6 +60,7 @@ public class PrincipalTablas extends TabSheet {
 	public Component getTiposDeTemas() {
 		VerticalLayout layout = (VerticalLayout) getLayout("Dash-Board");
 		EjemploTema  tema = new EjemploTema();
+		
 		layout.addComponent(tema);
 		
 		return layout;
@@ -67,7 +69,7 @@ public class PrincipalTablas extends TabSheet {
 	public Component getLayout( String caption) {
 		VerticalLayout layout = new VerticalLayout();
 		layout.setCaption(caption);
-		layout.setSizeFull();
+
 		
 		return layout;
 	}

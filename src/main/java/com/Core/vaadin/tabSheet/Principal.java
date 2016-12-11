@@ -26,8 +26,8 @@ public class Principal extends TabSheet {
 	private static final long serialVersionUID = 1L;
 	
 	public Principal() {
-
 		
+		setSizeFull();
 		addTab(getImagenTemaRuno());
 		addTab(getImagenGlobo());
 		addTab(getSlider());
@@ -138,7 +138,7 @@ public class Principal extends TabSheet {
 	private Component getLayout(String caption) {
 		VerticalLayout layout = new VerticalLayout();
 		layout.setCaption(caption);
-		layout.setSizeFull();
+		//layout.setSizeFull();
 		layout.setSpacing(true);
 		layout.setMargin(true);
 		

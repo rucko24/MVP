@@ -21,7 +21,7 @@ public class Triangulos extends VerticalLayout {
 	
 	public Triangulos() {
 		
-		setSizeUndefined();
+		setSizeFull();
 		setMargin(true);
 		
 		

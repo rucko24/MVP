@@ -15,7 +15,7 @@ public class ContentLayout extends VerticalLayout {
 	private Label moderFoca2 = new Label();
 	
 	public ContentLayout() {
-		
+		setSizeFull();
 		Component area = getLayout();
 		
 		addComponent(area);

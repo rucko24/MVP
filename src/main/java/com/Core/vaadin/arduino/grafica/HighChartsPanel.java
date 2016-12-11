@@ -2,11 +2,13 @@ package com.Core.vaadin.arduino.grafica;
 
 import org.vaadin.highcharts.HighChart;
 
+import com.vaadin.data.Validator;
 import com.vaadin.ui.Panel;
 
-public class HighChartsPanel extends Panel {
+public class HighChartsPanel extends Panel  {
 	
 	private HighChart highChart = new HighChart();
+
 	
 	public HighChartsPanel() {
 		setWidth("650px");

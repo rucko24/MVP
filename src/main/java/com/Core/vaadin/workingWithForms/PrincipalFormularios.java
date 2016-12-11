@@ -15,7 +15,7 @@ public class PrincipalFormularios extends TabSheet {
 		addTab(validar(), "Custom-Validation");
 		addTab(myIconos(), "Formulario-iconos-runo");
 		addTab(jodaTime() ,"Joda-time");
-		addTab(getTriangulos(), "Validando Triangulos");
+		addTab(getTriangulos(), "Validando Triangulos FIXME");
 		addTab(getCalculador(), "Calulador +|-");
 		
 	}
