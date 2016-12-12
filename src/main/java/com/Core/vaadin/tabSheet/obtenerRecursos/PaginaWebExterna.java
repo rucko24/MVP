@@ -11,7 +11,7 @@ public class PaginaWebExterna extends VerticalLayout {
 	private BrowserFrame frameFromUrl; 
 
 	public PaginaWebExterna() {
-		
+		setSizeFull();
 		Component pagina = getPaginaWebExtena();
 		
 		addComponent(pagina);

@@ -24,7 +24,6 @@ public class EjemploTema extends VerticalLayout {
 		setMargin(true);
 		
 		Component header = getHeader();
-		
 		Component main = getMainArea();
 		
 		addComponents(header,main);
@@ -88,6 +87,7 @@ public class EjemploTema extends VerticalLayout {
 		grid.addStyleName("borde");
 		
 		TextField txt = new TextField();
+		txt.focus();
 		txt.setInputPrompt("Search");
 		txt.setWidth("100%");
 		grid.addComponent(txt, 0, 0);

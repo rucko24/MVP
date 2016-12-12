@@ -26,8 +26,9 @@ public class Principal extends TabSheet {
 	private static final long serialVersionUID = 1L;
 	
 	public Principal() {
-		
 		setSizeFull();
+		addStyleName("miScroll");
+		
 		addTab(getImagenTemaRuno());
 		addTab(getImagenGlobo());
 		addTab(getSlider());
@@ -45,6 +46,7 @@ public class Principal extends TabSheet {
 	private Component getArchivoTexto() {
 		VerticalLayout layout = (VerticalLayout) getLayout("Download Texto-fixme");
 		ArchivoTxtDesdeElServer archivo = new ArchivoTxtDesdeElServer();
+		layout.setSizeFull();
 		layout.addComponent(archivo);
 		
 		return layout;
@@ -53,6 +55,7 @@ public class Principal extends TabSheet {
 	private Component getBarraDeCarga() {
 		VerticalLayout layout = (VerticalLayout) getLayout("Barra de carga-fixme");
 		BarraCarga barra = new BarraCarga();
+		layout.setSizeFull();
 		layout.addComponent(barra);
 		
 		return layout;
@@ -61,6 +64,7 @@ public class Principal extends TabSheet {
 	private Component getPdfDesdeServidor() {
 		VerticalLayout layout = (VerticalLayout) getLayout("Img from file system-fixme");
 		DownloaderPdf downLoadPdf = new DownloaderPdf();
+		layout.setSizeFull();
 		layout.addComponent(downLoadPdf);
 		
 		return layout;
@@ -68,6 +72,7 @@ public class Principal extends TabSheet {
 	private Component getCargarImagen() {
 		VerticalLayout layout = (VerticalLayout) getLayout("Upload Image-fixme");
 		UploadImage img = new UploadImage();
+		layout.setSizeFull();
 		layout.addComponent(img);
 		
 		return layout;
@@ -75,8 +80,10 @@ public class Principal extends TabSheet {
 	
 	private Component getJFreeChart_Varias() {
 		
-		VerticalLayout layout = (VerticalLayout) getLayout("JFreeChart-Varias");
+		VerticalLayout layout = (VerticalLayout) getLayout("JFreeChart-Varias-FixME");
 		TodasLasCharts todasLasCharts = new TodasLasCharts();
+		layout.setHeight("2000px");
+		
 		layout.addComponent(todasLasCharts);
 		
 		return layout;
@@ -93,6 +100,7 @@ public class Principal extends TabSheet {
 	private Component getSlider() {
 		VerticalLayout layout = (VerticalLayout) getLayout("Deslisador");
 		Deslisador slider = new Deslisador();
+		layout.setSizeFull();
 		layout.addComponent(slider);
 		
 		return layout;
@@ -102,14 +110,15 @@ public class Principal extends TabSheet {
 		
 		VerticalLayout layout = (VerticalLayout) getLayout("Video-FixMe");
 		VideoExterno video = new VideoExterno();
+		layout.setSizeFull();
 		layout.addComponent(video);
 	
-		
 		return layout;
 	}
 	
 	private Component getWebPage() {
 		VerticalLayout layout = (VerticalLayout) getLayout("Web page");
+		layout.setSizeFull();
 		PaginaWebExterna frameFromUrl = new PaginaWebExterna();
 		layout.addComponent(frameFromUrl);
 		
@@ -128,7 +137,7 @@ public class Principal extends TabSheet {
 	private Component getImagenTemaRuno() {
 		VerticalLayout layout = (VerticalLayout)getLayout("Imagen Tema Runo");
 		Image imgFromTheme = new Image(null, new ThemeResource("../runo/icons/16/error.png"));
-		//imgFromTheme.setSizeFull();
+		layout.setSizeFull();
 		layout.addComponent(imgFromTheme);
 		
 		return layout;
@@ -138,7 +147,7 @@ public class Principal extends TabSheet {
 	private Component getLayout(String caption) {
 		VerticalLayout layout = new VerticalLayout();
 		layout.setCaption(caption);
-		//layout.setSizeFull();
+		layout.setSizeFull();
 		layout.setSpacing(true);
 		layout.setMargin(true);
 		

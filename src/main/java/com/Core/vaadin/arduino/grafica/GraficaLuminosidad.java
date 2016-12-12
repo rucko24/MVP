@@ -41,9 +41,8 @@ public class GraficaLuminosidad extends VerticalLayout {
 
 	public GraficaLuminosidad() {
 		setSpacing(true);
-
+		
 		Component mainArea = mainArea();
-
 		addComponents(mainArea);
 		setComponentAlignment(mainArea, Alignment.MIDDLE_CENTER);
 		PushGrafica.register(this);
@@ -60,6 +59,7 @@ public class GraficaLuminosidad extends VerticalLayout {
 		/**
 		 * Escanear puertos retorna true si hay puertos disponbles
 		 */
+		escanearPuertos.focus();
 		escanearPuertos.setWidth("155px");
 		escanearPuertos.addClickListener(e -> escanearPuertos());
 
@@ -103,7 +103,8 @@ public class GraficaLuminosidad extends VerticalLayout {
 			}
 
 		});
-
+		
+		
 		comboPuertosDisponibles.setWidth("155px");
 		comboPuertosDisponibles.setImmediate(true);
 		comboPuertosDisponibles.setNullSelectionAllowed(false);

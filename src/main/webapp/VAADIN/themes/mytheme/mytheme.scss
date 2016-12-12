@@ -41,6 +41,13 @@ $v-app-loading-text: "cargando";
   		overflow: auto !important;
 	}
 	
+	.login {
+		background-color: #DBDBDB;
+		background-image: url(img/bg.png);
+		background-repeat: repeat-x;
+		margin: 0px;
+	}
+	
    .header {
    		
    		background-image: url(img/ArdunioLOgo.svg);

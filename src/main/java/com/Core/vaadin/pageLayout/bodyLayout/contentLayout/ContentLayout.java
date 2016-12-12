@@ -15,11 +15,13 @@ public class ContentLayout extends VerticalLayout {
 	private Label moderFoca2 = new Label();
 	
 	public ContentLayout() {
-		setSizeFull();
+		
+		setHeight("100%");
 		Component area = getLayout();
 		
 		addComponent(area);
 		setComponentAlignment(area, Alignment.MIDDLE_CENTER);
+		
 	}
 	
 	public Component getLayout() {
@@ -34,7 +36,7 @@ public class ContentLayout extends VerticalLayout {
 		verticalLayout.addComponents(label, moderFoca2);
 		verticalLayout.setComponentAlignment(label, Alignment.TOP_CENTER);
 		verticalLayout.setComponentAlignment(moderFoca2, Alignment.TOP_CENTER);
-
+		verticalLayout.setExpandRatio(moderFoca2, 1);
 		
 		return verticalLayout;
 	}

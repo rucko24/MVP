@@ -125,6 +125,7 @@ public class ContextMenu extends VerticalLayout {
 		table.setPageLength(table.size());
 		markAsDirtyRecursive();
 		addComponents(label,table);
+		setExpandRatio(table, 1);
 	}
 	
 	

@@ -8,96 +8,36 @@ public class TodasLasCharts extends VerticalLayout {
 	
 	public TodasLasCharts() {
 		setSizeFull();
+		addStyleName("miScroll");
 		Component charts = getAllCharts();
 		
 		addComponent(charts);
-		setComponentAlignment(charts, Alignment.BOTTOM_CENTER);
+		
 	}
 	
 	
 	private Component getAllCharts() {
 		VerticalLayout centrar = (VerticalLayout) getLayout();
-		centrar.setSizeUndefined();
 		centrar.setSpacing(true);
-		centrar.addComponent(getChartArea());
-		centrar.addComponent(getChartDispercion());
-		centrar.addComponent(getChartLinea());
-		centrar.addComponent(getChartLogaritmica());
-		centrar.addComponent(getChartPaso());
-		centrar.addComponent(getChartPolar());
-		centrar.addComponent(getChartSerieTiempo());
-		centrar.addComponent(getChartPasoArea());
+		centrar.setSizeUndefined();
+		Chart logaritmica = new Chart(Chart.LOGARITMICA,"ChartLogaritmica");
+		Chart serieTiempo = new Chart(Chart.SERIETIEMPO, "Chart Serie Tiempo");
+		Chart polar = new Chart(Chart.POLAR, "Chart Polar");
+		Chart linea = new Chart(Chart.LINEA, "Chart Linea");
+		Chart pasoArea = new Chart(Chart.PASOAREA, "Chart Paso Area");
+		Chart area = new Chart(Chart.AREA, "Chart Area");
+		Chart paso = new Chart(Chart.PASO, "Chart Paso");
+		Chart dispercion = new Chart(Chart.DISPERSION, "Chart Dispercion");
+		centrar.addComponents(logaritmica,serieTiempo,polar,linea,pasoArea,area,paso,dispercion);
+		centrar.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
 		
 		return centrar;
-	}
-	private Component getChartLogaritmica() {
-		VerticalLayout layout = (VerticalLayout) getLayout();
-		Chart logaritmica = new Chart(Chart.LOGARITMICA,"ChartLogaritmica");
-		layout.addComponent(logaritmica);
-		
-		return layout;
-	}
-	
-	private Component getChartSerieTiempo() {
-		VerticalLayout layout = (VerticalLayout) getLayout();
-		Chart serieTiempo = new Chart(Chart.SERIETIEMPO, "Chart Serie Tiempo");
-		layout.addComponent(serieTiempo);
-		
-		return layout;
-	}
-	
-	private Component getChartPolar() {
-		VerticalLayout layout = (VerticalLayout) getLayout();
-		Chart polar = new Chart(Chart.POLAR, "Chart Polar");
-		layout.addComponent(polar);
-		
-		return layout;
-	}
-	
-	private Component getChartLinea() {
-		VerticalLayout layout = (VerticalLayout) getLayout();
-		Chart linea = new Chart(Chart.LINEA, "Chart Linea");
-		layout.addComponent(linea);
-		
-		return layout;
-	}
-	
-	private Component getChartPasoArea() {
-		VerticalLayout layout = (VerticalLayout) getLayout();
-		Chart pasoArea = new Chart(Chart.PASOAREA, "Chart Paso Area");
-		layout.addComponent(pasoArea);
-		
-		return layout;
-	}
-	
-	private Component getChartPaso() {
-		VerticalLayout layout = (VerticalLayout) getLayout();
-		Chart paso = new Chart(Chart.PASO, "Chart Paso");
-		layout.addComponent(paso);
-		
-		return layout;
-	}
-	
-	private Component getChartArea() {
-		VerticalLayout layout = (VerticalLayout) getLayout();
-		Chart area = new Chart(Chart.AREA, "Chart Area");
-		layout.addComponent(area);
-		
-		return layout;
-	}
-	
-	private Component getChartDispercion() {
-		VerticalLayout layout = (VerticalLayout) getLayout();
-		Chart dispercion = new Chart(Chart.DISPERSION, "Chart Dispercion");
-		layout.addComponent(dispercion);
-		
-		return layout;
 	}
 	
 	private Component getLayout() {
 		VerticalLayout layout = new VerticalLayout();
-		layout.setSpacing(true);
-		layout.setMargin(true);
+		layout.setSizeFull();
+		
 		
 		return layout;
 	}

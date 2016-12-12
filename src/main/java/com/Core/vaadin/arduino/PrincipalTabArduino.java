@@ -16,8 +16,13 @@ public class PrincipalTabArduino extends TabSheet {
 	private static final int HEIGHT = 700;
 	
 	public PrincipalTabArduino() {
+		setImmediate(true);
+		
+		Component grafica = crearGraficoLuminosidad();
+		
 		addTab(createBotonArduino());
-		addTab(crearGraficoLuminosidad());
+		addTab(grafica);
+		setSelectedTab(grafica);
 		
 	}
 

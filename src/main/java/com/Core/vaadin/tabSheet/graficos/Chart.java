@@ -39,13 +39,16 @@ public class Chart extends VerticalLayout {
 	public static String tY;
 	
 	public Chart(int tipo, String titulo) {
+		
 		this.titulo = titulo;
 		this.tipoGrafica(tipo);
 		
-		init();
+		Component chartPanel = getChartPanel();
+		
+		addComponent(chartPanel);
 	}
 	
-	public void init() {
+	private Component getChartPanel() {
 		Component jfree = jWrapper();
 		jfree.setSizeFull();
 		
@@ -54,7 +57,7 @@ public class Chart extends VerticalLayout {
 		panel.setHeight("400px");
 		
 		panel.setContent(jfree);
-		addComponent(panel);
+		return panel;
 	}
 	
 	public void tipoGrafica(int tipo) {

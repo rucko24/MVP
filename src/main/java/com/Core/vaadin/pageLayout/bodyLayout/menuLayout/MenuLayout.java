@@ -21,7 +21,6 @@ public class MenuLayout extends VerticalLayout {
 	public static final String TABLAS = "Tablas";
 	public static final String TETRIS = "Tetris";
 	
-	
 	private Label label = new Label("MENU",ContentMode.HTML);
 	private ThemeResource iconoArdu = new ThemeResource("img/ardu1.svg");
 	private Tree tree = new Tree();
@@ -46,7 +45,7 @@ public class MenuLayout extends VerticalLayout {
 		tree.addItem(PRUEBA_LABEL);
 		tree.addItem(TABLAS);
 		tree.addItem(TETRIS);
-		
+	
 		tree.setChildrenAllowed(HOME, false);
 		tree.setValue(HOME);
 		

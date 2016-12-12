@@ -1,6 +1,7 @@
 package com.Core.vaadin;
 
 import com.Core.vaadin.pageLayout.PageLayout;
+import com.Core.vaadin.testSistema.SingUpForm;
 import com.vaadin.data.Validator;
 import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.event.ShortcutAction.KeyCode;
@@ -13,6 +14,7 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.ProgressBar;
@@ -23,6 +25,8 @@ import com.vaadin.ui.themes.ValoTheme;
 public class Login extends VerticalLayout implements View {
 
 	public static final String LOGIN_VIEW = "";
+	private Label titulo = new Label("Autorización requerida");
+	private Label titulo2 = new Label("Por favor introduzca nombre y contraseña");
 	private Button btn;
 	private Core ui = Core.getCurrent();
 	private ProgressBar bar = new ProgressBar();
@@ -32,7 +36,13 @@ public class Login extends VerticalLayout implements View {
 
 	public Login() {
 		setSizeFull();
-
+		addStyleName("login");
+		
+		titulo.addStyleName(ValoTheme.LABEL_H1);
+		titulo.addStyleName(ValoTheme.LABEL_COLORED);
+		titulo.setSizeUndefined();
+		titulo2.setSizeUndefined();
+		
 		bar.setImmediate(true);
 		btn = new Button("entrar");
 		textfield.focus();
@@ -67,11 +77,12 @@ public class Login extends VerticalLayout implements View {
 			}
 
 		});
-
-		FormLayout centrar = new FormLayout(textfield, pass, btn);
+		
+		VerticalLayout layout = new VerticalLayout(titulo,titulo2);
+		FormLayout centrar = new FormLayout(layout,textfield, pass, btn);
 		centrar.setSpacing(true);
 		centrar.setSizeUndefined();
-
+		
 		addComponent(centrar);
 		setComponentAlignment(centrar, Alignment.MIDDLE_CENTER);
 
@@ -132,8 +143,10 @@ public class Login extends VerticalLayout implements View {
 
 				ui.access(() -> {
 
-					ui.getNavigator().navigateTo(PageLayout.PAGELAYOUT_VIEW);
-
+					ui.getNavigator().navigateTo(SingUpForm.SINGUPFORM);
+					removeAllComponents();
+					addComponent(new Login());
+				
 				});
 
 			} catch (InterruptedException ex) {

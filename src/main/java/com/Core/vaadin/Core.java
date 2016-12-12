@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 
 import com.Core.vaadin.arduino.bombilla.PanelArduinoOnOff;
 import com.Core.vaadin.pageLayout.PageLayout;
+import com.Core.vaadin.testSistema.SingUpForm;
 import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
@@ -33,11 +34,13 @@ public class Core extends UI {
 		Navigator navigator = new Navigator(this, this);
 
 		navigator.addView(Login.LOGIN_VIEW, new Login());
+		navigator.addView(SingUpForm.SINGUPFORM, new SingUpForm());
 		navigator.addView(PageLayout.PAGELAYOUT_VIEW, pageLayout);
 
 		navigator.navigateTo(Login.LOGIN_VIEW);
-
-		setContent(pageLayout);
+		
+		//comentar para usar el navigator
+		//setContent(pageLayout);
 
 	}
 
