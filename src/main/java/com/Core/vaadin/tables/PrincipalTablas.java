@@ -1,5 +1,6 @@
 package com.Core.vaadin.tables;
 
+import com.Core.vaadin.tables.juegoPalabras.JuegoDePalabrasConTabla;
 import com.Core.vaadin.tables.listado.Listado;
 import com.Core.vaadin.tables.todoList.TodoList;
 import com.vaadin.ui.Component;
@@ -14,23 +15,29 @@ public class PrincipalTablas extends TabSheet {
 		setSizeFull();
 		setImmediate(true);
 		
-		Component dash = getTiposDeTemas();
-		addTab(dash);
-		setSelectedTab(dash);
 		
+		addTab(getTiposDeTemas());
 		addTab(getFieldFactory(),"FieldFactory");
 		addTab(getTreeTabla(),"Tree-Tabla");
 		addTab(getTreeTabla2(),"Tree-Tabla 2");
 		addTab(getContextMenu());
 		addTab(getListadoGridCustomers());
+		addTab(getTodoList());
 		
-		Component todo  = getTodoList();
-		addTab(todo);
+		Component j  = getJuegoDePalabras();
+		addTab(j);
 		
-		
-		setSelectedTab(todo);
+		setSelectedTab(j);
 	}
 	
+	private Component getJuegoDePalabras() {
+		VerticalLayout layout = (VerticalLayout) getLayout("Boxword-game");
+		JuegoDePalabrasConTabla j = new JuegoDePalabrasConTabla();
+		layout.setSizeFull();
+		layout.addComponent(j);
+		
+		return layout;
+	}
 	public Component getTodoList() {
 		VerticalLayout layout = (VerticalLayout)getLayout("TodoList");
 		layout.setSizeFull();
@@ -80,7 +87,7 @@ public class PrincipalTablas extends TabSheet {
 	
 	public Component getTiposDeTemas() {
 		VerticalLayout layout = (VerticalLayout) getLayout("Dash-Board");
-		EjemploTema  tema = new EjemploTema();
+		DashBoardBasico  tema = new DashBoardBasico();
 		layout.setSizeFull();
 		layout.addComponent(tema);
 

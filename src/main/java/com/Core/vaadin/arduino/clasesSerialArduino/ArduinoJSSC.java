@@ -4,15 +4,9 @@ import static jssc.SerialPort.MASK_RXCHAR;
 import static jssc.SerialPort.MASK_TXEMPTY;
 
 import java.io.InputStream;
-import java.io.Serializable;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-
 import com.Core.vaadin.arduino.grafica.HighChartsPanel;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
@@ -25,8 +19,9 @@ import com.vaadin.ui.UI;
 import jssc.SerialPort;
 import jssc.SerialPortException;
 import jssc.SerialPortList;
+import jssc.SerialPortTimeoutException;
 
-public class ArduinoJSSC implements Serializable {
+public class ArduinoJSSC {
 
 	private SerialPort arduinoSerialPort = null;
 	private List<String> listaDePuertos;
@@ -36,7 +31,8 @@ public class ArduinoJSSC implements Serializable {
 	private static ArduinoJSSC arduino;
 	private int valorGrafica;
 	private Label labelLx;
-	private String valor;
+	private String sValor;
+	private int valor;
 	private SerialPortException exception;
 	private InputStream in = null;
 	private DateFormat dt = DateFormat.getDateInstance(DateFormat.MEDIUM);
@@ -71,11 +67,11 @@ public class ArduinoJSSC implements Serializable {
 	 * datos desde puerto serie
 	 */
 	public void setValor(String valor) {
-		this.valor = valor;
+		this.sValor = valor;
 	}
 
 	public String getValor() {
-		return valor;
+		return sValor;
 	}
 
 	/***
@@ -101,31 +97,17 @@ public class ArduinoJSSC implements Serializable {
 			notification("Tomando datos", "", Type.ASSISTIVE_NOTIFICATION);
 
 			serialPort.addEventListener(e -> {
-				if (e.isRXCHAR() && e.getEventValue() > 0 ) {
+				if (e.isRXCHAR() ) {
 
-					try {
-						
-						String dataRecibida = serialPort.readString(e.getEventValue());
-						System.out.println("dato Serial.println() " + dataRecibida);
+					System.out.println("metodo getReply() " + getReply().trim());
+					/**
+					 * graficar highCharts con webSockets
+					 */
+					UI.getCurrent().access(() -> {
+						highChart.setValue(Integer.valueOf(getReply().trim()));
+						labelLx.setValue(getReply().trim() + " lx");
 
-						//byte[] buffer = serialPort.readBytes();
-						//int intBuffer = buffer[0];
-						//System.out.println("dato byte[] buffer " + intBuffer);
-						
-						setValor(dataRecibida);
-
-						/**
-						 * graficar highCharts con webSockets
-						 */
-						UI.getCurrent().access(() -> {
-							highChart.setValue(Integer.valueOf(dataRecibida));
-							labelLx.setValue(dataRecibida+" lx");
-							
-						});
-
-					} catch (SerialPortException ex) {
-						notification("Error al graficar", "", Type.ERROR_MESSAGE);
-					}
+					});
 				}
 
 			});
@@ -141,13 +123,71 @@ public class ArduinoJSSC implements Serializable {
 		return estado;
 	}
 
-	public synchronized void onOff(boolean value) throws SerialPortException {
+	public String getReply() {
 
-		if (value) {
-			arduinoSerialPort.writeBytes("1".getBytes());
-		} else {
-			arduinoSerialPort.writeBytes("3".getBytes());
+		int receiveState = 0;
+		byte[] recvdBytes; // bytes received
+		byte[] oneByte;
+		int byteCounter = 0;
+
+		recvdBytes = new byte[80];
+		oneByte = new byte[80];
+
+		// initialize array
+		for (int i = 0; i < 80; i++) {
+			recvdBytes[i] = 0;
 		}
+
+		/* wait for reply */
+		oneByte[0] = 0;
+
+		// keep collecting data until newline is received
+		while ((oneByte[0] != ('\n'))) {
+			try {
+
+				while (receiveState == 0) {
+					receiveState = arduinoSerialPort.getEventsMask();
+					receiveState &= SerialPort.MASK_RXCHAR;
+				}
+
+				// wait up until 20 seconds for data
+				// when we get data, put it into the buffer
+				oneByte = arduinoSerialPort.readBytes(1, 20000);
+				recvdBytes[byteCounter] = oneByte[0];
+				byteCounter++;
+				// arduinoReply += oneChar;
+
+			} catch (SerialPortException | SerialPortTimeoutException ex) {
+				System.err.println(" " + ex);
+				System.exit(0);
+			}
+		}
+		// put the bytes into string format
+		String arduinoReply;
+		arduinoReply = new String(recvdBytes, 0, byteCounter);
+
+		char[] charArray;
+		charArray = arduinoReply.toCharArray();
+
+		// send the reply back to caller
+		return arduinoReply;
+	}
+
+	public synchronized void onOff(String value) {
+
+		try {
+
+			if (value.equals("1")) {
+				arduinoSerialPort.writeBytes("1".getBytes());
+			} else if (value.equals("5")) {
+				arduinoSerialPort.writeBytes("5".getBytes());
+			}
+
+		} catch (SerialPortException e) {
+
+			notification("No se ha iniciado el arduino", "", Type.ERROR_MESSAGE);
+		}
+
 	}
 
 	/***
@@ -164,7 +204,7 @@ public class ArduinoJSSC implements Serializable {
 					estado = !estado;
 				}
 				arduinoSerialPort = null;
-
+				flushSerialPorts();
 			} catch (SerialPortException e) {
 				notification("No se desconecto el arduino ", " " + e.getMessage(), Type.ERROR_MESSAGE);
 			}

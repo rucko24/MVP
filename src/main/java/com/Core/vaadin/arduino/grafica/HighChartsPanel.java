@@ -13,6 +13,7 @@ public class HighChartsPanel extends Panel  {
 	public HighChartsPanel() {
 		setWidth("650px");
 		setHeight("400px");
+		setImmediate(true);
 		
 		highChart.addValue(0);
 		highChart.setImmediate(true);

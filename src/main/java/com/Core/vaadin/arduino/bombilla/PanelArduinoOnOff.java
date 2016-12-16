@@ -7,6 +7,7 @@ import org.vaadin.teemu.switchui.Switch;
 
 import com.Core.vaadin.Core;
 import com.Core.vaadin.arduino.broadcaster.Broadcaster.BroadcasterListener;
+import com.Core.vaadin.arduino.clasesSerialArduino.ArduinoJSSC;
 import com.Core.vaadin.arduino.broadcaster.*;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
@@ -104,27 +105,19 @@ public class PanelArduinoOnOff extends VerticalLayout {
 		
 		bombilla.setIcon(bombillaOFF);
 		/*
-		 * getEstadoArduino, retorna el estado del cambio en botones y 
+		 * isChange, retorna el estado del cambio en botones y 
 		 * bombilla
 		 */
-		if (PushBombilla.isChange()) {
-			botonBombilla.setCaption("On");
-			bombilla.setIcon(bombillaON);
-			Notification.show("On");
-		} else {
-			botonBombilla.setCaption("off");
-			bombilla.setIcon(bombillaOFF);
-			Notification.show("off");
-		}
-
+		cambiarBotones();
 		botonBombilla.addClickListener(e -> {
+			
 			try {
 				ui.access(() -> {
 					PushBombilla.broadcast();
 					if (PushBombilla.isChange()) {
-	
+						ArduinoJSSC.getInstance().onOff("1");
 					} else {
-	
+						ArduinoJSSC.getInstance().onOff("5");
 					}
 				});
 			} catch(UIDetachedException ex) {

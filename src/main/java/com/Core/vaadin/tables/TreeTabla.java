@@ -34,7 +34,8 @@ public class TreeTabla extends VerticalLayout {
 		treeTabla.setSizeFull();
 		treeTabla.setPageLength(0);
 		
-		File folder = VaadinService.getCurrent().getBaseDirectory();
+		String file = VaadinService.getCurrent().getBaseDirectory().getAbsolutePath();
+		File folder = new File(file);
 		
 		FilesystemContainer container = new FilesystemContainer(folder);
 		
@@ -42,5 +43,6 @@ public class TreeTabla extends VerticalLayout {
 		
 		
 		addComponents(tree,treeTabla);
+		setExpandRatio(treeTabla, 1);
 	}
 }

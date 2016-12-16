@@ -15,11 +15,11 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
-public class EjemploTema extends VerticalLayout {
+public class DashBoardBasico extends VerticalLayout {
 	
 	private static final long serialVersionUID = 1L;
 
-	public EjemploTema() {
+	public DashBoardBasico() {
 		setSizeFull();
 		setMargin(true);
 		
@@ -101,9 +101,9 @@ public class EjemploTema extends VerticalLayout {
 		
 		table.addContainerProperty("Nombres", String.class, "");
 		table.addContainerProperty("Apellidos", String.class, "");
-		table.addContainerProperty("Deudas", Double.class, null);
+		table.addContainerProperty("Deudas", Integer.class, null);
 		
-		String nombres[] = {"Ruben","Maria","Pedra","Jose","Raul"};
+		/*String nombres[] = {"Ruben","Maria","Pedra","Jose","Raul"};
 		String apellidos[] = {"Espinoza","Peres","Garcia","Gonzales","Parra"};
 		double deuda[] = { 50.2 , 100.85 , 342.3 , 234.55 , 999.99};
 		
@@ -117,9 +117,26 @@ public class EjemploTema extends VerticalLayout {
 			
 			suma += deuda[f];
 		
+		}*/
+		
+		//double promedio = (double) suma / deuda.length;
+		
+		String nombres[][] = {{"jose","andrea"},
+							{"aaa","adafa"},
+							{"aaaf","fafaf"}};
+		Integer numeros[] = {5,5,5};
+		
+		int suma = 0;
+		for( int f=0; f<nombres.length; f++) {
+			
+			table.addItem(new Object[]{nombres[f]});
+			suma += (Integer) numeros[f];
+			
 		}
 		
-		double promedio = (double) suma / deuda.length;
+		double promedio = (double) suma / numeros.length;
+		
+		
 		
 		DecimalFormat dd = new DecimalFormat("0.00");
 		table.setColumnFooter("Nombres",String.valueOf(suma));

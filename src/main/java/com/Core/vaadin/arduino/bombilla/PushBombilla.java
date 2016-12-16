@@ -27,12 +27,12 @@ public class PushBombilla {
 	 */
 	public static synchronized void broadcast() {
 		estadoBotones = !estadoBotones;
-		executor.execute(() -> {
+		//executor.execute(() -> {
 			for( PanelArduinoOnOff tmpArduinos : arduinos ) {
 				tmpArduinos.cambiarBotones();
 				
 			}
-		});
+		//});
 		
 	}
 		

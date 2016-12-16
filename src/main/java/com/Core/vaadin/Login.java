@@ -45,7 +45,7 @@ public class Login extends VerticalLayout implements View {
 		
 		bar.setImmediate(true);
 		btn = new Button("entrar");
-		textfield.focus();
+		btn.focus();
 		textfield.setNullRepresentation("");
 		textfield.setNullSettingAllowed(false);
 		textfield.addValidator(new Validador());
@@ -62,17 +62,16 @@ public class Login extends VerticalLayout implements View {
 		btn.addClickListener(e -> {
 
 			try {
-
 				pass.validate();
+				e.getButton().setEnabled(false);
+				e.getButton().setCaption("entrando...");
 				new Hilo().start();
 
 			} catch (InvalidValueException ee) {
-
 				notification(ee.getMessage());
 				textfield.setValidationVisible(true);
 				textfield.clear();
 				pass.clear();
-				// pass.setValidationVisible(true);
 				textfield.focus();
 			}
 
@@ -143,7 +142,8 @@ public class Login extends VerticalLayout implements View {
 
 				ui.access(() -> {
 
-					ui.getNavigator().navigateTo(SingUpForm.SINGUPFORM);
+					//ui.getNavigator().navigateTo(SingUpForm.SINGUPFORM);
+					ui.getNavigator().navigateTo(PageLayout.PAGELAYOUT_VIEW);
 					removeAllComponents();
 					addComponent(new Login());
 				

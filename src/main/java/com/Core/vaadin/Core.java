@@ -5,8 +5,10 @@ import java.util.List;
 
 import javax.servlet.annotation.WebServlet;
 
+import com.Core.vaadin.arduino.arduino_2.PrincipalArduino2;
 import com.Core.vaadin.arduino.bombilla.PanelArduinoOnOff;
 import com.Core.vaadin.pageLayout.PageLayout;
+import com.Core.vaadin.tables.juegoPalabras.JuegoDePalabrasConTabla;
 import com.Core.vaadin.testSistema.SingUpForm;
 import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;
@@ -39,8 +41,8 @@ public class Core extends UI {
 
 		navigator.navigateTo(Login.LOGIN_VIEW);
 		
-		//comentar para usar el navigator
-		//setContent(pageLayout);
+		//comentar para usar el navigator e ir al login View
+		
 
 	}
 
