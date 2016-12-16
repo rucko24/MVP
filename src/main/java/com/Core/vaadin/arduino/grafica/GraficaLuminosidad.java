@@ -69,18 +69,20 @@ public class GraficaLuminosidad extends VerticalLayout {
 		buttonPlay.addStyleName(ValoTheme.BUTTON_PRIMARY);
 		buttonPlay.setWidth("155px");
 		buttonPlay.addClickListener(e -> {
-			buttonPlay.setEnabled(false);
-			buttonPlay.setCaption("Reiniciar");
+			buttonStop.setEnabled(true);
 			if (iniciar()) {
-
-				buttonStop.setEnabled(true);
-				arduinoInstance.setValorGrafica(this.highChart);
-				arduinoInstance.setValorLabel(this.labelLx);
+				if(e.getButton().getCaption().contains("Iniciar")) {
+					
+					e.getButton().setCaption("Reiniciar");
+					e.getButton().setEnabled(false);
+					
+					arduinoInstance.setValorGrafica(this.highChart);
+					arduinoInstance.setValorLabel(this.labelLx);
+					
+				}
 				labelLx2.setValue(arduinoInstance.getValor() + " lx");
 
-			} else {
-				buttonPlay.setEnabled(true);
-			}
+			} 
 
 		});
 		/**
@@ -94,7 +96,7 @@ public class GraficaLuminosidad extends VerticalLayout {
 				try {
 
 					notificar("Captura pausada ", "puede escojer un puerto para reiniciar", Type.ERROR_MESSAGE);
-					buttonStop.setEnabled(false);
+					e.getButton().setEnabled(false);
 
 				} catch (Exception e1) {
 
@@ -111,7 +113,9 @@ public class GraficaLuminosidad extends VerticalLayout {
 		comboPuertosDisponibles.addValueChangeListener(e -> {
 			UI.access(() -> {
 				notificar("Conexion establecida", "", Type.ASSISTIVE_NOTIFICATION);
+				
 				buttonPlay.setEnabled(true);
+				buttonStop.setEnabled(true);
 			});
 		});
 

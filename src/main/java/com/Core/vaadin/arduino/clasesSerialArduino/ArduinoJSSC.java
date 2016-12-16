@@ -204,7 +204,6 @@ public class ArduinoJSSC {
 					estado = !estado;
 				}
 				arduinoSerialPort = null;
-				flushSerialPorts();
 			} catch (SerialPortException e) {
 				notification("No se desconecto el arduino ", " " + e.getMessage(), Type.ERROR_MESSAGE);
 			}
