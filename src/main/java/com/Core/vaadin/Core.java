@@ -60,6 +60,12 @@ public class Core extends UI {
 		return (Core) UI.getCurrent();
 
 	}
+	
+	@Override
+	public Core getUI() {
+		return (Core) super.getUI();
+	}
+	
 
 	@WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
 	@VaadinServletConfiguration(ui = Core.class, productionMode = false)

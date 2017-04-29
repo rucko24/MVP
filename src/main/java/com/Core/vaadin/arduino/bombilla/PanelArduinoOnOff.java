@@ -41,7 +41,7 @@ public class PanelArduinoOnOff extends VerticalLayout {
 	private ThemeResource udo = new ThemeResource("img/udo.png");
 	private ThemeResource logoArduino = new ThemeResource("img/ardu2.png");
 	private Label bombilla = new Label();
-	private Core ui = Core.getCurrent();
+	private Core ui = (Core)super.getUI();
 
 	public PanelArduinoOnOff() {
 		

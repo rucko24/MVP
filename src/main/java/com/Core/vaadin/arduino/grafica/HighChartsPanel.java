@@ -18,19 +18,18 @@ public class HighChartsPanel extends Panel {
 	private Axis xAxis = new Axis(Axis.AxisType.xAxis);
 	private Axis yAxis = new Axis(Axis.AxisType.yAxis);
 	private HighChart highChart = new HighChart();
-	private LineChartSeries datos = new LineChartSeries("Sensor LDR");
+	private LineChartSeries datos = new LineChartSeries("Sensor LM-35");
 	
 	public HighChartsPanel() {
 		setWidth("650px");
 		setHeight("400px");
 		setImmediate(true);
 
-		config.setTitle("Luminosidad vs Tiempo");
+		config.setTitle("Temperatura vs Tiempo");
 		config.setChartType(ChartType.LINE);
 		config.setBackgroundColor(Color.WHITE);
 		config.setLegendEnabled(true);
 		config.setTooltipEnabled(true);
-		
 		
 		datos.addData(1);
 		datos.addData(500);
@@ -60,7 +59,7 @@ public class HighChartsPanel extends Panel {
 		xAxis.setTickLength(30);
 		xAxis.setTitle("Tiempo");
 		xAxis.setAllowDecimals(false);
-		yAxis.setTitle("Luminosidad");
+		yAxis.setTitle("Temperatura °C");
 		config.setxAxis(xAxis);
 		config.setyAxis(yAxis);
 

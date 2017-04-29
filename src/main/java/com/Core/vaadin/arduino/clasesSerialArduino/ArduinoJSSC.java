@@ -6,6 +6,7 @@ import static jssc.SerialPort.MASK_TXEMPTY;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.Core.vaadin.Core;
 import com.Core.vaadin.arduino.grafica.HighChartsPanel;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
@@ -29,7 +30,7 @@ public class ArduinoJSSC {
 	private HighChartsPanel highChart;
 	private static ArduinoJSSC arduino;
 	private int valorGrafica;
-	private Label labelLx;
+	private Label labelCelsius;
 	private String sValor;
 	private int valor;
 	private SerialPortException exception;
@@ -56,7 +57,7 @@ public class ArduinoJSSC {
 	}
 
 	public void setValorLabel(Label labelLx) {
-		this.labelLx = labelLx;
+		this.labelCelsius = labelLx;
 	}
 	/*
 	 * datos desde puerto serie
@@ -104,8 +105,8 @@ public class ArduinoJSSC {
 					 */
 					UI.getCurrent().access(() -> {
 						highChart.setValue(Integer.valueOf(getReply().trim()));
-						labelLx.setValue(getReply() + " lx");
-						
+						labelCelsius.setValue(getReply() + " °C");
+						labelCelsius.addStyleName("h1");
 					});
 				}
 

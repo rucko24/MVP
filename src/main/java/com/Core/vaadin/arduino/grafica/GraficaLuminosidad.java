@@ -68,7 +68,7 @@ public class GraficaLuminosidad extends VerticalLayout {
 
 					e.getButton().setCaption("Reiniciar");
 					e.getButton().setEnabled(false);
-
+					
 					arduinoInstance.setValorGrafica(this.highChart);
 					arduinoInstance.setValorLabel(this.labelLx);
 
