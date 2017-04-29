@@ -4,11 +4,15 @@ import org.joda.time.DateTime;
 
 import com.vaadin.ui.VerticalLayout;
 
-public class ProbandoJodaTime  {
-	
+public class ProbandoJodaTime {
+
 	private String text;
 	private DateTime create;
-	
+
+	public ProbandoJodaTime() {
+
+	}
+
 	public String getText() {
 		return text;
 	}
@@ -23,10 +27,6 @@ public class ProbandoJodaTime  {
 
 	public void setCreate(DateTime create) {
 		this.create = create;
-	}
-
-	public ProbandoJodaTime() {
-		
 	}
 
 }

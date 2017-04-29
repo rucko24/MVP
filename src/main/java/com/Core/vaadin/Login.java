@@ -46,6 +46,7 @@ public class Login extends VerticalLayout implements View {
 		bar.setImmediate(true);
 		btn = new Button("entrar");
 		btn.focus();
+		
 		textfield.setNullRepresentation("");
 		textfield.setNullSettingAllowed(false);
 		textfield.addValidator(new Validador());
@@ -112,8 +113,9 @@ public class Login extends VerticalLayout implements View {
 
 		@Override
 		public void validate(Object value) throws InvalidValueException {
-			String txt = (String) value;
-
+			String t = (String) value;
+			String txt = t.trim();
+			
 			if (!(txt.equals("1234") && (textfield.getValue().equals("ruben")))) {
 				throw new InvalidValueException("datos incorrectos");
 			}

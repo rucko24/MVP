@@ -1,56 +1,72 @@
-package com.Core.vaadin.arduino.arduino_2;
+package com.Core.vaadin.arduino.clasesSerialArduino.rArduino;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.Core.vaadin.Core;
 import com.Core.vaadin.arduino.grafica.HighChartsPanel;
+import com.Core.vaadin.arduino.grafica.PushRArduino;
 import com.vaadin.ui.Label;
 
 //import org.apache.log4j.Logger;
 
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
+import com.vaadin.ui.VerticalLayout;
 
 import jssc.SerialPort;
 import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
 import jssc.SerialPortException;
+import jssc.SerialPortList;
 import jssc.SerialPortTimeoutException;
 
-public class JSSC_AC implements JSSC_Interface, SerialPortEventListener {
+public class SerialRArduino extends VerticalLayout implements JSSC_Interface, SerialPortEventListener {
 
 	// private static final Logger LOG = Logger.getLogger(JSSC_AC.class);
 	private static final int DEFAULT_BAUD_RATE = SerialPort.BAUDRATE_9600;
 
-	private SerialPort serialPort;
+	private static SerialPort serialPort;
 	private OutputStream outputStream;
 	private InputStream inputStream;
+	private List<String> puerto;
+	private static SerialRArduino rArduino;
 
-	/**
-	 * singlenton FIXME private static JSSC_AC jssAC; private JSSC_AC() {}
-	 * public static synchronized JSSC_AC getInstance() { if(jssAC == null) {
-	 * jssAC = new JSSC_AC(); } return jssAC; }
-	 */
-	public JSSC_AC(String serialPortName) throws SerialPortException {
-		this(serialPortName, DEFAULT_BAUD_RATE);
+	private SerialRArduino() {
 	}
 
-	public JSSC_AC(String serialPortName, int baudRate) throws SerialPortException {
+	public static synchronized SerialRArduino getInstance() {
+		if (rArduino == null) {
+			rArduino = new SerialRArduino();
+		}
+		return rArduino;
+	}
+
+	public static SerialPort getSerialPort() {
+		return serialPort;
+	}
+
+	public void init(String serialPortName) throws SerialPortException {
+
+		System.out.println("SerialPortName metodo init() " + serialPortName);
+
 		if (serialPortName == null || "".equals(serialPortName)) {
 			throw new IllegalArgumentException("Se requiere el nombre del puerto");
 		}
 		serialPort = new SerialPort(serialPortName);
 		serialPort.openPort();
-		serialPort.setParams(baudRate, 8, 1, 0);
+		serialPort.setParams(DEFAULT_BAUD_RATE, 8, 1, 0);
 		int mask = SerialPort.MASK_RXCHAR;
 		serialPort.setEventsMask(mask);
 		serialPort.addEventListener(this);
 		inputStream = new UnsignedByteSerialInputStream(serialPort);
 		outputStream = new BufferedOutputStream(new SerialOutputStream(serialPort));
-
+		
+		PushRArduino.register(this);
 	}
 
 	@Override
@@ -61,12 +77,23 @@ public class JSSC_AC implements JSSC_Interface, SerialPortEventListener {
 			try {
 				if (inputStream.available() > 0) {
 
-					System.out.println("Salida desde Ardu: " + getReply());
-
+					
+					int valor = 0; 
+					valor = Integer.valueOf(getReply());
+					
+					if(valor >= 850) {
+						onOff("2");
+					
+					}else if(valor <= 500) {
+						onOff("1");
+					}
+					
 					Core.getCurrent().access(() -> {
-
-						PrincipalArduino2.labelEstadoArduino.setValue("Dato desde Arduino: " + getReply());
-						PrincipalArduino2.panel.setValue(Integer.valueOf(getReply()));
+						PushRArduino.broadcast();
+						if (PushRArduino.isChange()) {
+							MainRArduino.labelEstadoArduino.setValue("Dato desde Arduino: " + getReply());
+							MainRArduino.panel.setValue(Integer.valueOf(getReply()));
+						}
 
 					});
 
@@ -74,7 +101,7 @@ public class JSSC_AC implements JSSC_Interface, SerialPortEventListener {
 						this.notify();
 					}
 				}
-			} catch (IOException ex) {
+			} catch (IOException | SerialPortException ex) {
 				ex.printStackTrace();
 				Notification.show("Erro " + ex.getMessage(), Type.ERROR_MESSAGE);
 			}
@@ -85,7 +112,19 @@ public class JSSC_AC implements JSSC_Interface, SerialPortEventListener {
 		}
 
 	}
-
+	
+	public void onOff(String data) throws SerialPortException {
+		
+		
+		if(data.equals("1")) {
+			
+			serialPort.writeBytes("1".getBytes());
+		}else if(data.equals("2")){
+			
+			serialPort.writeBytes("2".getBytes());
+		}
+	}
+	
 	@Override
 	public OutputStream getOutputStream() {
 		return outputStream;
@@ -129,6 +168,7 @@ public class JSSC_AC implements JSSC_Interface, SerialPortEventListener {
 			try {
 
 				while (receiveState == 0) {
+
 					receiveState = serialPort.getEventsMask();
 					receiveState &= SerialPort.MASK_RXCHAR;
 				}
@@ -157,4 +197,24 @@ public class JSSC_AC implements JSSC_Interface, SerialPortEventListener {
 		return arduinoReply.trim();
 	}
 
+	public List<String> getListaDePuertos() {
+
+		puerto = new ArrayList<String>();
+		String puertos[] = SerialPortList.getPortNames();
+
+		for (String tmpPuertos : puertos) {
+			puerto.add(tmpPuertos);
+			System.out.println("Puertos disponible: " + tmpPuertos);
+		}
+		if (puerto.isEmpty()) {
+			System.out.println("NO hay puertos disponibles");
+		}
+		return puerto;
+	}
+	
+	@Override
+	public void detach() {
+		PushRArduino.unregister(this);
+		super.detach();
+	}
 }

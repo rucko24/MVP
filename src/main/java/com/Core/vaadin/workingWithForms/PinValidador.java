@@ -5,28 +5,24 @@ import com.vaadin.ui.TabSheet;
 
 public class PinValidador implements Validator {
 
-
 	private static final long serialVersionUID = 1L;
-	
+
 	@Override
 	public void validate(Object value) throws InvalidValueException {
+
+		String t = (String) value;
+		String text = t.trim();
 		
-		String text = (String) value;
-		
-		if( text == null || "".equals(text.trim())) {
-			
-			return ;
+		if (text == null || "".equals(text.trim())) {
+
+			return;
+		}
+
+		if (!text.matches("[a-zA-Z-0-9]*")) {
+
+			throw new InvalidValueException("CVE : "+text+" NOT FOUND");
 		}
 		
-		if(  !text.matches("\\d*")) {
-			
-			throw new InvalidValueException("Introduce solo numeros");
-		}
-		if( text.length() < 0) {
-			throw new InvalidValueException("Introduce un numero");
-		}
 	}
-	
-	
 
 }

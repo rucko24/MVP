@@ -1,32 +1,25 @@
 package com.Core.vaadin.arduino.grafica;
 
-import org.vaadin.highcharts.HighChart;
-import org.vaadin.teemu.switchui.Switch;
-
 import com.Core.vaadin.Core;
-import com.Core.vaadin.arduino.broadcaster.Broadcaster;
 import com.Core.vaadin.arduino.clasesSerialArduino.ArduinoJSSC;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.NativeSelect;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
-import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
-
-import jssc.SerialPortException;
 
 public class GraficaLuminosidad extends VerticalLayout {
 
 	private static final long serialVersionUID = 1L;
+	private static final String DATE_FORMAT = "hh:mm:ss a";
 
 	private Core UI = Core.getCurrent();
 	private HighChartsPanel highChart = new HighChartsPanel();
@@ -41,11 +34,11 @@ public class GraficaLuminosidad extends VerticalLayout {
 
 	public GraficaLuminosidad() {
 		setSpacing(true);
-		
+
 		Component mainArea = mainArea();
 		addComponents(mainArea);
 		setComponentAlignment(mainArea, Alignment.MIDDLE_CENTER);
-		PushGrafica.register(this);
+
 	}
 
 	public Component mainArea() {
@@ -71,18 +64,17 @@ public class GraficaLuminosidad extends VerticalLayout {
 		buttonPlay.addClickListener(e -> {
 			buttonStop.setEnabled(true);
 			if (iniciar()) {
-				if(e.getButton().getCaption().contains("Iniciar")) {
-					
+				if (e.getButton().getCaption().contains("Iniciar")) {
+
 					e.getButton().setCaption("Reiniciar");
 					e.getButton().setEnabled(false);
-					
+
 					arduinoInstance.setValorGrafica(this.highChart);
 					arduinoInstance.setValorLabel(this.labelLx);
-					
-				}
-				labelLx2.setValue(arduinoInstance.getValor() + " lx");
 
-			} 
+				}
+
+			}
 
 		});
 		/**
@@ -91,7 +83,7 @@ public class GraficaLuminosidad extends VerticalLayout {
 		buttonStop.addStyleName(ValoTheme.BUTTON_DANGER);
 		buttonStop.setWidth("155px");
 		buttonStop.addClickListener(e -> {
-
+			// buttonPlay.setEnabled(true);
 			if (detener()) {
 				try {
 
@@ -105,15 +97,17 @@ public class GraficaLuminosidad extends VerticalLayout {
 			}
 
 		});
-		
-		
+
+		/**
+		 * Lista de puertos serie
+		 */
 		comboPuertosDisponibles.setWidth("155px");
 		comboPuertosDisponibles.setImmediate(true);
 		comboPuertosDisponibles.setNullSelectionAllowed(false);
 		comboPuertosDisponibles.addValueChangeListener(e -> {
 			UI.access(() -> {
 				notificar("Conexion establecida", "", Type.ASSISTIVE_NOTIFICATION);
-				
+
 				buttonPlay.setEnabled(true);
 				buttonStop.setEnabled(true);
 			});
@@ -123,16 +117,31 @@ public class GraficaLuminosidad extends VerticalLayout {
 		labelLx.addStyleName(ValoTheme.LABEL_COLORED);
 		labelLx.setWidth("155px");
 
-		labelLx2.addStyleName(ValoTheme.LABEL_H2);
 		labelLx2.addStyleName(ValoTheme.LABEL_BOLD);
-		labelLx2.setWidth("155px");
+		labelLx2.setSizeUndefined();
 
+		/*new Thread(() -> {
+			while (true) {
+				try {
+					Thread.sleep(1000);
+					UI.access(() -> {
+						//labelLx2.setValue("");
+					});
+				} catch (Exception e1) {
+
+					e1.printStackTrace();
+				}
+
+			}
+
+		}).start();
+		 */
 		VerticalLayout menu = new VerticalLayout(comboPuertosDisponibles, escanearPuertos, buttonPlay, buttonStop,
 				labelLx, labelLx2);
 		menu.setWidth("200px");
 		menu.setSpacing(true);
 		menu.setComponentAlignment(labelLx, Alignment.MIDDLE_RIGHT);
-		menu.setComponentAlignment(labelLx2, Alignment.MIDDLE_RIGHT);
+		menu.setComponentAlignment(labelLx2, Alignment.MIDDLE_CENTER);
 		rowBotones.addComponents(menu, highChart);
 		rowBotones.setExpandRatio(highChart, 1);
 
@@ -144,10 +153,9 @@ public class GraficaLuminosidad extends VerticalLayout {
 	 */
 	public void estadoGrafica() {
 
-		if (PushGrafica.isChange()) {
-			
+		if (PushRArduino.isChange()) {
+
 		} else {
-		
 
 		}
 	}
@@ -223,7 +231,7 @@ public class GraficaLuminosidad extends VerticalLayout {
 
 	@Override
 	public void detach() {
-		PushGrafica.unregister(this);
+
 		super.detach();
 	}
 }

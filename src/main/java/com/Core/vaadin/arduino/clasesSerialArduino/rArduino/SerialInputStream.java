@@ -1,4 +1,4 @@
-package com.Core.vaadin.arduino.arduino_2;
+package com.Core.vaadin.arduino.clasesSerialArduino.rArduino;
 
 import java.io.IOException;
 import java.io.InputStream;

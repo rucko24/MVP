@@ -93,6 +93,7 @@ public class PanelArduinoOnOff extends VerticalLayout {
 		panel.setWidth("40%");
 		panel.setHeight("100%");
 		panel.setContent(layout);
+	
 		bombillos();
 		
 		return panel;

@@ -99,9 +99,9 @@ public class DashBoardBasico extends VerticalLayout {
 		table.setImmediate(true);
 		table.setFooterVisible(true);
 		
-		table.addContainerProperty("Nombres", String.class, "");
-		table.addContainerProperty("Apellidos", String.class, "");
-		table.addContainerProperty("Deudas", Integer.class, null);
+		table.addContainerProperty("Nombres", String.class, null);
+		table.addContainerProperty("Apellidos", String.class, null);
+		table.addContainerProperty("Deudas", Double.class, null);
 		
 		/*String nombres[] = {"Ruben","Maria","Pedra","Jose","Raul"};
 		String apellidos[] = {"Espinoza","Peres","Garcia","Gonzales","Parra"};
@@ -121,26 +121,26 @@ public class DashBoardBasico extends VerticalLayout {
 		
 		//double promedio = (double) suma / deuda.length;
 		
-		String nombres[][] = {{"jose","andrea"},
-							{"aaa","adafa"},
-							{"aaaf","fafaf"}};
-		Integer numeros[] = {5,5,5};
+		Object nombres[][] = {{"Julio","Espinoza",2.0},
+							  {"Arturo","Cardoza",2.6},
+							 {"Galileo","Galilei",5.6}};
+		int numeros[] = {5,5,9};
 		
-		int suma = 0;
+		double suma = 0;
 		for( int f=0; f<nombres.length; f++) {
 			
-			table.addItem(new Object[]{nombres[f]});
-			suma += (Integer) numeros[f];
+			table.addItem(nombres[f],new Double(f));
+			suma += (Double) nombres[f][2];
 			
 		}
 		
-		double promedio = (double) suma / numeros.length;
+		double promedio = (double) suma / nombres.length;
 		
 		
 		
 		DecimalFormat dd = new DecimalFormat("0.00");
-		table.setColumnFooter("Nombres",String.valueOf(suma));
-		table.setColumnFooter("Deudas", String.valueOf(dd.format(promedio)));
+		table.setColumnFooter("Nombres","Suma: "+String.valueOf(suma));
+		table.setColumnFooter("Deudas", "Promedio: "+String.valueOf(dd.format(promedio)));
 		
 		grid.addComponent(table, 0 , 1);
 		

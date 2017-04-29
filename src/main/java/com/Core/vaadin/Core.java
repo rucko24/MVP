@@ -5,23 +5,29 @@ import java.util.List;
 
 import javax.servlet.annotation.WebServlet;
 
-import com.Core.vaadin.arduino.arduino_2.PrincipalArduino2;
 import com.Core.vaadin.arduino.bombilla.PanelArduinoOnOff;
+import com.Core.vaadin.arduino.clasesSerialArduino.rArduino.MainRArduino;
 import com.Core.vaadin.pageLayout.PageLayout;
 import com.Core.vaadin.tables.juegoPalabras.JuegoDePalabrasConTabla;
 import com.Core.vaadin.testSistema.SingUpForm;
 import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
+import com.vaadin.annotations.Viewport;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
+import com.vaadin.ui.ComboBox;
+import com.vaadin.ui.Panel;
+import com.vaadin.ui.Slider;
+import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 @Push
 @SuppressWarnings("serial")
+@Viewport("user-scalable=no,initial-scale=1.0")
 @Theme("mytheme")
 public class Core extends UI {
 
@@ -42,8 +48,7 @@ public class Core extends UI {
 		navigator.navigateTo(Login.LOGIN_VIEW);
 		
 		//comentar para usar el navigator e ir al login View
-		
-
+	
 	}
 
 	public PageLayout getPageLayout() {

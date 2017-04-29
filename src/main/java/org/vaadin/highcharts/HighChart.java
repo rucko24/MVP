@@ -12,8 +12,6 @@ public class HighChart extends AbstractHighChart  {
     private static final long serialVersionUID = -7326315426217377753L;
     private Queue<Integer> queue = new LinkedBlockingQueue<>(Arrays.asList(0,0,0,0,0,0,0,0,0,0,0,0,0));
     
-    
-    
     public void addValue(Integer value) {
     	
         queue.add(value);
@@ -25,10 +23,14 @@ public class HighChart extends AbstractHighChart  {
     
     private String getScript(){
         final String arrayValues = Arrays.toString(queue.toArray());
+        
         System.err.println(arrayValues);
 	       return "var options = {\n" +
 	       "\ttitle: {\n" +
            "\t\ttext: 'Luminosidad vs Tiempo'\n" +
+           "\t},\n" +
+           "\ttooltip: {\n"+
+           "\t\tvalueSuffix: '°lx'\n"+
            "\t},\n" +
            "\tseries: [\n" +
            "\t\t{\n" +

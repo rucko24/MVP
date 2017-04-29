@@ -3,10 +3,9 @@ package com.Core.vaadin.arduino.clasesSerialArduino;
 import static jssc.SerialPort.MASK_RXCHAR;
 import static jssc.SerialPort.MASK_TXEMPTY;
 
-import java.io.InputStream;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.Core.vaadin.arduino.grafica.HighChartsPanel;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
@@ -34,12 +33,9 @@ public class ArduinoJSSC {
 	private String sValor;
 	private int valor;
 	private SerialPortException exception;
-	private InputStream in = null;
-	private DateFormat dt = DateFormat.getDateInstance(DateFormat.MEDIUM);
-	private String fecha;
 
 	/**
-	 * Singlenton
+	 * Singleton
 	 */
 	private ArduinoJSSC() {
 	}
@@ -62,7 +58,6 @@ public class ArduinoJSSC {
 	public void setValorLabel(Label labelLx) {
 		this.labelLx = labelLx;
 	}
-
 	/*
 	 * datos desde puerto serie
 	 */
@@ -73,13 +68,16 @@ public class ArduinoJSSC {
 	public String getValor() {
 		return sValor;
 	}
-
+	
+	
+	
 	/***
 	 * OPEN PORT
 	 */
 	public synchronized boolean conectarArduino(String port) {
 
 		SerialPort serialPort = new SerialPort(port);
+		
 		try {
 			serialPort.openPort();
 			// establecer parametros
@@ -97,16 +95,17 @@ public class ArduinoJSSC {
 			notification("Tomando datos", "", Type.ASSISTIVE_NOTIFICATION);
 
 			serialPort.addEventListener(e -> {
-				if (e.isRXCHAR() ) {
+				if (e.isRXCHAR()) {
 
-					System.out.println("metodo getReply() " + getReply().trim());
+					System.out.println("metodo getReply() " + getReply());
+					
 					/**
 					 * graficar highCharts con webSockets
 					 */
 					UI.getCurrent().access(() -> {
 						highChart.setValue(Integer.valueOf(getReply().trim()));
-						labelLx.setValue(getReply().trim() + " lx");
-
+						labelLx.setValue(getReply() + " lx");
+						
 					});
 				}
 
@@ -122,7 +121,10 @@ public class ArduinoJSSC {
 
 		return estado;
 	}
-
+	
+	/**
+	 * getReply datos enviados desde el arduino 
+	 */
 	public String getReply() {
 
 		int receiveState = 0;
@@ -145,7 +147,7 @@ public class ArduinoJSSC {
 		while ((oneByte[0] != ('\n'))) {
 			try {
 
-				while (receiveState == 0) {
+			while (receiveState == 0) {
 					receiveState = arduinoSerialPort.getEventsMask();
 					receiveState &= SerialPort.MASK_RXCHAR;
 				}
@@ -162,17 +164,20 @@ public class ArduinoJSSC {
 				System.exit(0);
 			}
 		}
+		
 		// put the bytes into string format
-		String arduinoReply;
-		arduinoReply = new String(recvdBytes, 0, byteCounter);
+		String arduinoReply = new String(recvdBytes, 0, byteCounter);
 
-		char[] charArray;
-		charArray = arduinoReply.toCharArray();
+		char[] charArray = arduinoReply.toCharArray();
 
 		// send the reply back to caller
-		return arduinoReply;
+		return arduinoReply.trim();
 	}
 
+	
+	/**
+	 *  enviar Data a arduino
+	 */
 	public synchronized void onOff(String value) {
 
 		try {
@@ -190,7 +195,7 @@ public class ArduinoJSSC {
 
 	}
 
-	/***
+	/**
 	 * CLOSE PORT
 	 */
 	public synchronized boolean desconectarArduino() {
@@ -212,7 +217,7 @@ public class ArduinoJSSC {
 	}
 
 	/***
-	 * obtener todos los puertos seriales disponible
+	 * obtener todos los puertos seriales disponibles
 	 */
 	public synchronized List<String> getPortsList() {
 		listaDePuertos = new ArrayList<String>();
@@ -235,7 +240,10 @@ public class ArduinoJSSC {
 
 		return listaDePuertos;
 	}
-
+	
+	/**
+	 * purgar puerto serie
+	 */
 	public void flushSerialPorts() throws SerialPortException {
 		arduinoSerialPort.purgePort(SerialPort.PURGE_RXCLEAR);
 		arduinoSerialPort.purgePort(SerialPort.PURGE_TXCLEAR);
