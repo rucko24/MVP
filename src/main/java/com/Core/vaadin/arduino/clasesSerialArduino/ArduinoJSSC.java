@@ -6,6 +6,8 @@ import static jssc.SerialPort.MASK_TXEMPTY;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.vaadin.highcharts.HighChart;
+
 import com.Core.vaadin.Core;
 import com.Core.vaadin.arduino.grafica.HighChartsPanel;
 import com.vaadin.server.FontAwesome;
@@ -27,7 +29,7 @@ public class ArduinoJSSC {
 	private List<String> listaDePuertos;
 	private boolean estado;
 	private boolean estadoRXCHAR;
-	private HighChartsPanel highChart;
+	private HighChart highChart;
 	private static ArduinoJSSC arduino;
 	private int valorGrafica;
 	private Label labelCelsius;
@@ -52,7 +54,7 @@ public class ArduinoJSSC {
 		return estado;
 	}
 
-	public void setValorGrafica(HighChartsPanel highChart) {
+	public void setValorGrafica(HighChart highChart) {
 		this.highChart = highChart;
 	}
 
@@ -104,7 +106,7 @@ public class ArduinoJSSC {
 					 * graficar highCharts con webSockets
 					 */
 					UI.getCurrent().access(() -> {
-						highChart.setValue(Integer.valueOf(getReply().trim()));
+						highChart.addValue(Integer.valueOf(getReply().trim()));
 						labelCelsius.setValue(getReply() + " °C");
 						labelCelsius.addStyleName("h1");
 					});

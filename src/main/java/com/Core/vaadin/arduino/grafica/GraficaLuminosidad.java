@@ -1,5 +1,7 @@
 package com.Core.vaadin.arduino.grafica;
 
+import org.vaadin.highcharts.HighChart;
+
 import com.Core.vaadin.Core;
 import com.Core.vaadin.arduino.clasesSerialArduino.ArduinoJSSC;
 import com.vaadin.server.FontAwesome;
@@ -22,7 +24,7 @@ public class GraficaLuminosidad extends VerticalLayout {
 	private static final String DATE_FORMAT = "hh:mm:ss a";
 
 	private Core UI = Core.getCurrent();
-	private HighChartsPanel highChart = new HighChartsPanel();
+	private HighChart highChart = new HighChart();
 	private final Label labelLx = new Label();
 	private final Label labelLx2 = new Label();
 	private boolean estado;

@@ -5,7 +5,6 @@ import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import com.vaadin.annotations.JavaScript;
-import com.vaadin.data.Validator;
 
 @JavaScript({"jquery-3.1.1.min.js", "highcharts.js", "highcharts-connector.js"})
 public class HighChart extends AbstractHighChart  {
