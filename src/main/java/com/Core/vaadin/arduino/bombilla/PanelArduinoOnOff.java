@@ -29,7 +29,7 @@ import com.vaadin.ui.themes.ValoTheme;
 
 import jssc.SerialPortException;
 
-public class PanelArduinoOnOff extends VerticalLayout {
+public class PanelArduinoOnOff extends VerticalLayout implements Broadcaster.BroadcasterListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -41,26 +41,29 @@ public class PanelArduinoOnOff extends VerticalLayout {
 	private ThemeResource udo = new ThemeResource("img/udo.png");
 	private ThemeResource logoArduino = new ThemeResource("img/ardu2.png");
 	private Label bombilla = new Label();
-	private Core ui = (Core)super.getUI();
-
-	public PanelArduinoOnOff() {
-		
+	private UI ui;
+	private Switch s = new Switch();
+	private Core core = (Core) UI.getCurrent();
+	
+	public PanelArduinoOnOff(UI ui) {
+		this.ui = ui;
 		Component main = getMainArea();
-		
+
 		addComponent(main);
 		PushBombilla.register(this);
+		Broadcaster.register(this);
 	}
-	
+
 	/**
 	 * Parte Main, contiene el panel con todo
 	 */
 	private Component getMainArea() {
-		
+
 		HorizontalLayout top = new HorizontalLayout(btnIniciarConexion, btnDetenerConexion);
 		top.setSpacing(true);
-		
+
 		Component content = getContentArea();
-		
+
 		VerticalLayout vLayout = new VerticalLayout(top, content);
 		vLayout.setHeight("500px");
 		vLayout.setSpacing(true);
@@ -68,10 +71,10 @@ public class PanelArduinoOnOff extends VerticalLayout {
 		vLayout.setComponentAlignment(top, Alignment.MIDDLE_CENTER);
 		vLayout.setComponentAlignment(content, Alignment.MIDDLE_CENTER);
 		vLayout.setExpandRatio(content, 1);
-		
+
 		return vLayout;
 	}
-	
+
 	/**
 	 * Panel dentro un verticalLayout
 	 */
@@ -82,74 +85,91 @@ public class PanelArduinoOnOff extends VerticalLayout {
 		VerticalLayout layout = new VerticalLayout();
 		layout.setSpacing(true);
 		layout.setHeight("78%");
-		
+
 		bombilla.setSizeUndefined();
-		layout.addComponents(bombilla, botonBombilla);
+		layout.addComponents(bombilla, botonBombilla , s);
 		layout.setComponentAlignment(bombilla, Alignment.BOTTOM_CENTER);
 		layout.setComponentAlignment(botonBombilla, Alignment.BOTTOM_CENTER);
-
+		layout.setComponentAlignment(s, Alignment.BOTTOM_CENTER);
+		
 		Panel panel = new Panel();
 
 		panel.setWidth("40%");
 		panel.setHeight("100%");
 		panel.setContent(layout);
-	
+
 		bombillos();
-		
+
 		return panel;
 	}
-	
+
 	/*
 	 * bombillos y boton
 	 */
 	public void bombillos() {
-		
+
 		bombilla.setIcon(bombillaOFF);
 		/*
-		 * isChange, retorna el estado del cambio en botones y 
-		 * bombilla
+		 * isChange, retorna el estado del cambio en botones y bombilla
 		 */
 		cambiarBotones();
 		botonBombilla.addClickListener(e -> {
-			
+
 			try {
-				ui.access(() -> {
-					PushBombilla.broadcast();
-					if (PushBombilla.isChange()) {
-						ArduinoJSSC.getInstance().onOff("1");
-					} else {
-						ArduinoJSSC.getInstance().onOff("5");
-					}
-				});
-			} catch(UIDetachedException ex) {
-				Notification.show("error cliente no acoplado aun"+ex.getMessage());
+				if (ui != null) {
+					ui.access(() -> {
+						PushBombilla.broadcast();
+						
+						if (PushBombilla.isChange()) {
+							// ArduinoJSSC.getInstance().onOff("1");
+						} else {
+							// ArduinoJSSC.getInstance().onOff("5");
+						}
+					});
+				}
+
+			} catch (UIDetachedException ex) {
+				Notification.show("error cliente no acoplado aun" + ex.getMessage());
 			}
 		});
+		
 	}
-	
+
 	/*
-	 * metodo que lo ejecuta la clases ArduinoPush
-	 * con una lista 
+	 * metodo que lo ejecuta la clases ArduinoPush con una lista
 	 */
 	public void cambiarBotones() {
 
 		if (PushBombilla.isChange()) {
 			botonBombilla.setCaption("On");
 			bombilla.setIcon(bombillaON);
-			Notification.show("ON");
-
+			//Broadcaster.broadcast("ON");
+			core.mensaje("ON",true);
+			s.setValue(true);
 		} else {
 			botonBombilla.setCaption("off");
 			bombilla.setIcon(bombillaOFF);
-			Notification.show("Off");
-
+			//Broadcaster.broadcast("OFF");
+			core.mensaje("OFF",false);
+			s.setValue(false);
 		}
 	}
 
 	@Override
 	public void detach() {
 		PushBombilla.unregister(this);
+		Broadcaster.unregister(this);
+		
 		super.detach();
 	}
-	
+
+	@Override
+	public void recibirBroadcast(String message, boolean value) {
+		
+		ui.access(() -> {
+			Notification.show("Estado: "+message);
+		});
+		
+	}
+
 }

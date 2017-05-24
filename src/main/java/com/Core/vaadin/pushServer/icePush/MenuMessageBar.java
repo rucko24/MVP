@@ -6,14 +6,16 @@ import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.UI;
 
 public class MenuMessageBar extends HorizontalLayout {
 
 	private MenuBar menuBar = new MenuBar();
 	private MenuBar messageBar = new MenuBar();
 	private MenuBar.MenuItem messageMenu;
-	private Core ui = Core.getCurrent();
-
+	private Core coreUI = Core.getCurrent();
+	private UI ui;
+	
 	// el menuCommand es un objeto usado
 	// solo para propositos auxiliares por el menu item
 	private Command menuCommand = new Command() {
@@ -28,8 +30,9 @@ public class MenuMessageBar extends HorizontalLayout {
 	 * fillMenu, que crearemos todos los componentes, Refresher, es agredaro en
 	 * una extension, y finalmente iniciamos el contador de mensajes
 	 */
-	public MenuMessageBar() {
-
+	public MenuMessageBar(UI ui) {
+		this.ui = ui;
+		
 		setWidth("100%");
 		menuBar.setSizeFull();
 		fillMenu();
@@ -76,7 +79,7 @@ public class MenuMessageBar extends HorizontalLayout {
 	public class ContadorMensajes extends Thread {
 		private int contador;
 		private long momentoProximo;
-		private static final int INTERVALO_TIEMPO = 5000;
+		private static final int INTERVALO_TIEMPO = 1000;
 
 		/*
 		 * (non-Javadoc)
@@ -100,14 +103,22 @@ public class MenuMessageBar extends HorizontalLayout {
 			while (true) {
 				actualizarContadorDeMensajes();
 				if (contadorViejo != contador) {
-					ui.getSession().getLockInstance().lock();
-					try {
-						contadorViejo = contador;
-						messageMenu.setText("Nuevo mensaje: " + contador);
-						ui.push();
-					} finally {
-						ui.getSession().getLockInstance().unlock();
+					if(ui != null) {
+						//ui.getSession().getLockInstance().lock();
+						try {
+							Thread.sleep(INTERVALO_TIEMPO);
+							contadorViejo = contador;
+							ui.access(() -> {
+								messageMenu.setText("Nuevo mensaje: " + contador);
+							});
+							//messageMenu.setText("Nuevo mensaje: " + contador);
+							//ui.push();
+						}catch(InterruptedException ex) {
+							ex.printStackTrace();
+			
+						}
 					}
+					
 				}
 
 			}

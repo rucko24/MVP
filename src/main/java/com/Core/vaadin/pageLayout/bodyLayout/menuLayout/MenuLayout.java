@@ -5,6 +5,7 @@ import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Tree;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 
@@ -25,9 +26,11 @@ public class MenuLayout extends VerticalLayout {
 	private ThemeResource iconoArdu = new ThemeResource("img/ardu1.svg");
 	private Tree tree = new Tree();
 	private VerticalLayout vLayout = new VerticalLayout();
+	private UI ui;
 	
-	public MenuLayout() {
-				
+	public MenuLayout(UI ui) {
+		this.ui = ui;		
+		
 		label.setSizeUndefined();
 		label.addStyleName("labelMenu");
 		label.setIcon(iconoArdu);
@@ -60,7 +63,7 @@ public class MenuLayout extends VerticalLayout {
 		
 		tree.setNullSelectionAllowed(false);		
 		
-		final OpcionesDeMenu opciones = new OpcionesDeMenu();
+		final OpcionesDeMenu opciones = new OpcionesDeMenu(ui);
 		tree.addItemClickListener(opciones);
 		
 		this.addComponents(vLayout,tree);

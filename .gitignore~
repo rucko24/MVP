@@ -1,0 +1,7 @@
+.idea/
+.gitignore
+*.iml
+*.cache
+*.css
+target
+*.swp

@@ -11,23 +11,26 @@ import com.github.wolfie.refresher.Refresher;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 public class PruebaLabel extends VerticalLayout {
 
-	private Core ui = Core.getCurrent();
+	private Core coreUI = Core.getCurrent();
 
 	private Label labelHora = new Label("Ahora: ");
 	private static List<Label> labels = new ArrayList<Label>();
 	private Refresher refreh = new Refresher();
 	private static final int INTERVALO = 1000;
 	private Grid grid = new Grid();
+	private UI ui;
 
-	public PruebaLabel() {
+	public PruebaLabel(UI ui) {
+		this.ui = ui;
 
 		setMargin(true);
 		setSpacing(true);
-		
+
 		grid.addColumn("Name", String.class);
 		grid.addColumn("Born", Number.class);
 		grid.addRow("Nicolas ", getNum(100));
@@ -44,7 +47,7 @@ public class PruebaLabel extends VerticalLayout {
 	 */
 	public void dimeLaHora() {
 		labelHora.setValue("Ahora: " + Instant.now());
-		
+
 		Notification.show("Update label ", Notification.Type.TRAY_NOTIFICATION);
 
 	}
@@ -58,13 +61,11 @@ public class PruebaLabel extends VerticalLayout {
 					Thread.sleep(INTERVALO);
 
 					// actualizando la data mientras
-					ui.access(new Runnable() {
-						@Override
-						public void run() {
-							//dimeLaHora();
+					if (ui != null) {
+						ui.access(() -> {
 							labelHora.setValue("Ahora: " + Instant.now());
-						}
-					});
+						});
+					}
 
 				} catch (InterruptedException ex) {
 					ex.printStackTrace();

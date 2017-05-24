@@ -6,13 +6,16 @@ import com.Core.vaadin.pushServer.pruebas.PruebaLabel;
 import com.Core.vaadin.pushServer.ventanaEditablePush.NoticeBoard;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.TabSheet;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 public class PrincipalTab extends TabSheet{
 	
 	private static final int HEIGHT = 300;
+	private UI ui;
 	
-	public PrincipalTab() {
+	public PrincipalTab(UI ui) {
+		this.ui = ui;
 		
 		addTab(createIcePushAddon());
 		addTab(createMenuMensajes());
@@ -33,7 +36,7 @@ public class PrincipalTab extends TabSheet{
 	
 	private Component createMenuMensajes() {
 		VerticalLayout layout = createLayout("Message Bar");
-		MenuMessageBar menu = new MenuMessageBar();
+		MenuMessageBar menu = new MenuMessageBar(ui);
 		layout.addComponent(menu);
 		
 		return layout;
@@ -49,7 +52,7 @@ public class PrincipalTab extends TabSheet{
 	
 	private Component createLabelHora() {
 		VerticalLayout layout = createLayout("Label con Hora");
-		PruebaLabel label = new PruebaLabel();
+		PruebaLabel label = new PruebaLabel(ui);
 		layout.addComponent(label);
 		
 		return layout;

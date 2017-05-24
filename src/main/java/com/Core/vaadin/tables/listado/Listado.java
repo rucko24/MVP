@@ -20,7 +20,7 @@ public class Listado extends VerticalLayout {
 	private TextField textField = new TextField();
 	private Button btnClear = new Button(FontAwesome.TIMES);
 	private CssLayout cssLayout = new CssLayout();
-	private CustomerForm customerForm;
+	private CustomerForm customerForm = new CustomerForm(this);
 	
 	public Listado() {
 		//Responsive.makeResponsive(this);
@@ -28,7 +28,8 @@ public class Listado extends VerticalLayout {
 		
 		setMargin(true);
 		setSpacing(true);
-		customerForm = new CustomerForm(this);
+		//customerForm 
+		
 		textField.setInputPrompt("busqueda...");
 		textField.addTextChangeListener( e -> {
 			grid.setContainerDataSource(new BeanItemContainer<>(Customer.class,

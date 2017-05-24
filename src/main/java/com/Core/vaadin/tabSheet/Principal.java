@@ -19,13 +19,16 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.Flash;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.TabSheet;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 public class Principal extends TabSheet {
 
 	private static final long serialVersionUID = 1L;
+	private UI ui;
 	
-	public Principal() {
+	public Principal(UI ui) {
+		this.ui = ui;
 		setSizeFull();
 		addStyleName("miScroll");
 		
@@ -54,7 +57,7 @@ public class Principal extends TabSheet {
 	
 	private Component getBarraDeCarga() {
 		VerticalLayout layout = (VerticalLayout) getLayout("Barra de carga-fixme");
-		BarraCarga barra = new BarraCarga();
+		BarraCarga barra = new BarraCarga(ui);
 		layout.setSizeFull();
 		layout.addComponent(barra);
 		

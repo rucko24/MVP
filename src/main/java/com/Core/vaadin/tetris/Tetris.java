@@ -20,224 +20,216 @@ import com.vaadin.ui.VerticalLayout;
 @Push
 public class Tetris extends VerticalLayout {
 
-    private static final int PAUSE_TIME_MS = 500;
+	private static final int PAUSE_TIME_MS = 500;
 
-    private static final long serialVersionUID = -152735180021558969L;
+	private static final long serialVersionUID = -152735180021558969L;
 
-    // Tile size in pixels
-    protected static final int TILE_SIZE = 30;
+	// Tile size in pixels
+	protected static final int TILE_SIZE = 30;
 
-    // Playfield width in tiles
-    private static final int PLAYFIELD_W = 10;
+	// Playfield width in tiles
+	private static final int PLAYFIELD_W = 10;
 
-    // Playfield height in tiles
-    private static final int PLAYFIELD_H = 20;
+	// Playfield height in tiles
+	private static final int PLAYFIELD_H = 20;
 
-    // Playfield background color
-    private static final String PLAYFIELD_COLOR = "#000";
+	// Playfield background color
+	private static final String PLAYFIELD_COLOR = "#000";
 
-    private VerticalLayout layout;
-    private Canvas canvas;
-    protected boolean running;
-    protected Game game;
+	private VerticalLayout layout;
+	private Canvas canvas;
+	protected boolean running;
+	protected Game game;
 
-    private Label scoreLabel;
-    private Core UI = Core.getCurrent();
+	private Label scoreLabel;
+	private Core UI = Core.getCurrent();
 
-    
-    public Tetris() {
-    	
-        layout = new VerticalLayout();
-        layout.setSpacing(true);
-        layout.setMargin(true);
-       // layout.addComponent(new About());
-        
-        Notification.show("Variable runninng: "+running,Type.ERROR_MESSAGE);
-        
-        // Button for moving left
-        final Button leftBtn = new Button(FontAwesome.ARROW_LEFT);
-        leftBtn.addClickListener(e -> {
-            game.moveLeft();
-            drawGameState();
-        });
-        leftBtn.setClickShortcut(KeyCode.ARROW_LEFT);
+	public Tetris() {
+		
+		setHeight("475px");
+		layout = new VerticalLayout();
+		layout.setSpacing(true);
+		layout.setMargin(true);
+		// layout.addComponent(new About());
 
-        // Button for moving right
-        final Button rightBtn = new Button(FontAwesome.ARROW_RIGHT);
-        rightBtn.addClickListener(e -> {
-            game.moveRight();
-            drawGameState();
+		Notification.show("Variable runninng: " + running, Type.ERROR_MESSAGE);
 
-        });
-        rightBtn.setClickShortcut(KeyCode.ARROW_RIGHT);
+		// Button for moving left
+		final Button leftBtn = new Button(FontAwesome.ARROW_LEFT);
+		leftBtn.addClickListener(e -> {
+			game.moveLeft();
+			drawGameState();
+		});
+		leftBtn.setClickShortcut(KeyCode.ARROW_LEFT);
 
-        // Button for rotating clockwise
-        final Button rotateCWBtn = new Button("[key down]",
-                FontAwesome.ROTATE_RIGHT);
-        rotateCWBtn.addClickListener(e -> {
-            game.rotateCW();
-            drawGameState();
-        });
-        rotateCWBtn.setClickShortcut(KeyCode.ARROW_DOWN);
+		// Button for moving right
+		final Button rightBtn = new Button(FontAwesome.ARROW_RIGHT);
+		rightBtn.addClickListener(e -> {
+			game.moveRight();
+			drawGameState();
 
-        // Button for rotating counter clockwise
-        final Button rotateCCWBtn = new Button("[key up]",
-                FontAwesome.ROTATE_LEFT);
-        rotateCCWBtn.addClickListener(e -> {
-            game.rotateCCW();
-            drawGameState();
-        });
-        rotateCCWBtn.setClickShortcut(KeyCode.ARROW_UP);
+		});
+		rightBtn.setClickShortcut(KeyCode.ARROW_RIGHT);
 
-        // Button for dropping the piece
-        final Button dropBtn = new Button("[space]", FontAwesome.ARROW_DOWN);
-        dropBtn.addClickListener(e -> {
-            game.drop();
-            drawGameState();
-        });
-        dropBtn.setClickShortcut(KeyCode.SPACEBAR);
+		// Button for rotating clockwise
+		final Button rotateCWBtn = new Button("[key down]", FontAwesome.ROTATE_RIGHT);
+		rotateCWBtn.addClickListener(e -> {
+			game.rotateCW();
+			drawGameState();
+		});
+		rotateCWBtn.setClickShortcut(KeyCode.ARROW_DOWN);
 
-        // Button for restarting the game
-        final Button restartBtn = new Button(FontAwesome.PLAY);
-        restartBtn.addClickListener(e -> {
-            running = !running;
-            if (running) {
-                game = new Game(10, 20);
-                startGameThread();
-                restartBtn.setIcon(FontAwesome.STOP);
-                dropBtn.focus();
-            } else {
-                restartBtn.setIcon(FontAwesome.PLAY);
-                gameOver();
-            }
-        });
+		// Button for rotating counter clockwise
+		final Button rotateCCWBtn = new Button("[key up]", FontAwesome.ROTATE_LEFT);
+		rotateCCWBtn.addClickListener(e -> {
+			game.rotateCCW();
+			drawGameState();
+		});
+		rotateCCWBtn.setClickShortcut(KeyCode.ARROW_UP);
 
-       // HorizontalLayout top = new HorizontalLayout();
-        
-        layout.addComponent(new HorizontalLayout(
-                restartBtn, leftBtn, rightBtn, rotateCCWBtn, rotateCWBtn,
-                dropBtn
-        ));
+		// Button for dropping the piece
+		final Button dropBtn = new Button("[space]", FontAwesome.ARROW_DOWN);
+		dropBtn.addClickListener(e -> {
+			game.drop();
+			drawGameState();
+		});
+		dropBtn.setClickShortcut(KeyCode.SPACEBAR);
 
-        // Canvas for the game
-        canvas = new Canvas();
-        layout.addComponent(canvas);
-        canvas.setWidth((TILE_SIZE * PLAYFIELD_W) + "px");
-        canvas.setHeight((TILE_SIZE * PLAYFIELD_H) + "px");
+		// Button for restarting the game
+		final Button restartBtn = new Button(FontAwesome.PLAY);
+		restartBtn.addClickListener(e -> {
+			running = !running;
+			if (running) {
+				game = new Game(10, 17);
+				startGameThread();
+				restartBtn.setIcon(FontAwesome.STOP);
+				dropBtn.focus();
+			} else {
+				restartBtn.setIcon(FontAwesome.PLAY);
+				gameOver();
+			}
+		});
+
+		// HorizontalLayout top = new HorizontalLayout();
+
+		layout.addComponent(new HorizontalLayout(restartBtn, leftBtn, rightBtn, rotateCCWBtn, rotateCWBtn, dropBtn));
+
+		// Canvas for the game
+		canvas = new Canvas();
+		layout.addComponent(canvas);
+		canvas.setWidth((TILE_SIZE * PLAYFIELD_W) + "px");
+		//canvas.setHeight((TILE_SIZE * PLAYFIELD_H) + "px");
+		canvas.setHeight("475px");
 		// canvas.setBackgroundColor(PLAYFIELD_COLOR);
 
-        // Label for score
-        scoreLabel = new Label("");
-        layout.addComponent(scoreLabel);
-        this.addComponent(layout);
-    }
+		// Label for score
+		scoreLabel = new Label("You Score: ");
+		layout.setSizeFull();
+		layout.addComponent(scoreLabel);
+		layout.setExpandRatio(scoreLabel, 1);
+		addComponent(layout);
+		
+	}
 
-    /**
-     * Start the game thread that updates the game periodically.
-     *
-     */
-    protected synchronized void startGameThread() {
-        Thread t = new Thread() {
-        	
-            public void run() {
+	/**
+	 * Start the game thread that updates the game periodically.
+	 *
+	 */
+	protected synchronized void startGameThread() {
+		Thread t = new Thread() {
 
-                // Continue until stopped or game is over
-                while (running && !game.isOver()) {
+			public void run() {
 
-                    // Draw the state
-                    UI.access(new Runnable() {
+				// Continue until stopped or game is over
+				while (running && !game.isOver()) {
 
-                        @Override
-                        public void run() {
-                            drawGameState();
-                        }
-                    });
+					// Draw the state
+					UI.access(new Runnable() {
 
-                    // Pause for a while
-                    try {
-                        sleep(PAUSE_TIME_MS);
-                    } catch (InterruptedException igmored) {
-                    }
+						@Override
+						public void run() {
+							drawGameState();
+						}
+					});
 
-                    // Step the game forward and update score
-                    game.step();
-                    updateScore();
+					// Pause for a while
+					try {
+						sleep(PAUSE_TIME_MS);
+					} catch (InterruptedException igmored) {
+					}
 
-                }
+					// Step the game forward and update score
+					game.step();
+					updateScore();
 
-                // Notify user that game is over
-                UI.access(new Runnable() {
+				}
 
-                    @Override
-                    public void run() {
-                        gameOver();
-                    }
-                });
-            }
-        };
-        t.start();
+				// Notify user that game is over
+				UI.access(new Runnable() {
 
-    }
+					@Override
+					public void run() {
+						gameOver();
+					}
+				});
+			}
+		};
+		t.start();
 
-    /**
-     * Update the score display.
-     *
-     */
-    protected synchronized void updateScore() {
-        UI.access(new Runnable() {
+	}
 
-            @Override
-            public void run() {
-                scoreLabel.setValue("Score: " + game.getScore());
-            }
-        });
-    }
+	/**
+	 * Update the score display.
+	 *
+	 */
+	protected synchronized void updateScore() {
+		
+		scoreLabel.setValue("Score: " + game.getScore());
 
-    /**
-     * Quit the game.
-     *
-     */
-    protected synchronized void gameOver() {
-        running = false;
-        Notification.show("Game Over", "Your score: " + game.getScore(),
-                Type.HUMANIZED_MESSAGE);
-    }
+	}
 
-    /**
-     * Draw the current game state.
-     *
-     */
-    protected synchronized void drawGameState() {
+	/**
+	 * Quit the game.
+	 *
+	 */
+	protected synchronized void gameOver() {
+		running = false;
+		Notification.show("Game Over", "Your score: " + game.getScore(), Type.HUMANIZED_MESSAGE);
+	}
 
-        // Reset and clear canvas
-        canvas.clear();
-        canvas.setFillStyle(PLAYFIELD_COLOR);
-        canvas.fillRect(0, 0, game.getWidth() * TILE_SIZE + 2, game.getHeight()
-                * TILE_SIZE + 2);
+	/**
+	 * Draw the current game state.
+	 *
+	 */
+	protected synchronized void drawGameState() {
 
-        // Draw the tetrominoes
-        Grid state = game.getCurrentState();
-        for (int x = 0; x < state.getWidth(); x++) {
-            for (int y = 0; y < state.getHeight(); y++) {
+		// Reset and clear canvas
+		canvas.clear();
+		canvas.setFillStyle(PLAYFIELD_COLOR);
+		canvas.fillRect(0, 0, game.getWidth() * TILE_SIZE + 2, game.getHeight() * TILE_SIZE + 2);
 
-                int tile = state.get(x, y);
-                if (tile > 0) {
+		// Draw the tetrominoes
+		Grid state = game.getCurrentState();
+		for (int x = 0; x < state.getWidth(); x++) {
+			for (int y = 0; y < state.getHeight(); y++) {
 
-                    String color = Tetromino.get(tile).getColor();
-                    canvas.setFillStyle(color);
-                    canvas.fillRect(x * TILE_SIZE + 1, y * TILE_SIZE + 1,
-                            TILE_SIZE - 2, TILE_SIZE - 2);
-                }
+				int tile = state.get(x, y);
+				if (tile > 0) {
 
-            }
-        }
-    }
-    
-    public Notification notificacion( String msg , Type error) {
-    	Notification n = new Notification(msg,error);
-    	n.setPosition(Position.BOTTOM_RIGHT);
-    	n.show(Page.getCurrent());
-    	
-    	return n;
-    }
+					String color = Tetromino.get(tile).getColor();
+					canvas.setFillStyle(color);
+					canvas.fillRect(x * TILE_SIZE + 1, y * TILE_SIZE + 1, TILE_SIZE - 2, TILE_SIZE - 2);
+				}
+
+			}
+		}
+	}
+
+	public Notification notificacion(String msg, Type error) {
+		Notification n = new Notification(msg, error);
+		n.setPosition(Position.BOTTOM_RIGHT);
+		n.show(Page.getCurrent());
+
+		return n;
+	}
 }

@@ -5,19 +5,13 @@ import static jssc.SerialPort.MASK_TXEMPTY;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.vaadin.highcharts.HighChart;
-
-import com.Core.vaadin.Core;
-import com.Core.vaadin.arduino.grafica.HighChartsPanel;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
-import com.vaadin.ui.UI;
-
 import jssc.SerialPort;
 import jssc.SerialPortException;
 import jssc.SerialPortList;
@@ -27,9 +21,9 @@ public class ArduinoJSSC {
 
 	private SerialPort arduinoSerialPort = null;
 	private List<String> listaDePuertos;
+	private HighChart highChart;
 	private boolean estado;
 	private boolean estadoRXCHAR;
-	private HighChart highChart;
 	private static ArduinoJSSC arduino;
 	private int valorGrafica;
 	private Label labelCelsius;
@@ -61,6 +55,7 @@ public class ArduinoJSSC {
 	public void setValorLabel(Label labelLx) {
 		this.labelCelsius = labelLx;
 	}
+
 	/*
 	 * datos desde puerto serie
 	 */
@@ -71,16 +66,14 @@ public class ArduinoJSSC {
 	public String getValor() {
 		return sValor;
 	}
-	
-	
-	
+
 	/***
 	 * OPEN PORT
 	 */
 	public synchronized boolean conectarArduino(String port) {
 
 		SerialPort serialPort = new SerialPort(port);
-		
+
 		try {
 			serialPort.openPort();
 			// establecer parametros
@@ -97,36 +90,42 @@ public class ArduinoJSSC {
 			 */
 			notification("Tomando datos", "", Type.ASSISTIVE_NOTIFICATION);
 
-			serialPort.addEventListener(e -> {
-				if (e.isRXCHAR()) {
+			if (highChart.getUI() != null) {
+				highChart.getUI().access(() -> {
+					try {
+						serialPort.addEventListener(e -> {
+							if (e.isRXCHAR()) {
 
-					System.out.println("metodo getReply() " + getReply());
-					
-					/**
-					 * graficar highCharts con webSockets
-					 */
-					UI.getCurrent().access(() -> {
-						highChart.addValue(Integer.valueOf(getReply().trim()));
-						labelCelsius.setValue(getReply() + " °C");
-						labelCelsius.addStyleName("h1");
-					});
-				}
+								System.out.println("metodo getReply() " + getReply());
 
-			});
+								/*
+								 * graficar highCharts con webSockets
+								 */
+
+								//vaadinChart.addData(new Random().nextInt(10), Integer.valueOf(getReply().trim()));
+								labelCelsius.setValue(getReply() + " °C");
+								//labelCelsius.addStyleName("h1");
+
+							}
+
+						});
+					} catch (SerialPortException e) {
+						e.printStackTrace();
+					}
+				});
+			}
 
 			arduinoSerialPort = serialPort;
 			estado = true;
 
 		} catch (SerialPortException e) {
-			notification("Puerto ocupado", "", Type.ERROR_MESSAGE);
-			System.out.println("SerialPortException: " + e.toString());
 		}
 
 		return estado;
 	}
-	
+
 	/**
-	 * getReply datos enviados desde el arduino 
+	 * getReply datos enviados desde el arduino
 	 */
 	public String getReply() {
 
@@ -150,7 +149,7 @@ public class ArduinoJSSC {
 		while ((oneByte[0] != ('\n'))) {
 			try {
 
-			while (receiveState == 0) {
+				while (receiveState == 0) {
 					receiveState = arduinoSerialPort.getEventsMask();
 					receiveState &= SerialPort.MASK_RXCHAR;
 				}
@@ -167,7 +166,7 @@ public class ArduinoJSSC {
 				System.exit(0);
 			}
 		}
-		
+
 		// put the bytes into string format
 		String arduinoReply = new String(recvdBytes, 0, byteCounter);
 
@@ -177,9 +176,8 @@ public class ArduinoJSSC {
 		return arduinoReply.trim();
 	}
 
-	
 	/**
-	 *  enviar Data a arduino
+	 * enviar Data a arduino
 	 */
 	public synchronized void onOff(String value) {
 
@@ -236,14 +234,14 @@ public class ArduinoJSSC {
 				notification("Puertos escaneados incorrecto, revisar conexiones", "", Type.ERROR_MESSAGE);
 
 		} catch (UnsatisfiedLinkError e) {
-			notification("Puerto serie ocupado ", " ", Type.ERROR_MESSAGE);
+			notification("Sin Conexion con arduino ", " ", Type.ERROR_MESSAGE);
 		} catch (NoClassDefFoundError ee) {
-			notification("Puerto no disponible, revisar servicios", "", Type.ERROR_MESSAGE);
+			notification("Sin Conexion con arduino, revisar servicios ", "", Type.ERROR_MESSAGE);
 		}
 
 		return listaDePuertos;
 	}
-	
+
 	/**
 	 * purgar puerto serie
 	 */

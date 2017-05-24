@@ -14,22 +14,22 @@ public class PrincipalTabArduino extends TabSheet {
 
 	private static final long serialVersionUID = 1L;
 	private static final int HEIGHT = 700;
+	private UI ui;
 	
-	public PrincipalTabArduino() {
+	public PrincipalTabArduino(UI ui) {
+		this.ui = ui;
 		setImmediate(true);
 		
 		Component grafica = crearGraficoLuminosidad();
 		
 		addTab(createBotonArduino());
-		addTab(grafica);
-		setSelectedTab(grafica);
-		
+		addTab(crearGraficoLuminosidad());
 	}
 
 	private Component createBotonArduino() {
 
 		VerticalLayout layout = createLayout("ON/OFF -> Foco");
-		PanelArduinoOnOff btnSwitch = new PanelArduinoOnOff();
+		PanelArduinoOnOff btnSwitch = new PanelArduinoOnOff(ui);
 		layout.setSizeFull();
 		layout.addComponent(btnSwitch);
 
@@ -38,9 +38,9 @@ public class PrincipalTabArduino extends TabSheet {
 
 	private Component crearGraficoLuminosidad() {
 
-		VerticalLayout layout = createLayout("Luminosidad Sensor LDR");
+		VerticalLayout layout = createLayout("Temperatura vs Tiempo Sensor LM-35");
 		layout.setMargin(true);
-		GraficaLuminosidad g = new GraficaLuminosidad();
+		GraficaLuminosidad g = new GraficaLuminosidad(ui);
 		layout.setSizeFull();
 		layout.addComponent(g);
 
@@ -57,6 +57,5 @@ public class PrincipalTabArduino extends TabSheet {
 		return layout;
 	}
 	
-	// metodo para cambiar de estado la variable switchOn basta con un solo
 	
 }

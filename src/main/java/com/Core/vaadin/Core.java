@@ -1,6 +1,8 @@
 package com.Core.vaadin;
 
 import javax.servlet.annotation.WebServlet;
+
+import com.Core.vaadin.arduino.broadcaster.Broadcaster;
 import com.Core.vaadin.pageLayout.PageLayout;
 import com.Core.vaadin.testSistema.SingUpForm;
 import com.vaadin.annotations.Push;
@@ -10,6 +12,7 @@ import com.vaadin.annotations.Viewport;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
 
@@ -17,14 +20,15 @@ import com.vaadin.ui.UI;
 @SuppressWarnings("serial")
 @Viewport("user-scalable=no,initial-scale=1.0")
 @Theme("mytheme")
-public class Core extends UI {
+public class Core extends UI implements Broadcaster.BroadcasterListener{
 
 	private PageLayout pageLayout;
+	
 	
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {
 		
-		pageLayout = new PageLayout();
+		pageLayout = new PageLayout(this);
 		
 		
 		Navigator navigator = new Navigator(this, this);
@@ -36,7 +40,8 @@ public class Core extends UI {
 		navigator.navigateTo(Login.LOGIN_VIEW);
 		
 		//comentar para usar el navigator e ir al login View
-	
+		Broadcaster.register(this);
+		
 	}
 
 	public PageLayout getPageLayout() {
@@ -54,10 +59,30 @@ public class Core extends UI {
 		return (Core) super.getUI();
 	}
 	
+	
 
 	@WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
 	@VaadinServletConfiguration(ui = Core.class, productionMode = false)
 	public static class MyUIServlet extends VaadinServlet {
+	}
+	
+	public void mensaje(String message, boolean value) {
+		Broadcaster.broadcast(message, value);
+	}
+	
+	@Override
+	public void detach() {
+		super.detach();
+		Broadcaster.unregister(this);
+	}
+
+	@Override
+	public void recibirBroadcast(String message, boolean value) {
+		access(() -> {
+			Notification.show("Estado: "+message);
+			
+		});
+		
 	}
 
 }

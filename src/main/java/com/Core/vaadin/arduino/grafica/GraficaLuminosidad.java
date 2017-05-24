@@ -10,21 +10,24 @@ import com.vaadin.shared.Position;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.NativeSelect;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
-public class GraficaLuminosidad extends VerticalLayout {
+public class GraficaLuminosidad extends CssLayout {
 
 	private static final long serialVersionUID = 1L;
 	private static final String DATE_FORMAT = "hh:mm:ss a";
 
-	private Core UI = Core.getCurrent();
-	private HighChart highChart = new HighChart();
+	private Core coreUI = Core.getCurrent();
+	//private HighChart highChart = new HighChart();
+	
 	private final Label labelLx = new Label();
 	private final Label labelLx2 = new Label();
 	private boolean estado;
@@ -33,13 +36,17 @@ public class GraficaLuminosidad extends VerticalLayout {
 	private Button buttonStop = new Button("Parar", FontAwesome.STOP);
 	private Button escanearPuertos = new Button("Puertos", FontAwesome.SEARCH);
 	private NativeSelect comboPuertosDisponibles = new NativeSelect();
-
-	public GraficaLuminosidad() {
-		setSpacing(true);
-
+	private UI ui;
+	
+	public GraficaLuminosidad(UI ui) {
+		this.ui = ui;
+		
+		//setSpacing(true);
+		setSizeFull();
+		
 		Component mainArea = mainArea();
 		addComponents(mainArea);
-		setComponentAlignment(mainArea, Alignment.MIDDLE_CENTER);
+		//setComponentAlignment(mainArea, Alignment.MIDDLE_CENTER);
 
 	}
 
@@ -55,25 +62,25 @@ public class GraficaLuminosidad extends VerticalLayout {
 		 * Escanear puertos retorna true si hay puertos disponbles
 		 */
 		escanearPuertos.focus();
-		escanearPuertos.setWidth("155px");
+		escanearPuertos.setWidth("100%");
 		escanearPuertos.addClickListener(e -> escanearPuertos());
 
 		/**
 		 * Play
 		 */
 		buttonPlay.addStyleName(ValoTheme.BUTTON_PRIMARY);
-		buttonPlay.setWidth("155px");
+		buttonPlay.setWidth("100%");
 		buttonPlay.addClickListener(e -> {
 			buttonStop.setEnabled(true);
 			if (iniciar()) {
 				if (e.getButton().getCaption().contains("Iniciar")) {
 
 					e.getButton().setCaption("Reiniciar");
-					e.getButton().setEnabled(false);
+					//e.getButton().
 					
-					arduinoInstance.setValorGrafica(this.highChart);
-					arduinoInstance.setValorLabel(this.labelLx);
-
+					//arduinoInstance.setValorGrafica(this.vaadinChart);
+					//arduinoInstance.setValorLabel(this.labelLx);
+					
 				}
 
 			}
@@ -83,7 +90,7 @@ public class GraficaLuminosidad extends VerticalLayout {
 		 * Stop
 		 */
 		buttonStop.addStyleName(ValoTheme.BUTTON_DANGER);
-		buttonStop.setWidth("155px");
+		buttonStop.setWidth("100%");
 		buttonStop.addClickListener(e -> {
 			// buttonPlay.setEnabled(true);
 			if (detener()) {
@@ -103,11 +110,11 @@ public class GraficaLuminosidad extends VerticalLayout {
 		/**
 		 * Lista de puertos serie
 		 */
-		comboPuertosDisponibles.setWidth("155px");
+		comboPuertosDisponibles.setWidth("100%");
 		comboPuertosDisponibles.setImmediate(true);
 		comboPuertosDisponibles.setNullSelectionAllowed(false);
 		comboPuertosDisponibles.addValueChangeListener(e -> {
-			UI.access(() -> {
+			coreUI.access(() -> {
 				notificar("Conexion establecida", "", Type.ASSISTIVE_NOTIFICATION);
 
 				buttonPlay.setEnabled(true);
@@ -117,35 +124,23 @@ public class GraficaLuminosidad extends VerticalLayout {
 
 		labelLx.addStyleName(ValoTheme.LABEL_H2);
 		labelLx.addStyleName(ValoTheme.LABEL_COLORED);
-		labelLx.setWidth("155px");
+		labelLx.setWidth("100%");
 
 		labelLx2.addStyleName(ValoTheme.LABEL_BOLD);
 		labelLx2.setSizeUndefined();
 
-		/*new Thread(() -> {
-			while (true) {
-				try {
-					Thread.sleep(1000);
-					UI.access(() -> {
-						//labelLx2.setValue("");
-					});
-				} catch (Exception e1) {
-
-					e1.printStackTrace();
-				}
-
-			}
-
-		}).start();
-		 */
 		VerticalLayout menu = new VerticalLayout(comboPuertosDisponibles, escanearPuertos, buttonPlay, buttonStop,
 				labelLx, labelLx2);
 		menu.setWidth("200px");
 		menu.setSpacing(true);
 		menu.setComponentAlignment(labelLx, Alignment.MIDDLE_RIGHT);
 		menu.setComponentAlignment(labelLx2, Alignment.MIDDLE_CENTER);
-		rowBotones.addComponents(menu, highChart);
-		rowBotones.setExpandRatio(highChart, 1);
+		
+		
+		//addComponents(comboPuertosDisponibles,escanearPuertos,buttonPlay,buttonStop,vaadinChart);
+		
+		rowBotones.addComponents(menu);
+		//rowBotones.setExpandRatio(vaadinChart, 1);
 
 		return rowBotones;
 	}

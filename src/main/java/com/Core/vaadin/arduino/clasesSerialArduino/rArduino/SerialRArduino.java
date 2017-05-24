@@ -30,7 +30,7 @@ public class SerialRArduino extends VerticalLayout implements JSSC_Interface, Se
 	// private static final Logger LOG = Logger.getLogger(JSSC_AC.class);
 	private static final int DEFAULT_BAUD_RATE = SerialPort.BAUDRATE_9600;
 
-	private static SerialPort serialPort;
+	private SerialPort serialPort;
 	private OutputStream outputStream;
 	private InputStream inputStream;
 	private List<String> puerto;
@@ -46,9 +46,6 @@ public class SerialRArduino extends VerticalLayout implements JSSC_Interface, Se
 		return rArduino;
 	}
 
-	public static SerialPort getSerialPort() {
-		return serialPort;
-	}
 
 	public void init(String serialPortName) throws SerialPortException {
 

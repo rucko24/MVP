@@ -15,23 +15,25 @@ public class Broadcaster implements Serializable {
 	static ExecutorService executorService = Executors.newSingleThreadExecutor();
 	
 	public interface BroadcasterListener {
-		void recibirBroadcast( UI ui , String listener );
+		void recibirBroadcast( String message , boolean value);
 	}
 	
-	static Map<UI ,BroadcasterListener> listeners = new HashMap<>();
+	static LinkedList<BroadcasterListener> listeners = new LinkedList<BroadcasterListener>();
 	
-	public static synchronized void register(UI ui , BroadcasterListener listener) {
-		listeners.put(ui ,listener);
+	public static synchronized void register(BroadcasterListener listener) {
+		listeners.add(listener);
 	}
 	
-	public static synchronized void unregister(UI ui) {
-		listeners.remove(ui);
+	public static synchronized void unregister(BroadcasterListener listener) {
+		listeners.remove(listener);
 	}
 
-	public static synchronized void broadcast( final String valor) {
-		for(final Map.Entry<UI, BroadcasterListener> listener : listeners.entrySet() ) {
+	public static synchronized void broadcast( final String menssage, boolean value) {
+		for(final BroadcasterListener listener : listeners ) {
 			executorService.execute(() -> {
-				 listener.getValue().recibirBroadcast(listener.getKey() , valor);
+				
+				 listener.recibirBroadcast(menssage, value);
+			
 			});
 		}
 	}

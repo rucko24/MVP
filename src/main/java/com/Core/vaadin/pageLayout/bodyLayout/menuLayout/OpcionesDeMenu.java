@@ -16,11 +16,17 @@ import com.Core.vaadin.workingWithForms.PrincipalFormularios;
 import com.Core.vaadin.workingWithForms.triangulos.Triangulos;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
+import com.vaadin.ui.UI;
 
 public class OpcionesDeMenu implements ItemClickListener {
 	
 	private static final long serialVersionUID = 1L;
 	private Core getUI = Core.getCurrent();
+	private UI ui;
+	
+	public OpcionesDeMenu(UI ui) {
+		this.ui = ui;
+	}
 	
 	@Override
 	public void itemClick(ItemClickEvent event) {
@@ -36,12 +42,12 @@ public class OpcionesDeMenu implements ItemClickListener {
 			contentLayout.addComponent(contentLayout.getLayout());
 			
 		}else if(MenuLayout.SERIALPORT.equals(value)) {
-			PrincipalTabArduino tab = new PrincipalTabArduino();
+			PrincipalTabArduino tab = new PrincipalTabArduino(ui);
 			contentLayout.addComponent(tab);
 			
 		}else if(MenuLayout.TABSHEET.equals(value)) {
 			
-			Principal tabs = new Principal();
+			Principal tabs = new Principal(ui);
 			contentLayout.addComponent(tabs);
 			
 		}else if(MenuLayout.FORMULARIOS.equals(value)) {
@@ -49,7 +55,7 @@ public class OpcionesDeMenu implements ItemClickListener {
 			contentLayout.addComponent(validar);
 			
 		}else if(MenuLayout.PUSH_SERVER.equals(value)) {
-			PrincipalTab main = new PrincipalTab();
+			PrincipalTab main = new PrincipalTab(ui);
 			contentLayout.addComponent(main);
 			
 		}else if(MenuLayout.PRUEBA_LABEL.equals(value)) {
