@@ -3,9 +3,7 @@ package com.Core.vaadin.arduino;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import com.Core.vaadin.arduino.bombilla.PanelArduinoOnOff;
-import com.Core.vaadin.arduino.bombilla.ProbandoCheckBox;
 import com.Core.vaadin.arduino.grafica.GraficaLuminosidad;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.TabSheet;
@@ -30,7 +28,7 @@ public class PrincipalTabArduino extends TabSheet {
 		
 		addTab(createBotonArduino());
 		addTab(crearGraficoLuminosidad());
-		addTab(crearProbandoCheckBox());
+		
 	}
 	
 	private Component createBotonArduino() {
@@ -54,15 +52,6 @@ public class PrincipalTabArduino extends TabSheet {
 		return layout;
 	}
 	
-	private Component crearProbandoCheckBox() {
-		VerticalLayout layout = createLayout("ProbandoCheckBox");
-		layout.setMargin(true);
-		ProbandoCheckBox p = new ProbandoCheckBox();
-		layout.setSizeFull();
-		layout.addComponent(p);
-
-		return layout;
-	}
 	private VerticalLayout createLayout(String caption) {
 
 		VerticalLayout layout = new VerticalLayout();

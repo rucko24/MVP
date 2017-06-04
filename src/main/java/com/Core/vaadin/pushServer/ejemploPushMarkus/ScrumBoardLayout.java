@@ -1,132 +1,108 @@
 package com.Core.vaadin.pushServer.ejemploPushMarkus;
 
 import com.vaadin.data.Property;
-import com.vaadin.event.dd.DragAndDropEvent;
-import com.vaadin.event.dd.DropHandler;
-import com.vaadin.event.dd.acceptcriteria.AcceptAll;
-import com.vaadin.event.dd.acceptcriteria.AcceptCriterion;
+import com.vaadin.server.SizeWithUnit;
+import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.*;
+import com.vaadin.ui.Notification.Type;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.vaadin.teemu.switchui.Switch;
 
 /**
  * @author Marcus Hellberg (marcus@vaadin.com)
  */
-public class ScrumBoardLayout extends VerticalLayout implements ScrumBoard.ScrumBoardListener {
+public class ScrumBoardLayout extends VerticalLayout implements ScrumBoard.SwitchesListener {
 
-    Map<Card.State, Column> stateColumnMap = new HashMap<Card.State, Column>();
-    Map<Card, Column> cardColumnMap = new HashMap<Card, Column>();
-    Map<Card, DragAndDropWrapper> cardToWrapperMap = new HashMap<Card, DragAndDropWrapper>();
+	private ThemeResource bombillaON = new ThemeResource("img/on.png");
+	private ThemeResource bombillaOFF = new ThemeResource("img/off.png");
+	private Label bombilla = new Label();
+	private Switch switchTemu = new Switch();
+	private List<Switch> switchesField = new ArrayList<Switch>();
+	
+	public ScrumBoardLayout() {
+		setMargin(true);
+		setSpacing(true);
+		addHeader();
+		//addBoard();
+		//fillBoard();
+		ScrumBoard.addSwitchesListener(this);
+	}
 
-    public ScrumBoardLayout() {
-        setSizeFull();
-        setMargin(true);
-        setSpacing(true);
+	private void addHeader() {
+		
+		switchTemu.setImmediate(true);
 
-        addHeader();
-        addBoard();
+		bombilla.setIcon(bombillaOFF);
+		bombilla.setSizeUndefined();
+		switchTemu.addValueChangeListener(new Property.ValueChangeListener() {
+			private static final long serialVersionUID = 1L;
 
-        fillBoard();
+			@Override
+			public void valueChange(Property.ValueChangeEvent event) {
+				boolean estado = (boolean) event.getProperty().getValue();
+				ScrumBoard.addSwitch(estado);
+				switchTemu.removeValueChangeListener(this);
+				//switchTemu.clear();
+				if(estado == Boolean.TRUE) {
+					bombilla.setIcon(bombillaON);
+					//PUSH
+					//ScrumBoard.updateSwitchEstado(estado);
+				}else {
+					bombilla.setIcon(bombillaOFF);
+					//PUSH
+					//ScrumBoard.updateSwitchEstado(estado);
+				}
+				switchTemu.addValueChangeListener(this);
 
-        ScrumBoard.addScrumBoardListener(this);
-    }
+			}
+		});
+	
+		VerticalLayout layout = new VerticalLayout();
+		layout.setHeight("78%");
+		layout.addComponents(bombilla, switchTemu);
 
-    private void addHeader() {
-    	final Switch switchTemu  = new Switch();
-        switchTemu.setImmediate(true);
-        
-    	final TextField taskNameField = new TextField();
-        taskNameField.setInputPrompt("Enter new task");
-        taskNameField.setImmediate(true);
-        taskNameField.setWidth("300px");
-        
-        taskNameField.addValueChangeListener(new Property.ValueChangeListener() {
-            @Override
-            public void valueChange(Property.ValueChangeEvent event) {
-                ScrumBoard.addCard(taskNameField.getValue());
+		layout.setComponentAlignment(bombilla, Alignment.BOTTOM_CENTER);
+		layout.setComponentAlignment(switchTemu, Alignment.BOTTOM_CENTER);
+		layout.setExpandRatio(switchTemu, 1);
+		addComponents(layout);
+	}
+	
+	private void addBoard() {
+		for(final Switches.Estado estadoTmp : Switches.Estado.values()) {
+			
+			Switches s = new Switches();
+			ScrumBoard.updateSwitchEstado(s, estadoTmp);
+		
+		}
+	}
+	private void fillBoard() {
+		for (Switches switchTmp : ScrumBoard.getSwitches()) {
+			
+		}
+	}
 
-                taskNameField.removeValueChangeListener(this);
-                taskNameField.setValue("");
-                taskNameField.addValueChangeListener(this);
-            }
-        });
-        
-        addComponent(taskNameField);
-    }
+	@Override
+	public void switchUpdate(Switches switches) {
+		UI.getCurrent().access(() -> {
+			
+			if(switches.getValue()) {
+				switchTemu.setValue(true);
+				Notification.show("ON",Type.ASSISTIVE_NOTIFICATION);
+			}else {
+				switchTemu.setValue(false);
+				Notification.show("OFF",Type.ASSISTIVE_NOTIFICATION);
+			}
+			
+			
+		});
+	}
 
-    private void addBoard() {
-        HorizontalLayout boardLayout = new HorizontalLayout();
-        boardLayout.setSizeFull();
-        boardLayout.setSpacing(true);
-
-        for (final Card.State state : Card.State.values()) {
-            Column column = new Column();
-            DragAndDropWrapper wrapper = new DragAndDropWrapper(column);
-            wrapper.setSizeFull();
-            wrapper.addStyleName("no-vertical-drag-hints");
-            wrapper.addStyleName("no-horizontal-drag-hints");
-            wrapper.setDropHandler(new DropHandler() {
-                @Override
-                public void drop(DragAndDropEvent event) {
-                    Card card = (Card) ((DragAndDropWrapper) event.getTransferable().getSourceComponent()).getData();
-                    ScrumBoard.updateCardState(card, state);
-                }
-
-                @Override
-                public AcceptCriterion getAcceptCriterion() {
-                    return AcceptAll.get();
-                }
-            });
-            stateColumnMap.put(state, column);
-            boardLayout.addComponent(wrapper);
-        }
-        addComponent(boardLayout);
-        setExpandRatio(boardLayout, 1);
-    }
-
-    private void fillBoard() {
-        for (Card card : ScrumBoard.getCards()) {
-            stateColumnMap.get(card.getState()).addComponent(createWrapperForCard(card));
-        }
-    }
-
-    @Override
-    public void cardUpdated(final Card card) {
-        UI.getCurrent().access(new Runnable() {
-            @Override
-            public void run() {
-                Column oldColumn = cardColumnMap.get(card);
-                DragAndDropWrapper wrapper = cardToWrapperMap.get(card);
-                if (oldColumn != null && wrapper != null) {
-                    oldColumn.removeComponent(wrapper);
-                }
-
-                if (wrapper == null) {
-                    wrapper = createWrapperForCard(card);
-                }
-
-                Column newColumn = stateColumnMap.get(card.getState());
-                newColumn.addComponent(wrapper);
-                UI.getCurrent().push();
-            }
-        });
-    }
-
-    private DragAndDropWrapper createWrapperForCard(Card card) {
-        CardLayout cardLayout = new CardLayout(card);
-        DragAndDropWrapper wrapper = new DragAndDropWrapper(cardLayout);
-        wrapper.setData(card);
-        wrapper.setDragStartMode(DragAndDropWrapper.DragStartMode.COMPONENT);
-        cardToWrapperMap.put(card, wrapper);
-        return wrapper;
-    }
-
-    @Override
-    public void detach() {
-        ScrumBoard.removeScumBoardListener(this);
-        super.detach();
-    }
+	@Override
+	public void detach() {
+		super.detach();
+		ScrumBoard.removeSwitchListener(this);
+	}
 }

@@ -40,8 +40,8 @@ public class Core extends UI implements Broadcaster.BroadcasterListener {
 		navigator.addView(PageLayout.PAGELAYOUT_VIEW, pageLayout);
 
 		navigator.navigateTo(Login.LOGIN_VIEW);
-		navigator.navigateTo(getNavigator().getState());
-		//comentar para usar el navigator e ir al login View*/
+		navigator.navigateTo(getNavigator().getState());*/
+		//comentar para usar el navigator e ir al login View
 		setContent(new ScrumBoardLayout());
 		Broadcaster.register(this);
 		

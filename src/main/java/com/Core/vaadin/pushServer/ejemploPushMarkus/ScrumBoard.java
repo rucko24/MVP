@@ -3,47 +3,53 @@ package com.Core.vaadin.pushServer.ejemploPushMarkus;
 import java.util.List;
 import java.util.Vector;
 
+import com.Core.vaadin.pushServer.ejemploPushMarkus.Switches.Estado;
+import com.vaadin.server.ThemeResource;
+import com.vaadin.ui.Label;
+
 /**
  * @author Marcus Hellberg (marcus@vaadin.com)
  */
 public class ScrumBoard {
 
-    private static List<ScrumBoardListener> listeners = new Vector<ScrumBoardListener>();
-    private static List<Card> cards = new Vector<Card>();
+	private static List<SwitchesListener> switchesList = new Vector<SwitchesListener>();
+	private static List<Switches> switches = new Vector<Switches>();
+	//private  Switches switchesEstado = new Switches();
+	
 
-    public interface ScrumBoardListener {
-        public void cardUpdated(Card card);
+	public interface SwitchesListener {
+		public void switchUpdate(Switches switches);
+	}
+
+	public static synchronized void addSwitch(boolean value) {
+		Switches s = new Switches(Switches.Estado.OFF, value);
+		switches.add(s);
+
+		fireChangeEvent(s);
+	}
+	
+	public static synchronized void updateSwitchEstado(Switches s , Switches.Estado newState) {
+		Switches.Estado oldEstado =  s.getEstado();
+		s.setEstado(newState);
+		
+		fireChangeEvent(s);
+	}
+	
+	public static List<Switches> getSwitches() {
+		return switches;
+	}
+	public static synchronized void addSwitchesListener(SwitchesListener listener) {
+		System.out.println("Added listener for " + listener);
+		switchesList.add(listener);
+	}
+	public static synchronized void removeSwitchListener(SwitchesListener listener) {
+		switchesList.remove(listener);
+	}
+
+	private static void fireChangeEvent(Switches estados) {
+    	for( SwitchesListener switche : switchesList) {
+    		switche.switchUpdate(estados);
+    	}
     }
 
-    public static synchronized void addCard(String taskName) {
-        Card card = new Card(Card.State.TODO, taskName);
-        cards.add(card);
-        fireChangeEvent(card);
-    }
-
-    public static synchronized void updateCardState(Card card, Card.State newState) {
-        Card.State oldState = card.getState();
-        card.setState(newState);
-
-        fireChangeEvent(card);
-    }
-
-    public static List<Card> getCards() {
-        return cards;
-    }
-
-    public static synchronized void addScrumBoardListener(ScrumBoardListener listener) {
-        System.out.println("Added listener for " + listener);
-        listeners.add(listener);
-    }
-
-    public static synchronized void removeScumBoardListener(ScrumBoardListener listener) {
-        listeners.remove(listener);
-    }
-
-    private static void fireChangeEvent(Card card) {
-        for (ScrumBoardListener listener : listeners) {
-            listener.cardUpdated(card);
-        }
-    }
 }
