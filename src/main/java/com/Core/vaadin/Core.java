@@ -4,6 +4,7 @@ import javax.servlet.annotation.WebServlet;
 
 import com.Core.vaadin.arduino.broadcaster.Broadcaster;
 import com.Core.vaadin.pageLayout.PageLayout;
+import com.Core.vaadin.pushServer.ejemploPushMarkus.ScrumBoardLayout;
 import com.Core.vaadin.testSistema.SingUpForm;
 import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;
@@ -14,6 +15,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
 
 
 @Push
@@ -28,7 +30,7 @@ public class Core extends UI implements Broadcaster.BroadcasterListener {
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {
 		
-		pageLayout = new PageLayout(this);
+		/*pageLayout = new PageLayout(this);
 		
 		
 		Navigator navigator = new Navigator(this, this);
@@ -39,7 +41,8 @@ public class Core extends UI implements Broadcaster.BroadcasterListener {
 
 		navigator.navigateTo(Login.LOGIN_VIEW);
 		navigator.navigateTo(getNavigator().getState());
-		//comentar para usar el navigator e ir al login View
+		//comentar para usar el navigator e ir al login View*/
+		setContent(new ScrumBoardLayout());
 		Broadcaster.register(this);
 		
 	}
