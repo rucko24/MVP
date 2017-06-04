@@ -29,7 +29,7 @@ import com.vaadin.ui.themes.ValoTheme;
 
 import jssc.SerialPortException;
 
-public class PanelArduinoOnOff extends VerticalLayout implements Broadcaster.BroadcasterListener {
+public class PanelArduinoOnOff extends VerticalLayout  {
 
 	private static final long serialVersionUID = 1L;
 
@@ -43,7 +43,6 @@ public class PanelArduinoOnOff extends VerticalLayout implements Broadcaster.Bro
 	private Label bombilla = new Label();
 	private UI ui;
 	private Switch s = new Switch();
-	private Core core = (Core) UI.getCurrent();
 	
 	public PanelArduinoOnOff(UI ui) {
 		this.ui = ui;
@@ -51,7 +50,6 @@ public class PanelArduinoOnOff extends VerticalLayout implements Broadcaster.Bro
 
 		addComponent(main);
 		PushBombilla.register(this);
-		Broadcaster.register(this);
 	}
 
 	/**
@@ -87,9 +85,9 @@ public class PanelArduinoOnOff extends VerticalLayout implements Broadcaster.Bro
 		layout.setHeight("78%");
 
 		bombilla.setSizeUndefined();
-		layout.addComponents(bombilla, botonBombilla , s);
+		layout.addComponents(bombilla,  s);
 		layout.setComponentAlignment(bombilla, Alignment.BOTTOM_CENTER);
-		layout.setComponentAlignment(botonBombilla, Alignment.BOTTOM_CENTER);
+	//	layout.setComponentAlignment(botonBombilla, Alignment.BOTTOM_CENTER);
 		layout.setComponentAlignment(s, Alignment.BOTTOM_CENTER);
 		
 		Panel panel = new Panel();
@@ -133,43 +131,47 @@ public class PanelArduinoOnOff extends VerticalLayout implements Broadcaster.Bro
 			}
 		});
 		
+		s.addValueChangeListener( e -> {
+			try {
+				if (ui != null) {
+					ui.access(() -> {
+						PushBombilla.broadcast();
+						boolean value = (boolean) e.getProperty().getValue();
+						Broadcaster.broadcast("update", value);
+					});
+				}
+
+			} catch (UIDetachedException ex) {
+			}
+			
+		});
+		s.setImmediate(true);
 	}
 
 	/*
 	 * metodo que lo ejecuta la clases ArduinoPush con una lista
 	 */
-	public void cambiarBotones() {
+	public synchronized void cambiarBotones() {
 
 		if (PushBombilla.isChange()) {
 			botonBombilla.setCaption("On");
 			bombilla.setIcon(bombillaON);
-			//Broadcaster.broadcast("ON");
-			core.mensaje("ON",true);
-			s.setValue(true);
+			//s.setValue(true);
 		} else {
 			botonBombilla.setCaption("off");
 			bombilla.setIcon(bombillaOFF);
-			//Broadcaster.broadcast("OFF");
-			core.mensaje("OFF",false);
-			s.setValue(false);
+			//s.setValue(false);
+			
 		}
 	}
 
 	@Override
 	public void detach() {
 		PushBombilla.unregister(this);
-		Broadcaster.unregister(this);
+		
 		
 		super.detach();
 	}
 
-	@Override
-	public void recibirBroadcast(String message, boolean value) {
-		
-		ui.access(() -> {
-			Notification.show("Estado: "+message);
-		});
-		
-	}
 
 }

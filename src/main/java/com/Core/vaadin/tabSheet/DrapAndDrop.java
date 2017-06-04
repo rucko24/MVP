@@ -4,7 +4,7 @@ import com.vaadin.ui.VerticalLayout;
 
 public class DrapAndDrop extends VerticalLayout {
 	
-	private DrapAndDrop drop = new DrapAndDrop();
+	//private DrapAndDrop drop = new DrapAndDrop();
 	
 	public DrapAndDrop() {
 		

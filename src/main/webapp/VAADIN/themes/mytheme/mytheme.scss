@@ -120,4 +120,18 @@ $v-app-loading-text: "cargando";
 	.v-border {
 		border: 2px solid blue;
 	}
+
+	.card {
+    background: lightgoldenrodyellow;
+    padding: 10px;
+    white-space: normal;
+    width: 200px;
+    min-height: 150px;
+    margin: 5px;
+  }
+
+  .column {
+    background: #fff;
+    border: 1px solid #ccc;
+  }
 }

@@ -18,9 +18,9 @@ import com.vaadin.ui.UI;
 
 @Push
 @SuppressWarnings("serial")
-@Viewport("user-scalable=no,initial-scale=1.0")
+//@Viewport("user-scalable=no,initial-scale=1.0")
 @Theme("mytheme")
-public class Core extends UI implements Broadcaster.BroadcasterListener{
+public class Core extends UI implements Broadcaster.BroadcasterListener {
 
 	private PageLayout pageLayout;
 	
@@ -38,7 +38,7 @@ public class Core extends UI implements Broadcaster.BroadcasterListener{
 		navigator.addView(PageLayout.PAGELAYOUT_VIEW, pageLayout);
 
 		navigator.navigateTo(Login.LOGIN_VIEW);
-		
+		navigator.navigateTo(getNavigator().getState());
 		//comentar para usar el navigator e ir al login View
 		Broadcaster.register(this);
 		
@@ -65,24 +65,21 @@ public class Core extends UI implements Broadcaster.BroadcasterListener{
 	@VaadinServletConfiguration(ui = Core.class, productionMode = false)
 	public static class MyUIServlet extends VaadinServlet {
 	}
-	
-	public void mensaje(String message, boolean value) {
-		Broadcaster.broadcast(message, value);
+
+
+
+	@Override
+	public void recibirBroadcast(String message, boolean value) {
+		access(() -> {
+			Notification.show("update");
+		});
+		
 	}
 	
 	@Override
 	public void detach() {
 		super.detach();
 		Broadcaster.unregister(this);
-	}
-
-	@Override
-	public void recibirBroadcast(String message, boolean value) {
-		access(() -> {
-			Notification.show("Estado: "+message);
-			
-		});
-		
 	}
 
 }

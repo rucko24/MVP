@@ -24,7 +24,8 @@ public class PruebaLabel extends VerticalLayout {
 	private static final int INTERVALO = 1000;
 	private Grid grid = new Grid();
 	private UI ui;
-
+	
+	private static Random r = new Random();
 	public PruebaLabel(UI ui) {
 		this.ui = ui;
 
@@ -76,7 +77,7 @@ public class PruebaLabel extends VerticalLayout {
 	}
 
 	public int getNum(int x) {
-		return 1 + new Random().nextInt(x);
+		return 1 + r.nextInt(x);
 	}
 
 }

@@ -26,7 +26,7 @@ public class GraficaLuminosidad extends CssLayout {
 	private static final String DATE_FORMAT = "hh:mm:ss a";
 
 	private Core coreUI = Core.getCurrent();
-	//private HighChart highChart = new HighChart();
+	private HighChart highChart = new HighChart();
 	
 	private final Label labelLx = new Label();
 	private final Label labelLx2 = new Label();
@@ -71,8 +71,9 @@ public class GraficaLuminosidad extends CssLayout {
 		buttonPlay.addStyleName(ValoTheme.BUTTON_PRIMARY);
 		buttonPlay.setWidth("100%");
 		buttonPlay.addClickListener(e -> {
-			buttonStop.setEnabled(true);
-			if (iniciar()) {
+			buttonStop.setDisableOnClick(true);
+		//	if (iniciar()) {
+			if(true) {
 				if (e.getButton().getCaption().contains("Iniciar")) {
 
 					e.getButton().setCaption("Reiniciar");
@@ -97,7 +98,7 @@ public class GraficaLuminosidad extends CssLayout {
 				try {
 
 					notificar("Captura pausada ", "puede escojer un puerto para reiniciar", Type.ERROR_MESSAGE);
-					e.getButton().setEnabled(false);
+					buttonStop.setDisableOnClick(true);
 
 				} catch (Exception e1) {
 
@@ -169,6 +170,9 @@ public class GraficaLuminosidad extends CssLayout {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		/*
+		 * true si hay un puerto disponible
+		 */
 		return estado;
 	}
 

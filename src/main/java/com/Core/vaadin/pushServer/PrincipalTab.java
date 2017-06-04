@@ -1,5 +1,8 @@
 package com.Core.vaadin.pushServer;
 
+import com.Core.vaadin.pushServer.ejemploPushMarkus.ScrumBoard;
+import com.Core.vaadin.pushServer.ejemploPushMarkus.ScrumBoardLayout;
+import com.Core.vaadin.pushServer.guava.EventBusRoot;
 import com.Core.vaadin.pushServer.icePush.IcePushServerAddOn;
 import com.Core.vaadin.pushServer.icePush.MenuMessageBar;
 import com.Core.vaadin.pushServer.pruebas.PruebaLabel;
@@ -17,13 +20,32 @@ public class PrincipalTab extends TabSheet{
 	public PrincipalTab(UI ui) {
 		this.ui = ui;
 		
+		addTab(createEventBus());
 		addTab(createIcePushAddon());
 		addTab(createMenuMensajes());
 		addTab(crearTableroDeAnuncios());
 		addTab(createLabelHora());
 		addTab(createTestForo());
+		addTab(createTestMarkus());
 	}
 	
+	private Component createTestMarkus() {
+		VerticalLayout layout = (VerticalLayout) createLayout("Push MarkusHellber");
+		ScrumBoardLayout e = new ScrumBoardLayout();
+		e.setSizeFull();
+		layout.addComponent(e);
+		
+		return layout;
+	}
+
+	private Component createEventBus() {
+		VerticalLayout layout = (VerticalLayout) createLayout("EventBus");
+		EventBusRoot e = new EventBusRoot(ui);
+		e.setSizeFull();
+		layout.addComponent(e);
+		
+		return layout;
+	}
 	
 	private Component createIcePushAddon() {
 		VerticalLayout layout =  (VerticalLayout) createLayout("IcePush Add-on");
