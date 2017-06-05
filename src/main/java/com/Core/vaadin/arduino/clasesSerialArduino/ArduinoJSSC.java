@@ -191,7 +191,8 @@ public class ArduinoJSSC {
 	}
 
 	/***
-	 * CLOSE PORT
+	 * CLOSE PORT   @closerPort deprecated
+	 *https://github.com/scream3r/java-simple-serial-connector/pull/50/commits/06d16a29592b0f45f710a6a1727e4f414e056c2e
 	 */
 	public synchronized boolean desconectarArduino() {
 		boolean estado = false;
