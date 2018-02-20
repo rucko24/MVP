@@ -1,9 +1,0 @@
-.idea/
-*.iml
-*.cache
-*.css
-target
-*.swp
-.classpath
-.project
-.settings
